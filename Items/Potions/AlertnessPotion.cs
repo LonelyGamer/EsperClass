@@ -10,7 +10,7 @@ namespace EsperClass.Items.Potions
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Increases telekinesis velocity by 30%");
+			Tooltip.SetDefault("Increases telekinetic velocity by 30%");
 		}
 
 		public override void SetDefaults()

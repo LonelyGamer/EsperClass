@@ -10,7 +10,7 @@ namespace EsperClass.Buffs
 		public override void SetDefaults()
 		{
 			DisplayName.SetDefault("Alert");
-			Description.SetDefault("Increases telekinesis velocity by 30%");
+			Description.SetDefault("Increases telekinetic velocity by 30%");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

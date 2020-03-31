@@ -78,22 +78,22 @@ namespace EsperClass
 			try
 			{
 				string message = args[0] as string;
-				if (message == "IncreaseTelekinesisDamage")
+				if (message == "IncreaseTelekineticDamage")
 				{
 					float damageAmount = Convert.ToSingle(args[1]);
 					return ECPlayer.ModPlayer(player).tkDamage += damageAmount;
 				}
-				else if (message == "IncreaseTelekinesisCrit")
+				else if (message == "IncreaseTelekineticCrit")
 				{
 					float critAmount = Convert.ToSingle(args[1]);
 					return ECPlayer.ModPlayer(player).tkCrit += (int)critAmount;
 				}
-				else if (message == "IncreaseTelekinesisVelocity")
+				else if (message == "IncreaseTelekineticVelocity")
 				{
 					float velAmount = Convert.ToSingle(args[1]);
 					return ECPlayer.ModPlayer(player).tkVel += velAmount;
 				}
-				else if (message == "UseTelekinesisVelocity")
+				else if (message == "UseTelekineticVelocity")
 				{
 					return Convert.ToSingle(ECPlayer.ModPlayer(player).tkVel);
 				}

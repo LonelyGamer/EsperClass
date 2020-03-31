@@ -34,7 +34,6 @@ namespace EsperClass
 
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
-			//damage = (int)(damage * ECPlayer.ModPlayer(player).tkDamage + 5E-06f);
 			mult *= ECPlayer.ModPlayer(player).tkDamage;
 		}
 
@@ -56,17 +55,17 @@ namespace EsperClass
 				string[] splitText = tt.text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " telekinesis " + damageWord;
+				tt.text = damageValue + " telekinetic " + damageWord;
 			}
 		}
 
 		public override int ChoosePrefix(UnifiedRandom rand)
 		{
 			int prefix = 0;
-		  if (item.maxStack > 1)
-		  {
-		    return -1;
-		  }
+			if (item.maxStack > 1)
+			{
+				return -1;
+			}
 			int rando = Main.rand.Next(14);
 			if (rando == 0)
 			{
@@ -127,29 +126,24 @@ namespace EsperClass
 			return prefix;
 		}
 
-		public override void HoldStyle(Player player)
+		public override void HoldItem(Player player)
 		{
 			ECPlayer.ModPlayer(player).overPsychosis = false;
 			if (player.channel)
 			{
-				//if (ECPlayer.ModPlayer(player).psychosis > 0f)
-				//{
 				float amount = 1f;
 				if (!onlyOne)
 					amount = 3f;
 				ECPlayer.ModPlayer(player).PsychosisDrain(amount);
-				//}
 				if (player.HasBuff(mod.BuffType("PsychedOut")))
 				{
-					//player.channel = false;
 					ECPlayer.ModPlayer(player).overPsychosis = true;
 				}
 			}
 		}
 
-    public override bool CanUseItem(Player player)
+		public override bool CanUseItem(Player player)
 		{
-			//if (item.useTime == 15)
 			if (onlyOne)
 			{
 				for (int m = 0; m < 1000; m++)
@@ -158,18 +152,8 @@ namespace EsperClass
 						return false;
 				}
 			}
-			/*if (player.HasBuff(mod.BuffType("PsychedOut")))
-			{
-				return false;
-			}*/
 			return base.CanUseItem(player);
 		}
-
-		/*public override bool UseItem(Player player)
-		{
-			ECPlayer.ModPlayer(player).psychosis--;
-			return base.UseItem(player);
-		}*/
 	}
 
 	public class ECItem2 : GlobalItem
@@ -209,7 +193,7 @@ namespace EsperClass
 			}
 		}
 
-		public override void HoldStyle(Item item, Player player)
+		public override void HoldItem(Item item, Player player)
 		{
 			if (DetectPositives(item))
 			{
@@ -223,18 +207,6 @@ namespace EsperClass
 			}
 		}
 
-    public override bool CanUseItem(Item item, Player player)
-		{
-			if (DetectPositives(item))
-			{
-				/*if (player.HasBuff(mod.BuffType("PsychedOut")))
-				{
-					return false;
-				}*/
-			}
-			return base.CanUseItem(item, player);
-		}
-
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
 			if (DetectPositives(item))
@@ -245,7 +217,7 @@ namespace EsperClass
 					string[] splitText = tt.text.Split(' ');
 					string damageValue = splitText.First();
 					string damageWord = splitText.Last();
-					tt.text = damageValue + " telekinesis " + damageWord;
+					tt.text = damageValue + " telekinetic " + damageWord;
 				}
 			}
 		}
@@ -255,10 +227,10 @@ namespace EsperClass
 			if (DetectPositives(item))
 			{
 				int prefix = 0;
-			  if (item.maxStack > 1)
-			  {
-			    return -1;
-			  }
+				if (item.maxStack > 1)
+				{
+					return -1;
+				}
 				int rando = Main.rand.Next(14);
 				if (rando == 0)
 				{
@@ -332,9 +304,6 @@ namespace EsperClass
 				if (item.type == IsTKItem)
 					return true;
 			}
-
-			//if (item.type == (float)mod.Call("IsTKItem"))
-			//	return true;
 			return false;
 		}
 	}

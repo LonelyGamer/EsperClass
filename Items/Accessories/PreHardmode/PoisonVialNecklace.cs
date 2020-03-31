@@ -19,7 +19,7 @@ namespace EsperClass.Items.Accessories.PreHardmode
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Enchants telekinesis attacks with toxikinesis, enabling a chance to cause 'Poisoned' on hit");
+			Tooltip.SetDefault("Enchants telekinetic attacks with toxikinesis, enabling a chance to cause 'Poisoned' on hit");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

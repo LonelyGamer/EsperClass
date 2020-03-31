@@ -1,14 +1,14 @@
-This mod adds a new class by adding telekinesis weapons with their own damage type and resource, psychosis. New weapons, armors, accessories, and three buff potions are added. Current version is supported up to the end of pre-hardmode with custom items. Since this is an alpha, much is subjected to change and there are some known issues. This mod is open source. In general this mod covers...
+This mod adds a new class by adding telekinetic weapons with their own damage type and resource, psychosis. New weapons, armors, accessories, and three buff potions are added. Current version is supported up to the end of pre-hardmode with custom items. Since this is an alpha, much is subjected to change and there are some known issues. This mod is open source. In general this mod covers...
 
-- New class, the Esper, that deals Telekinesis damage.
+- New class, the Esper, that deals telekinetic damage.
 - Plenty of new weapons.
 - Two new armor sets.
 - Some new accessories.
-- Global damage bonuses (specifically the lowest value of the five vanilla damage types above 100%) will add to telekinesis damage. This also applies to telekinesis critical chance.
+- Global damage bonuses (specifically the lowest value of the five vanilla damage types above 100%) will add to telekinetic damage. This also applies to telekinetic critical chance.
 
 Vanilla changes...
 
-- The flying knife is now a Telekinesis damage weapon.
+- The flying knife is now a telekinetic damage weapon.
 
 Known Issues because I either can code it better or can't due to hardcoding...
 
@@ -23,6 +23,10 @@ Future Plans...
 
 Change Log...
 
+- 0.3.2: Changed how item usage psychosis drain is handled, fixing psychosis not being drained while holding onto a rope.
+- Changed naming of telekinesis to telekinetic.
+
 - 0.3.1: Changed Eye Jar to be craftable from Post-Eye Surface Forest Tokens instead of Underground Tokens via imkSushi's Mod.
 - Added mod icon.
+
 - 0.3: Released.

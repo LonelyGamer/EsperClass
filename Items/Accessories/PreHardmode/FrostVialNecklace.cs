@@ -19,7 +19,7 @@ namespace EsperClass.Items.Accessories.PreHardmode
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Enchants telekinesis attacks with cryokinesis, enabling a chance to cause 'Frostburn' on hit");
+			Tooltip.SetDefault("Enchants telekinetic attacks with cryokinesis, enabling a chance to cause 'Frostburn' on hit");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

@@ -10,7 +10,7 @@ namespace EsperClass.Buffs
 		public override void SetDefaults()
 		{
 			DisplayName.SetDefault("Focused");
-			Description.SetDefault("Increases telekinesis critical by 12%");
+			Description.SetDefault("Increases telekinetic critical by 12%");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

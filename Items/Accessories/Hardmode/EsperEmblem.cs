@@ -19,7 +19,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("15% increased telekinesis damage");
+			Tooltip.SetDefault("15% increased telekinetic damage");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

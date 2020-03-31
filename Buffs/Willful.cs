@@ -10,7 +10,7 @@ namespace EsperClass.Buffs
 		public override void SetDefaults()
 		{
 			DisplayName.SetDefault("Willful");
-			Description.SetDefault("Increases telekinesis damage by 20%");
+			Description.SetDefault("Increases telekinetic damage by 20%");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

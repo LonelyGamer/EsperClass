@@ -10,7 +10,7 @@ namespace EsperClass.Items.Armors.PreHardmode
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Tooltip.SetDefault("30% increased telekinesis velocity");
+			Tooltip.SetDefault("30% increased telekinetic velocity");
 		}
 
 		public override void SetDefaults()

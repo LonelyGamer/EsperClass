@@ -45,7 +45,7 @@ namespace EsperClass.Items.Weapons.PreHardmode.CrossMod
 				recipe.AddIngredient(LootBags, "ApprenticeCore", 1);
 				recipe.AddIngredient(ItemID.HellstoneBar, 10);
 				recipe.AddTile(TileID.Anvils);
-				recipe.SetResult(this, 1);
+				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
 		}

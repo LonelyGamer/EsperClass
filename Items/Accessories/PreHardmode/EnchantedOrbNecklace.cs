@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass.Items.Accessories.PreHardmode
 {
 	[AutoloadEquip(EquipType.Neck)]
-	public class EnchantedOrbNecklace : ModItem
+	public class EnchantedOrbNecklace : ECTagItem
 	{
 		public override void SetDefaults()
 		{

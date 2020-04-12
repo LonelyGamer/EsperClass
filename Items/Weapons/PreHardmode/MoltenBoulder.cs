@@ -43,7 +43,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.HellstoneBar);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 10);
+			recipe.SetResult(this, 5);
 			recipe.AddRecipe();
 		}
 	}

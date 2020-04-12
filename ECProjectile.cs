@@ -690,7 +690,7 @@ namespace EsperClass
 
 	public abstract class BaseRiftProj : ECProjectile
 	{
-		int fireTimer = 0;
+		protected int fireTimer = 0;
 		protected int fireDelay = 39;
 		protected int projType;
 		protected float fireVel = 12f;
@@ -800,6 +800,18 @@ namespace EsperClass
 						Main.PlaySound(SoundID.Item43, (int)projectile.position.X, (int)projectile.position.Y);
 						int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, shootVel.X, shootVel.Y, projType, projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
 						fireTimer = 0;
+						if (rotate)
+						{
+							projectile.rotation = targetPos.ToRotation();
+							if (projectile.rotation > 1.57079637f || projectile.rotation < -1.57079637f)
+							{
+								projectile.direction = -1;
+							}
+							else
+							{
+								projectile.direction = 1;
+							}
+						}
 						//Main.projectile[proj].timeLeft = 300;
 						//Main.projectile[proj].netUpdate = true;
 						//projectile.netUpdate = true;
@@ -843,6 +855,60 @@ namespace EsperClass
 		public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
 		{
 			drawCacheProjsBehindNPCs.Add(index);
+		}
+	}
+
+	public abstract class BaseRiftBolt : ECProjectile
+	{
+		protected int dustType;
+
+		public override void SetDefaults()
+		{
+			projectile.friendly = true;
+			projectile.width = 10;
+			projectile.height = 10;
+			projectile.alpha = 255;
+			projectile.penetrate = 1;
+			dustType = 86;
+		}
+
+		public override bool PreKill(int timeLeft)
+		{
+			Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0f);
+			int num3;
+			for (int num507 = 0; num507 < 15; num507 = num3 + 1)
+			{
+				int num508 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, dustType, projectile.oldVelocity.X, projectile.oldVelocity.Y, 50, default(Color), 1.2f);
+				Main.dust[num508].noGravity = true;
+				Dust dust = Main.dust[num508];
+				dust.scale *= 1.25f;
+				dust = Main.dust[num508];
+				dust.velocity *= 0.5f;
+				num3 = num507;
+			}
+			return true;
+		}
+
+		public override void AI()
+		{
+			ExtraAI();
+			int num3;
+			if (dustType >= 0)
+			{
+				for (int i = 0; i < 2; i++)
+				{
+					int num345 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, dustType, projectile.velocity.X, projectile.velocity.Y, 50, default(Color), 1.2f);
+					Main.dust[num345].noGravity = true;
+					Dust dust3 = Main.dust[num345];
+					dust3.velocity *= 0.3f;
+				}
+			}
+			if (projectile.ai[1] == 0f)
+			{
+				projectile.ai[1] = 1f;
+				Main.PlaySound(SoundID.Item8, projectile.position);
+				return;
+			}
 		}
 	}
 
@@ -989,6 +1055,54 @@ namespace EsperClass
 		public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
 		{
 			drawCacheProjsBehindNPCs.Add(index);
+		}
+	}
+
+	public abstract class BaseTwirlerProj : ECProjectile
+	{
+		protected int dir = 1;
+		protected int twirlerDust;
+		protected float dustR;
+		protected float dustG;
+		protected float dustB;
+		public override void SetDefaults()
+		{
+			projectile.width = 30;
+			projectile.height = 34;
+			projectile.friendly = true;
+			projectile.tileCollide = true;
+			projectile.ignoreWater = true;
+			projectile.penetrate = -1;
+			projectile.coldDamage = true;
+			maxVel = 16f;
+			whizze = false;
+			rotate = false;
+			twirlerDust = 6;
+			dustR = 1f;
+			dustG = 0.95f;
+			dustB = 0.8f;
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			//projectile.position -= projectile.velocity;
+			if ((double)projectile.velocity.X != (double)oldVelocity.X)
+				projectile.velocity.X = -Math.Sign(projectile.velocity.X);
+			if ((double)projectile.velocity.Y != (double)oldVelocity.Y)
+				projectile.velocity.Y = -Math.Sign(projectile.velocity.Y);
+			return false;
+		}
+
+		public override void PostAI()
+		{
+			if (projectile.velocity.X != 0)
+				dir = Math.Sign(projectile.velocity.X);
+			projectile.rotation -= dir * 6;
+			if (!projectile.wet && !projectile.lavaWet)
+			{
+				Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, twirlerDust, 0f, 0f, 100, default(Color), 1f);
+				Lighting.AddLight((int)((projectile.position.X + (float)(projectile.width / 2)) / 16f), (int)((projectile.position.Y + (float)(projectile.height / 2)) / 16f), dustR, dustG, dustB);
+			}
 		}
 	}
 }

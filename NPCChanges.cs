@@ -45,6 +45,57 @@ namespace EsperClass
 				if (Main.rand.Next(4) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantGear"));
 			}
+			if (npc.type == NPCID.WyvernHead)
+			{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WyvernScale"));
+			}
+			if (npc.type == NPCID.GoblinSummoner)
+			{
+				int chance = 6;
+				if (Main.expertMode)
+					chance = 3;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShadowflameRift"));
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ShadowflameVialNecklace"));
+			}
+			if (npc.type == NPCID.MisterStabby || npc.type == NPCID.SnowmanGangsta || npc.type == NPCID.SnowBalla)
+			{
+				int chance = 6;
+				if (Main.expertMode)
+					chance = 3;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SnowmanBoulder"), Main.rand.Next(5, 8));
+			}
+			if (npc.type == NPCID.PirateShip)
+			{
+				int chance = 6;
+				if (Main.expertMode)
+					chance = 3;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MidasVialNecklace"));
+			}
+			if (npc.type == NPCID.Mimic && npc.ai[3] == 4f && npc.value > 0)
+			{
+				if (Main.rand.Next(2) == 0 || Main.expertMode)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BlizzardTwirler"));
+			}
+			if (npc.type == NPCID.BigMimicCorruption)
+			{
+				int chance = 4;
+				if (Main.expertMode)
+					chance = 2;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CursedFlameOrbit"));
+			}
+			if (npc.type == NPCID.BigMimicCrimson)
+			{
+				int chance = 4;
+				if (Main.expertMode)
+					chance = 2;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("IchorBomber"));
+			}
 			/*if (npc.type == NPCID.LunarTowerSolar || npc.type == NPCID.LunarTowerVortex || npc.type == NPCID.LunarTowerNebula || npc.type == NPCID.LunarTowerStardust)
 			{
 				int amount;

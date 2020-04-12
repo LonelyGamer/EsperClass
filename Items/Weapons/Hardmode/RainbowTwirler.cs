@@ -36,7 +36,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.RainbowTorch, 20);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

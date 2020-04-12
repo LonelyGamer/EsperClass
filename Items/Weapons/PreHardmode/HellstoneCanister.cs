@@ -19,7 +19,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 
 		public override void SetDefaults()
 		{
-      item.channel = true;
+			item.channel = true;
 			item.maxStack = 1;
 			item.damage = 25;
 			item.width = 16;
@@ -30,7 +30,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.knockBack = 0;
 			item.value = Item.sellPrice(0, 2, 70, 0);
 			item.rare = 3;
-      item.UseSound = SoundID.Item1;
+			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;
@@ -43,7 +43,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			recipe.AddIngredient(ItemID.HellstoneBar, 20);
 			recipe.AddIngredient(ItemID.BottledWater);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

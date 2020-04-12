@@ -22,10 +22,11 @@ namespace EsperClass.Items.Misc
 		public override void GrabRange(Player player, ref int grabRange)
 		{
 			ECPlayer modPlayer = player.GetModPlayer<ECPlayer>();
-			if (modPlayer.psychicEyeMagnet)
+			grabRange = 38 + ((modPlayer.maxPsychosis - 10) * 15);
+			/*if (modPlayer.psychicEyeMagnet)
 				grabRange = 300;
-			//else
-			//	grabRange = Player.defaultItemGrabRange;
+			else
+				grabRange = Player.defaultItemGrabRange;*/
 		}
 
 		public override bool OnPickup(Player player)

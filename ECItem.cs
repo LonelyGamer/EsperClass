@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.GameContent.Events;
 using Terraria.ModLoader;
 using Terraria.Utilities;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass
 {
@@ -49,6 +50,13 @@ namespace EsperClass
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			int line = tooltips.FindLastIndex(x => x.mod == "Terraria" && x.Name == "ItemName");
+			if (GetInstance<ECConfigClient>().showEsperTag && line >= 0)
+			{
+				TooltipLine newtip = new TooltipLine(mod, "ClassTag", "-Esper Class-");
+				newtip.overrideColor = new Color(255, 105, 180);
+				tooltips.Insert(line + 1, newtip);
+			}
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
 			if (tt != null)
 			{
@@ -211,6 +219,13 @@ namespace EsperClass
 		{
 			if (DetectPositives(item))
 			{
+				int line = tooltips.FindLastIndex(x => x.mod == "Terraria" && x.Name == "ItemName");
+				if (GetInstance<ECConfigClient>().showEsperTag && line >= 0)
+				{
+					TooltipLine newtip = new TooltipLine(mod, "ClassTag", "-Esper Class-");
+					newtip.overrideColor = new Color(255, 105, 180);
+					tooltips.Insert(line + 1, newtip);
+				}
 				TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
 				if (tt != null)
 				{
@@ -305,6 +320,20 @@ namespace EsperClass
 					return true;
 			}
 			return false;
+		}
+	}
+
+	public abstract class ECTagItem : ModItem
+	{
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			int line = tooltips.FindLastIndex(x => x.mod == "Terraria" && x.Name == "ItemName");
+			if (GetInstance<ECConfigClient>().showEsperTag && line >= 0)
+			{
+				TooltipLine newtip = new TooltipLine(mod, "ClassTag", "-Esper Class-");
+				newtip.overrideColor = new Color(255, 105, 180);
+				tooltips.Insert(line + 1, newtip);
+			}
 		}
 	}
 }

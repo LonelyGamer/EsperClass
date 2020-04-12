@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class FrostburnTwirler : TorchTwirler
+	public class FrostburnTwirler : BaseTwirlerProj
 	{
 		public override void SetDefaults()
 		{

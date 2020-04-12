@@ -35,7 +35,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Cactus, 10);
 			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

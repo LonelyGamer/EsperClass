@@ -42,7 +42,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			recipe.AddIngredient(ItemID.FossilOre, 15);
 			recipe.AddIngredient(ItemID.Amber, 8);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

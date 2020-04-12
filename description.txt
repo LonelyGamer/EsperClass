@@ -23,6 +23,13 @@ Future Plans...
 
 Change Log...
 
+- 0.5: Added several new weapons, armor, and accessories to cover early hardmode, up and including the mecha bosses.
+- Nerfed damage of Tin Sawblade from 8 to 7.
+- Changed tooltip for the Butcher's Barbs.
+- Molten Boulder crafting changed to now only give 5 instead of 10 per Hellstone Bar.
+- Buffed damage of Eye Jar from 13 to 15 and corrected tooltip saying "eye" instead of "eyes".
+- Added clientside config to show the Esper Class tag on mod related items like other mods that add custom classes, off by default.
+
 - 0.3.2: Changed how item usage psychosis drain is handled, fixing psychosis not being drained while holding onto a rope.
 - Changed naming of telekinesis to telekinetic.
 

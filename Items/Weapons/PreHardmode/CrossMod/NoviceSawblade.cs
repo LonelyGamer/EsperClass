@@ -44,7 +44,7 @@ namespace EsperClass.Items.Weapons.PreHardmode.CrossMod
 				recipe.AddIngredient(LootBags, "NoviceCore", 1);
 				recipe.AddRecipeGroup("EsperClass:Tier4Bar", 10);
 				recipe.AddTile(TileID.Anvils);
-				recipe.SetResult(this, 1);
+				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
 		}

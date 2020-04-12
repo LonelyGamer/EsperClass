@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass.Items.Materials
 {
-	public class GravityFragment : ModItem
+	public class GravityFragment : ECTagItem
 	{
 		public override void SetStaticDefaults()
 		{

@@ -1,11 +1,12 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
-namespace EsperClass.Items.Armors.PreHardmode
+namespace EsperClass.Items.Armor.PreHardmode
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class DesertWandererHood : ModItem
+	public class DesertWandererHood : ECTagItem
 	{
 		public override void SetStaticDefaults()
 		{

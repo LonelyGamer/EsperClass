@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass.Items.Potions
 {
-	public class PsychosisPotion : ModItem
+	public class PsychosisPotion : ECTagItem
 	{
 		public float restoreAmount = 20f;
 

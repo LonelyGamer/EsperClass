@@ -41,7 +41,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			recipe.AddIngredient(ItemID.CopperBar, 10);
 			recipe.AddIngredient(ItemID.Amethyst, 8);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

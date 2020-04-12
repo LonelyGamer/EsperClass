@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class PinkyTwirler : TorchTwirler
+	public class PinkyTwirler : BaseTwirlerProj
 	{
 		public override void SetDefaults()
 		{
@@ -16,6 +16,15 @@ namespace EsperClass.Projectiles.PreHardmode
 			dustR = 1f;
 			dustG = 0f;
 			dustB = 1f;
+		}
+
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if (Main.rand.Next(4) == 0)
+			{
+				target.AddBuff(BuffID.OnFire, 180, false);
+			}
+			base.OnHitNPC(target, damage, knockback, crit);
 		}
 	}
 }

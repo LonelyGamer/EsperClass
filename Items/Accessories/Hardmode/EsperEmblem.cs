@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass.Items.Accessories.Hardmode
 {
-	public class EsperEmblem : ModItem
+	public class EsperEmblem : ECTagItem
 	{
 		public override void SetDefaults()
 		{

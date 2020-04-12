@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass.Items.Potions
 {
-	public class AlertnessPotion : ModItem
+	public class AlertnessPotion : ECTagItem
 	{
 		public override void SetStaticDefaults()
 		{

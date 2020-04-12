@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class IchorTwirler : CursedTwirler
+	public class IchorTwirler : BaseTwirlerProj
 	{
 		public override void SetDefaults()
 		{
@@ -22,7 +22,7 @@ namespace EsperClass.Projectiles.Hardmode
 		{
 			if (Main.rand.Next(4) == 0)
 			{
-				target.AddBuff(BuffID.Ichor, 180, false);
+				target.AddBuff(BuffID.Ichor, 300, false);
 			}
 			base.OnHitNPC(target, damage, knockback, crit);
 		}

@@ -18,7 +18,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 
 		public override void SetDefaults()
 		{
-      item.channel = true;
+			item.channel = true;
 			item.maxStack = 1;
 			item.damage = 30;
 			item.width = 22;
@@ -29,7 +29,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.knockBack = 4.5f;
 			item.value = Item.sellPrice(0, 1, 8, 0);
 			item.rare = 3;
-      item.UseSound = SoundID.Item1;
+			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;

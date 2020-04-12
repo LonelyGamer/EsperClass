@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass.Items.Misc
 {
-	public class SanguineLotusPetal : ModItem
+	public class SanguineLotusPetal : ECTagItem
 	{
 		public override void SetStaticDefaults()
 		{

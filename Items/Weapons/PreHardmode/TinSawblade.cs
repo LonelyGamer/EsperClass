@@ -13,9 +13,9 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetDefaults()
 		{
-      item.channel = true;
+			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 8;
+			item.damage = 7;
 			item.width = 14;
 			item.height = 14;
 			item.useTime = 15;
@@ -23,7 +23,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.useStyle = 1;
 			item.knockBack = 3f;
 			item.value = Item.sellPrice(0, 0, 6, 75);
-      item.UseSound = SoundID.Item1;
+			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;
@@ -35,7 +35,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.TinBar, 8);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

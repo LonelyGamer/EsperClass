@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class TopazRiftBolt : AmethystRiftBolt
+	public class TopazRiftBolt : BaseRiftBolt
 	{
 		public override string Texture
 		{

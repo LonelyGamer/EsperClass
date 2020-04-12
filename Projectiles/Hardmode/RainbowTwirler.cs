@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class RainbowTwirler : CursedTwirler
+	public class RainbowTwirler : BaseTwirlerProj
 	{
 		public override void SetDefaults()
 		{
@@ -33,11 +33,11 @@ namespace EsperClass.Projectiles.Hardmode
 		{
 			if (Main.rand.Next(4) == 0)
 			{
-				target.AddBuff(BuffID.OnFire, 180, false);
+				target.AddBuff(BuffID.OnFire, 300, false);
 			}
 			if (Main.rand.Next(4) == 0)
 			{
-				target.AddBuff(BuffID.Frostburn, 180, false);
+				target.AddBuff(BuffID.Frostburn, 300, false);
 			}
 			base.OnHitNPC(target, damage, knockback, crit);
 		}

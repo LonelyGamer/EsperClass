@@ -36,7 +36,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.SpookyWood, 70);
 			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

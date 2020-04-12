@@ -43,7 +43,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			recipe.AddIngredient(ItemID.WaterCandle, 1);
 			recipe.AddIngredient(ItemID.Bone, 30);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 			Mod otherMod = ModLoader.GetMod("imkSushisMod");
 			if (otherMod != null)

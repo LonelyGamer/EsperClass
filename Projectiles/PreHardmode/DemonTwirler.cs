@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class DemonTwirler : TorchTwirler
+	public class DemonTwirler : BaseTwirlerProj
 	{
 		public override void SetDefaults()
 		{
@@ -28,6 +28,15 @@ namespace EsperClass.Projectiles.PreHardmode
 				Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, twirlerDust, 0f, 0f, 100, default(Color), 1f);
 				Lighting.AddLight((int)((projectile.position.X + (float)(projectile.width / 2)) / 16f), (int)((projectile.position.Y + (float)(projectile.height / 2)) / 16f), dustR * Main.demonTorch + 1f * (1f - Main.demonTorch), dustG, dustB * Main.demonTorch + 0.5f * (1f - Main.demonTorch));
 			}
+		}
+
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if (Main.rand.Next(4) == 0)
+			{
+				target.AddBuff(BuffID.OnFire, 180, false);
+			}
+			base.OnHitNPC(target, damage, knockback, crit);
 		}
 	}
 }

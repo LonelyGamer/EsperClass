@@ -391,6 +391,7 @@ namespace EsperClass
 		{
 			if (junk)
 				return;
+
 			if (liquidType == 0 && !(caughtType >= ItemID.WoodenCrate && caughtType <= ItemID.GoldenCrate)
 			&& !(caughtType >= ItemID.CorruptFishingCrate && caughtType <= ItemID.JungleFishingCrate))
 			{
@@ -403,6 +404,15 @@ namespace EsperClass
 				if (Main.rand.Next(Math.Max(chance[0], chance[1] / power)) == 0 && player.ZoneDesert && worldLayer == 1 && !(player.position.X / 16 < 340 || player.position.X / 16 > Main.maxTilesX - 340))
 				{
 					caughtType = mod.ItemType("SpittingSandfish");
+				}
+			}
+
+			if (liquidType == 0 && Main.hardMode && !(caughtType >= ItemID.WoodenCrate && caughtType <= ItemID.GoldenCrate)
+			&& !(caughtType >= ItemID.CorruptFishingCrate && caughtType <= ItemID.JungleFishingCrate))
+			{
+				if (Main.rand.Next(Math.Max(15, 750 / power)) == 0 && player.ZoneDesert && worldLayer > 1 && !(player.position.X / 16 < 340 || player.position.X / 16 > Main.maxTilesX - 340))
+				{
+					caughtType = mod.ItemType("SuperSpittingSandfish");
 				}
 			}
 		}

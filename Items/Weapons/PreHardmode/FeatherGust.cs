@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Juggles up enemies with weak knockback resistence\nFloating enemies are pushed down");
+			Tooltip.SetDefault("Juggles up enemies with weak knockback resistance\nFloating enemies are pushed down");
 		}
 
 		public override void SetDefaults()
@@ -42,7 +42,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			recipe.AddIngredient(ItemID.Feather, 5);
 			recipe.AddIngredient(ItemID.Cloud, 20);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 1);
+			recipe.SetResult(this);
 			recipe.AddRecipe();*/
 			Mod otherMod = ModLoader.GetMod("imkSushisMod");
 			if (otherMod != null)

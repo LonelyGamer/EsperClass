@@ -18,7 +18,7 @@ namespace EsperClass.Projectiles.Hardmode
 			Main.projFrames[projectile.type] = 4;
 			rotate = false;
 			projType = mod.ProjectileType("PrimeLaserProj");
-			fireDelay = 30;
+			fireDelay = 20;
 			fireVel = 16f;
 		}
 

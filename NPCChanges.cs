@@ -69,6 +69,7 @@ namespace EsperClass
 			}
 			if (npc.type == NPCID.PirateShip)
 			{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TKCannonball"), Main.rand.Next(30, 40));
 				int chance = 6;
 				if (Main.expertMode)
 					chance = 3;

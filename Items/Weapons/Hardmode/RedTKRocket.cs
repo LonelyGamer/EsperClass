@@ -14,27 +14,27 @@ namespace EsperClass.Items.Weapons.Hardmode
 		{
 			DisplayName.SetDefault("Red TK Rocket");
 		}
+
 		public override void SetDefaults()
 		{
-			item.autoReuse = true;
 			item.channel = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.damage = 60;
+			item.damage = 150;
 			item.width = 14;
 			item.height = 28;
-			item.useTime = 30;
-			item.useAnimation = 30;
+			item.useTime = 60;
+			item.useAnimation = 60;
 			item.useStyle = 1;
 			item.knockBack = 5f;
-			item.value = Item.sellPrice(0, 0, 0, 20);
-			item.rare = 1;
+			item.value = Item.sellPrice(0, 0, 3, 0);
+			item.rare = 4;
 			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;
 			item.noMelee = true;
-			item.shootSpeed = 10f;
+			item.shootSpeed = 16f;
 			item.shoot = mod.ProjectileType("RedTKRocket");
-			onlyOne = true;
+			onlyOne = false;
 		}
 
 		public override void AddRecipes()
@@ -42,7 +42,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.RedRocket, 1);
 			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this, 1);
+            recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

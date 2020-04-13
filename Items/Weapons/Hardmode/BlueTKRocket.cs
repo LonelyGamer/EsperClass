@@ -17,25 +17,8 @@ namespace EsperClass.Items.Weapons.Hardmode
         
         public override void SetDefaults()
         {
-            item.autoReuse = true;
-            item.channel = true;
-            item.maxStack = 999;
-            item.consumable = true;
-            item.damage = 60;
-            item.width = 14;
-            item.height = 28;
-            item.useTime = 30;
-            item.useAnimation = 30;
-            item.useStyle = 1;
-            item.knockBack = 5f;
-            item.value = Item.sellPrice(0, 0, 0, 20);
-            item.rare = 1;
-            item.UseSound = SoundID.Item1;
-            item.noUseGraphic = true;
-            item.noMelee = true;
-            item.shootSpeed = 10f;
-            item.shoot = mod.ProjectileType("BlueTKRocket");
-            onlyOne = true;
+			base.SetDefaults();
+			item.shoot = mod.ProjectileType("BlueTKRocket");
         }
 
         public override void AddRecipes()
@@ -43,7 +26,7 @@ namespace EsperClass.Items.Weapons.Hardmode
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.BlueRocket, 1);
             recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this, 1);
+            recipe.SetResult(this);
             recipe.AddRecipe();
         }
     }

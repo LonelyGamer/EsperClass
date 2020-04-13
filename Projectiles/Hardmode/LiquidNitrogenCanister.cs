@@ -18,8 +18,6 @@ namespace EsperClass.Projectiles.Hardmode
 		{
 			ProjectileID.Sets.DontAttachHideToAlpha[projectile.type] = true;
 		}
- 
-
 
 		public override void SetDefaults()
 		{
@@ -41,11 +39,11 @@ namespace EsperClass.Projectiles.Hardmode
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			projectile.position -= projectile.velocity;
-		if ((double)projectile.velocity.X != (double)oldVelocity.X)
-			projectile.velocity.X = -oldVelocity.X;
-		if ((double)projectile.velocity.Y != (double)oldVelocity.Y)
-			projectile.velocity.Y = -oldVelocity.Y;
-				return false;
+			if ((double)projectile.velocity.X != (double)oldVelocity.X)
+				projectile.velocity.X = -oldVelocity.X;
+			if ((double)projectile.velocity.Y != (double)oldVelocity.Y)
+				projectile.velocity.Y = -oldVelocity.Y;
+			return false;
 		}
 
 		public override void PostAI()

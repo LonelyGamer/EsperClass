@@ -20,7 +20,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 9;
+			item.damage = 39;
 			item.width = 16;
 			item.height = 24;
 			item.useTime = 15;
@@ -28,7 +28,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.useStyle = 1;
 			item.knockBack = 0;
 			item.value = Item.sellPrice(0, 2, 50, 0);
-			item.rare = 1;
+			item.rare = 4;
 			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;
 			item.noMelee = true;
@@ -38,12 +38,19 @@ namespace EsperClass.Items.Weapons.Hardmode
 
 		public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.FrostCore, 1);
-            recipe.AddIngredient(ItemID.TitaniumBar, 5);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this, 1);
-            recipe.AddRecipe();
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.AncientBattleArmorMaterial);
+			recipe.AddIngredient(ItemID.AdamantiteBar, 12);
+			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.AncientBattleArmorMaterial);
+			recipe.AddIngredient(ItemID.TitaniumBar, 12);
+			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
         }
     }
 }

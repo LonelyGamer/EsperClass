@@ -11,13 +11,14 @@ namespace EsperClass.Projectiles.Hardmode
     {
         public override void SetDefaults()
         {
-            dustColor = new Color(0, 80, 255, 100);
             base.SetDefaults();
+            dustColor = new Color(0, 80, 255, 100);
+			dustNum = 135;
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            target.AddBuff(BuffID.Slow, 300, false);
+			target.AddBuff(mod.BuffType("NPCChill"), 30, false);
             base.OnHitNPC(target, damage, knockback, crit);
         }
     }

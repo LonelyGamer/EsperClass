@@ -15,7 +15,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 18;
+			item.damage = 20;
 			item.width = 18;
 			item.height = 16;
 			item.useTime = 15;

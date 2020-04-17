@@ -13,6 +13,7 @@ namespace EsperClass.Projectiles.Hardmode
         {
             base.SetDefaults();
             dustColor = new Color(0, 80, 255, 100);
+			projectile.penetrate = 5;
 			dustNum = 135;
         }
 

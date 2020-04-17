@@ -35,8 +35,9 @@ namespace EsperClass.Items.Armor.PreHardmode
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "30% faster psychosis recovery";
+			player.setBonus = "30% faster psychosis recovery\nImmunity to 'Mighty Wind'";
 			ECPlayer.ModPlayer(player).psychosisRec += 0.3f;
+			player.buffImmune[BuffID.WindPushed] = true;
 		}
 
 		public override void AddRecipes()

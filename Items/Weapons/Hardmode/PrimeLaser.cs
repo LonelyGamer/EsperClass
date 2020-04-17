@@ -11,6 +11,11 @@ namespace EsperClass.Items.Weapons.Hardmode
 {
 	public class PrimeLaser : ECItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("TK Prime Laser");
+		}
+
 		public override void SetDefaults()
 		{
 			item.channel = true;

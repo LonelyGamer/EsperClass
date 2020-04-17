@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class EyeJar : BaseJarProj
+	public class EyeJar : BaseJar
 	{
 		public override void SetDefaults()
 		{

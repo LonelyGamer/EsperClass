@@ -45,6 +45,12 @@ namespace EsperClass.Projectiles.Hardmode
 					projectile.frame = 0;
 				}
 			}
+			if (Main.rand.Next(2) == 0)
+			{
+				int num425 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 32);
+				Dust expr_5C63_cp_0 = Main.dust[num425];
+				expr_5C63_cp_0.velocity.X = expr_5C63_cp_0.velocity.X * 0.4f;
+			}
 			base.ExtraAI();
 		}
 

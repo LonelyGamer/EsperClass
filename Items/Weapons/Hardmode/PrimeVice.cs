@@ -11,6 +11,11 @@ namespace EsperClass.Items.Weapons.Hardmode
 {
 	public class PrimeVice : ECItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("TK Prime Vice");
+		}
+
 		public override void SetDefaults()
 		{
 			item.channel = true;

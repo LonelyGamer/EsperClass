@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class HellbatJar : BaseJarProj
+	public class HellbatJar : BaseJar
 	{
 		public override void SetDefaults()
 		{

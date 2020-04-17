@@ -72,7 +72,9 @@ namespace EsperClass.Projectiles.Hardmode
 						Vector2 vector2 = (Main.npc[target].Center - projectile.Center).SafeNormalize(Vector2.UnitX * (float)projectile.direction);
 						Vector2 velocity = vector2 * fireVel;
 						Main.PlaySound(SoundID.Item33, (int)projectile.position.X, (int)projectile.position.Y);
-						Projectile.NewProjectile(projectile.Center, velocity, projType, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+						int projCheck = 0;
+						projCheck = Projectile.NewProjectile(projectile.Center, velocity, projType, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+						Main.projectile[projCheck].rotation = (float)Math.Atan2((double)Main.projectile[projCheck].velocity.Y, (double)Main.projectile[projCheck].velocity.X) - 1.57f;
 					}
 				}
 			}

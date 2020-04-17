@@ -45,6 +45,14 @@ namespace EsperClass
 				if (Main.rand.Next(4) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantGear"));
 			}
+			if (npc.type == NPCID.Pixie)
+			{
+				int chance = 40;
+				if (Main.expertMode)
+					chance = 20;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PixieJar"));
+			}
 			if (npc.type == NPCID.WyvernHead)
 			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WyvernScale"));
@@ -97,6 +105,16 @@ namespace EsperClass
 				if (Main.rand.Next(chance) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("IchorBomber"));
 			}
+			if (npc.type == NPCID.BigMimicHallow)
+			{
+				int chance = 4;
+				if (Main.expertMode)
+					chance = 2;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CrystalFlail"));
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CrystalGrenade"));
+			}
 			/*if (npc.type == NPCID.LunarTowerSolar || npc.type == NPCID.LunarTowerVortex || npc.type == NPCID.LunarTowerNebula || npc.type == NPCID.LunarTowerStardust)
 			{
 				int amount;
@@ -110,13 +128,22 @@ namespace EsperClass
 				}
 			}*/
 		}
+		
+		public override void SetupShop(int type, Chest shop, ref int nextSlot)
+		{
+			if (type == NPCID.SkeletonMerchant)
+			{
+				shop.item[nextSlot].SetDefaults(mod.ItemType("SkeletonBoneLauncher"));
+				nextSlot++;
+			}
+		}
 
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{
 			if (NPC.downedBoss1 && Main.rand.Next(3) == 0)
 			{
-					shop[nextSlot] = mod.ItemType("BowlingBall");
-					nextSlot++;
+				shop[nextSlot] = mod.ItemType("BowlingBall");
+				nextSlot++;
 			}
 		}
 	}

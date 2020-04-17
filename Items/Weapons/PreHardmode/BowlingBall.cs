@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Acts like TK Boulders, but recoverable");
+			Tooltip.SetDefault("Acts like TK Boulders, but recoverable\nBest used with cousins");
 		}
 
 		public override void SetDefaults()

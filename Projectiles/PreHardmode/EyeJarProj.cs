@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class EyeJarProj : ECProjectile
+	public class EyeJarProj : BaseJarProj
 	{
 		public override void SetDefaults()
 		{
@@ -19,22 +19,12 @@ namespace EsperClass.Projectiles.PreHardmode
 			Main.projFrames[projectile.type] = 2;
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			projectile.penetrate--;
-			if (projectile.velocity.X != oldVelocity.X)
-			{
-				projectile.velocity.X = 0f - oldVelocity.X;
-			}
-			if (projectile.velocity.Y != oldVelocity.Y)
-			{
-				projectile.velocity.Y = 0f - oldVelocity.Y;
-			}
-			return projectile.penetrate <= 0;
-		}
-
 		public override void ExtraAI()
 		{
+			if (projectile.wet)
+			{
+				projectile.Kill();
+			}
 			projectile.frameCounter++;
 			if (projectile.frameCounter > 7)
 			{
@@ -46,11 +36,6 @@ namespace EsperClass.Projectiles.PreHardmode
 				}
 			}
 			base.ExtraAI();
-		}
-
-		public override void AI()
-		{
-			ExtraAI();
 		}
 	}
 }

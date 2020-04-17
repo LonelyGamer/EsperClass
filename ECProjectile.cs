@@ -987,7 +987,7 @@ namespace EsperClass
 		}
 	}
 
-	public abstract class BaseJarProj : ECProjectile
+	public abstract class BaseJar : ECProjectile
 	{
 		int release = 0;
 		protected int releaseDelay = 30;
@@ -1055,6 +1055,120 @@ namespace EsperClass
 		public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI)
 		{
 			drawCacheProjsBehindNPCs.Add(index);
+		}
+	}
+
+	public abstract class BaseJarProj : ECProjectile
+	{
+		protected bool chaseLiquid = false;
+
+		public override void SetDefaults()
+		{
+			projectile.friendly = true;
+			projectile.width = 14;
+			projectile.height = 24;
+			projectile.penetrate = 3;
+			Main.projFrames[projectile.type] = 2;
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			projectile.penetrate--;
+			if (projectile.velocity.X != oldVelocity.X)
+			{
+				projectile.velocity.X = 0f - oldVelocity.X;
+			}
+			if (projectile.velocity.Y != oldVelocity.Y)
+			{
+				projectile.velocity.Y = 0f - oldVelocity.Y;
+			}
+			return projectile.penetrate <= 0;
+		}
+
+		//Adapted from AI Style 36
+		public override void AI()
+		{
+			ExtraAI();
+			if (projectile.velocity.X > 0f)
+			{
+				projectile.spriteDirection = 1;
+			}
+			else if (projectile.velocity.X < 0f)
+			{
+				projectile.spriteDirection = -1;
+			}
+			projectile.rotation = projectile.velocity.X * 0.1f;
+			float num1220 = projectile.position.X;
+			float num1222 = projectile.position.Y;
+			float num1224 = 100000f;
+			bool flag145 = false;
+			projectile.ai[0] += 1f;
+			if (projectile.ai[0] > 30f)
+			{
+				projectile.ai[0] = 30f;
+				for (int num1225 = 0; num1225 < 200; num1225++)
+				{
+					if (Main.npc[num1225].CanBeChasedBy(this) && (!Main.npc[num1225].wet || chaseLiquid))
+					{
+						float num1237 = Main.npc[num1225].position.X + (float)(Main.npc[num1225].width / 2);
+						float num1246 = Main.npc[num1225].position.Y + (float)(Main.npc[num1225].height / 2);
+						float num1247 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num1237) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num1246);
+						if (num1247 < 800f && num1247 < num1224 && Collision.CanHit(projectile.position, projectile.width, projectile.height, Main.npc[num1225].position, Main.npc[num1225].width, Main.npc[num1225].height))
+						{
+							num1224 = num1247;
+							num1220 = num1237;
+							num1222 = num1246;
+							flag145 = true;
+						}
+					}
+				}
+			}
+			if (!flag145)
+			{
+				num1220 = projectile.position.X + (float)(projectile.width / 2) + projectile.velocity.X * 100f;
+				num1222 = projectile.position.Y + (float)(projectile.height / 2) + projectile.velocity.Y * 100f;
+			}
+			float num1255 = 6f;
+			float num1257 = 0.1f;
+			Vector2 vector310 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
+			float num1259 = num1220 - vector310.X;
+			float num1262 = num1222 - vector310.Y;
+			float num1263 = (float)Math.Sqrt(num1259 * num1259 + num1262 * num1262);
+			num1263 = num1255 / num1263;
+			num1259 *= num1263;
+			num1262 *= num1263;
+			if (projectile.velocity.X < num1259)
+			{
+				projectile.velocity.X = projectile.velocity.X + num1257;
+				if (projectile.velocity.X < 0f && num1259 > 0f)
+				{
+					projectile.velocity.X = projectile.velocity.X + num1257 * 2f;
+				}
+			}
+			else if (projectile.velocity.X > num1259)
+			{
+				projectile.velocity.X = projectile.velocity.X - num1257;
+				if (projectile.velocity.X > 0f && num1259 < 0f)
+				{
+					projectile.velocity.X = projectile.velocity.X - num1257 * 2f;
+				}
+			}
+			if (projectile.velocity.Y < num1262)
+			{
+				projectile.velocity.Y = projectile.velocity.Y + num1257;
+				if (projectile.velocity.Y < 0f && num1262 > 0f)
+				{
+					projectile.velocity.Y = projectile.velocity.Y + num1257 * 2f;
+				}
+			}
+			else if (projectile.velocity.Y > num1262)
+			{
+				projectile.velocity.Y = projectile.velocity.Y - num1257;
+				if (projectile.velocity.Y > 0f && num1262 < 0f)
+				{
+					projectile.velocity.Y = projectile.velocity.Y - num1257 * 2f;
+				}
+			}
 		}
 	}
 

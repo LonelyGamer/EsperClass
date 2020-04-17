@@ -29,6 +29,10 @@ Change Log...
 - Molten Boulder crafting changed to now only give 5 instead of 10 per Hellstone Bar.
 - Buffed damage of Eye Jar from 13 to 15 and corrected tooltip saying "eye" instead of "eyes".
 - Added clientside config to show the Esper Class tag on mod related items like other mods that add custom classes, off by default.
+- Psychic Eye grab range now increaes with base max psychosis.
+- Slightly buffed the damage of Cactus Balls, now called Bouncers. Cactus Ball from 8 to 10, evil Cactus Balls from 18 to 20, and Pearl Cactus Ball from 58 to 64.
+- Very slightly buffed the damage of the Shadow Orbit from 14 to 15.
+- Desert Wanderer armor now has an additional set bonus of becoming immune to Mighty Wind.
 
 - 0.3.2: Changed how item usage psychosis drain is handled, fixing psychosis not being drained while holding onto a rope.
 - Changed naming of telekinesis to telekinetic.

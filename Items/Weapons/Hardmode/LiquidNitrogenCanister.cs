@@ -39,15 +39,15 @@ namespace EsperClass.Items.Weapons.Hardmode
 		public override void AddRecipes()
         {
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.AncientBattleArmorMaterial);
-			recipe.AddIngredient(ItemID.AdamantiteBar, 12);
+			recipe.AddIngredient(ItemID.FrostCore);
+			recipe.AddIngredient(ItemID.AdamantiteBar, 5);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.AncientBattleArmorMaterial);
-			recipe.AddIngredient(ItemID.TitaniumBar, 12);
+			recipe.AddIngredient(ItemID.FrostCore);
+			recipe.AddIngredient(ItemID.TitaniumBar, 5);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

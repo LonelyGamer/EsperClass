@@ -19,7 +19,6 @@ namespace EsperClass.Projectiles.PreHardmode.CrossMod
 
 		public override void PostAI()
 		{
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 			Dust dust;
 			Vector2 position = projectile.position + projectile.velocity;
 			dust = Main.dust[Terraria.Dust.NewDust(position, projectile.width, projectile.height, 91, 0f, 0f, 0, new Color(255, 255, 255), 1f)];

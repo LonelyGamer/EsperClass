@@ -286,9 +286,11 @@ namespace EsperClass
 
 		public virtual void ExtraAI()
 		{
+			ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
+			if (modPlayer.cambrianSetBonus)
+				projectile.ignoreWater = true;
 			if (!projectile.noEnchantments)
 			{
-				ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
 				if (modPlayer.fireVial && Main.rand.Next(2) == 0)
 				{
 					int num5 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, projectile.velocity.X * 0.2f + (float)(projectile.direction * 3), projectile.velocity.Y * 0.2f, 100, default(Color), 2.5f);

@@ -14,7 +14,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ichor Canister");
-			Tooltip.SetDefault("Spill the god's blood...\nSpills damaing ichor liquid.");
+			Tooltip.SetDefault("Spill the god's blood...\nSpills damaging ichor liquid.");
 		}
 
 		public override void SetDefaults()

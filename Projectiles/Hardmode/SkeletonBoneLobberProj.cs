@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class SkeletonBoneLauncherProj : ECProjectile
+	public class SkeletonBoneLobberProj : ECProjectile
 	{
 		public override void SetDefaults()
 		{

@@ -9,31 +9,31 @@ using Terraria.ModLoader.IO;
 
 namespace EsperClass.Items.Weapons.Hardmode
 {
-	public class PrimeVice : ECItem
+	public class TKPrimeSaw : ECItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("TK Prime Vice");
+			DisplayName.SetDefault("TK Prime Saw");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 120;
-			item.width = 18;
-			item.height = 30;
+			item.damage = 48;
+			item.width = 14;
+			item.height = 40;
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.useStyle = 1;
-			item.knockBack = 6f;
+			item.knockBack = 3f;
 			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.rare = 5;
 			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;
-			item.shoot = mod.ProjectileType("PrimeVice");
+			item.shoot = mod.ProjectileType("TKPrimeSaw");
 		}
 
 		public override void AddRecipes()

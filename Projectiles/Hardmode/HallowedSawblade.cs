@@ -17,10 +17,10 @@ namespace EsperClass.Projectiles.Hardmode
 			maxVel = 20f;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		/*public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.immune[projectile.owner] = 5;
-		}
+		}*/
 
 		public override void PostAI()
 		{

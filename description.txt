@@ -14,6 +14,8 @@ Known Issues because I either can code it better or can't due to hardcoding...
 
 - Sawblades can get stuck on slopes.
 - The custom HUD display isn't entirely smooth with centering on the player or zooming in and out.
+- TK weapon collision on tiles can be janky.
+- Shooters (currently the Spitting Sandfish and Super Spitting Sandfish) can be hard to aim when the screen scrolls.
 
 Future Plans...
 
@@ -23,7 +25,7 @@ Future Plans...
 
 Change Log...
 
-- 0.5: Added several new weapons, armor, and accessories to cover early hardmode, up and including the mecha bosses.
+- 0.5: Added several new weapons, armor, and accessories to cover early hardmode, up and including the mecha bosses. This includes two full armor sets (one in pre-hardmode) and seven armor pieces.
 - Nerfed damage of Tin Sawblade from 8 to 7.
 - Changed tooltip for the Butcher's Barbs.
 - Molten Boulder crafting changed to now only give 5 instead of 10 per Hellstone Bar.
@@ -33,6 +35,10 @@ Change Log...
 - Slightly buffed the damage of Cactus Balls, now called Bouncers. Cactus Ball from 8 to 10, evil Cactus Balls from 18 to 20, and Pearl Cactus Ball from 58 to 64.
 - Very slightly buffed the damage of the Shadow Orbit from 14 to 15.
 - Desert Wanderer armor now has an additional set bonus of becoming immune to Mighty Wind.
+- Projectiles released by jars now face the correct way instead of backwards.
+- Soil Sawblade now consumes 1/20 of damage bonus in dirt blocks on use and per second, to match the latest JoostMod update.
+- There is now support for Boss Loot Plus and very slightly Geronimo's Tinkerings.
+- Changed Fire Vial Necklace recipe from Hellstone bars to Iron/Lead bars and Gel, along with rarity, making it an early game accessory.
 
 - 0.3.2: Changed how item usage psychosis drain is handled, fixing psychosis not being drained while holding onto a rope.
 - Changed naming of telekinesis to telekinetic.

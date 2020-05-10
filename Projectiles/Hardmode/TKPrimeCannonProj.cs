@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class PrimeCannonProj : ECProjectile
+	public class TKPrimeCannonProj : ECProjectile
 	{
 		public override string Texture
 		{

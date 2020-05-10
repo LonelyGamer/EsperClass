@@ -57,19 +57,20 @@ namespace EsperClass
 		}
 
 		public override void PostSetupContent()
-    {
-	    Mod LootBags = ModLoader.GetMod("LootBags");
-	    if (LootBags != null)
-	    {
+		{
+			Mod LootBags = ModLoader.GetMod("LootBags");
+			if (LootBags != null)
+			{
 				//Player player = Main.player[Main.myPlayer];
 				//if (ECPlayer.ModPlayer(player).maxPsychosis > 10)
 				//{
-		      LootBags.Call(.05, ItemType("TKBoulder"), 20, 30, 1);
-			    LootBags.Call(.05, ItemType("MoltenBoulder"), 20, 30, 2);
+				LootBags.Call(.05, ItemType("TKBoulder"), 20, 30, 1);
+				LootBags.Call(.05, ItemType("MoltenBoulder"), 20, 30, 2);
+				LootBags.Call(.05, ItemType("SnowmanBoulder"), 20, 30, 3);
 				//}
-	    }
+			}
 			Main.NewText("Size: " + TKItem.Count, 255, 192, 203);
-    }
+		}
 
 		//Based on jopojelly's Boss Checklist mod
 		public override object Call(params object[] args)

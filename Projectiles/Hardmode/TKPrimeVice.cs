@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class PrimeVice : ECProjectile
+	public class TKPrimeVice : ECProjectile
 	{
 		int fireDelay = 0;
 		Vector2 targetPos = Vector2.Zero;

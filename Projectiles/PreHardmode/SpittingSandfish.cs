@@ -44,7 +44,7 @@ namespace EsperClass.Projectiles.PreHardmode
 
 		public override void PostAI()
 		{
-			if (projectile.velocity != Vector2.Zero)
+			if (projectile.velocity != Vector2.Zero/* && Main.lastMouseX != Main.mouseX && Main.lastMouseY != Main.mouseY*/)
 			{
 				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 0.785f;
 				targetPos.X = Main.mouseX + Main.screenPosition.X + projectile.velocity.X;

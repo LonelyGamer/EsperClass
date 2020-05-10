@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class PrimeSaw : ECProjectile
+	public class TKPrimeSaw : ECProjectile
 	{
 		Vector2 targetPos = Vector2.Zero;
 

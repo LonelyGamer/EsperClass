@@ -57,6 +57,8 @@ namespace EsperClass
 		public bool accMaxPsychosis5 = false;
 		public bool accPsychosisRec5 = false;
 		public bool accTkDodge5 = false;
+		
+		public bool cambrianSetBonus = false;
 
 		public static ECPlayer ModPlayer(Player player)
 		{
@@ -95,6 +97,7 @@ namespace EsperClass
 			venomVial = false;
 			//overPsychosis = false;
 			psychicEyeMagnet = false;
+			cambrianSetBonus = false;
 
 			accMaxPsychosis1 = false;
 			accPsychosisRec1 = false;

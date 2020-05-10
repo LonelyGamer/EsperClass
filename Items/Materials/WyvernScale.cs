@@ -14,7 +14,7 @@ namespace EsperClass.Items.Materials
 			item.width = 14;
 			item.height = 18;
 			item.maxStack = 999;
-			item.rare = 4;
+			item.rare = 5;
 			item.value = Item.sellPrice(0, 0, 50, 0);
 		}
 	}

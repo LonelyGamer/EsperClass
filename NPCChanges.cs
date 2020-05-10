@@ -133,7 +133,7 @@ namespace EsperClass
 		{
 			if (type == NPCID.SkeletonMerchant)
 			{
-				shop.item[nextSlot].SetDefaults(mod.ItemType("SkeletonBoneLauncher"));
+				shop.item[nextSlot].SetDefaults(mod.ItemType("SkeletonBoneLobber"));
 				nextSlot++;
 			}
 		}

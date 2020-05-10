@@ -12,9 +12,10 @@ namespace EsperClass.Items.Weapons.PreHardmode.CrossMod
 {
 	public class SoilSawblade : ECItem
 	{
+		int drainTimer = 0;
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Does 1 more damage for every 666 blocks of dirt in your inventory");
+			Tooltip.SetDefault("Does 1 more damage for every 666 blocks of dirt in your inventory\nUsing this weapon consumes dirt equal to 1/20th of the damage bonus on use and per second");
 		}
 
 		public override void SetDefaults()
@@ -47,6 +48,7 @@ namespace EsperClass.Items.Weapons.PreHardmode.CrossMod
 			base.ModifyTooltips(list);
 		}
 
+		//Used from JoostMod Soil weapons
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
             int dirt = 0;
@@ -58,7 +60,64 @@ namespace EsperClass.Items.Weapons.PreHardmode.CrossMod
                 }
             }
             flat = (dirt / 666f);
+			mult *= ECPlayer.ModPlayer(player).tkDamage;
+			//base.ModifyWeaponDamage(player, ref add, ref mult, ref flat);
         }
+
+		//Also used from JoostMod Soil weapons
+        public override bool CanUseItem(Player player)
+        {
+            int dirt = 0;
+            for (int i = 0; i < 58; i++)
+            {
+                if (player.inventory[i].type == ItemID.DirtBlock && player.inventory[i].stack > 0)
+                {
+                    dirt += player.inventory[i].stack;
+                }
+            }
+            int amount = (dirt / 666) / 20;
+            for (int i = 0; i < 58 && amount > 0; i++)
+            {
+                if (player.inventory[i].stack > 0 && player.inventory[i].type == ItemID.DirtBlock)
+                {
+                    if (player.inventory[i].stack >= amount)
+                    {
+                        player.inventory[i].stack -= amount;
+                        amount = 0;
+                    }
+                    else
+                    {
+                        amount -= player.inventory[i].stack;
+                        player.inventory[i].stack = 0;
+                    }
+                    if (player.inventory[i].stack <= 0)
+                    {
+                        player.inventory[i].SetDefaults(0, false);
+                    }
+                    if (amount <= 0)
+                    {
+                        break;
+                    }
+                }
+            }
+            return base.CanUseItem(player);
+        }
+
+		public override void HoldItem(Player player)
+		{
+			if (player.channel)
+			{
+				drainTimer++;
+				if (drainTimer >= 60) //if (Main.time % 60 == 0)
+				{
+					drainTimer -= 60;
+					CanUseItem(player);
+				}
+			}
+			else
+				drainTimer = 0;
+            base.HoldItem(player);
+		}
 
 		public override void AddRecipes()
 		{

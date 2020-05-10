@@ -9,7 +9,7 @@ using Terraria.ModLoader.IO;
 
 namespace EsperClass.Items.Weapons.Hardmode
 {
-	public class PrimeLaser : ECItem
+	public class TKPrimeLaser : ECItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -33,7 +33,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;
-			item.shoot = mod.ProjectileType("PrimeLaser");
+			item.shoot = mod.ProjectileType("TKPrimeLaser");
 		}
 
 		public override void AddRecipes()

@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class PrimeLaser : BaseRiftProj
+	public class TKPrimeLaser : BaseRiftProj
 	{
 		public override void SetDefaults()
 		{
@@ -17,7 +17,7 @@ namespace EsperClass.Projectiles.Hardmode
 			projectile.height = 28;
 			Main.projFrames[projectile.type] = 4;
 			rotate = false;
-			projType = mod.ProjectileType("PrimeLaserProj");
+			projType = mod.ProjectileType("TKPrimeLaserProj");
 			fireDelay = 20;
 			fireVel = 16f;
 		}

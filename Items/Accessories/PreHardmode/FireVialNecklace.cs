@@ -13,8 +13,8 @@ namespace EsperClass.Items.Accessories.PreHardmode
 		{
 			item.width = 22;
 			item.height = 28;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.rare = 3;
+			item.value = Item.sellPrice(0, 0, 50, 0);
+			item.rare = 1;
 			item.accessory = true;
 		}
 
@@ -31,7 +31,9 @@ namespace EsperClass.Items.Accessories.PreHardmode
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.HellstoneBar, 15);
+			recipe.AddIngredient(ItemID.IronBar, 12);
+			recipe.AddIngredient(ItemID.Gel, 20);
+			recipe.anyIronBar = true;
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

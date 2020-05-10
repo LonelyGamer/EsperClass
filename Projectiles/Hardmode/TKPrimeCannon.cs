@@ -7,9 +7,9 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class SkeletonBoneLauncher : ECProjectile
+	public class TKPrimeCannon : ECProjectile
 	{
-		int release = 0;
+		int fireDelay = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -18,8 +18,8 @@ namespace EsperClass.Projectiles.Hardmode
 
 		public override void SetDefaults()
 		{
-			projectile.width = 36;
-			projectile.height = 24;
+			projectile.width = 18;
+			projectile.height = 40;
 			projectile.friendly = true;
 			projectile.tileCollide = true;
 			projectile.penetrate = -1;
@@ -28,6 +28,7 @@ namespace EsperClass.Projectiles.Hardmode
 			maxVel = 16f;
 			whizze = false;
 			rotate = false;
+			Main.projFrames[projectile.type] = 4;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -40,30 +41,30 @@ namespace EsperClass.Projectiles.Hardmode
 			return false;
 		}
 
-		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
-		{
-			width = 18;
-			height = 18;
-			return true;
-		}
-
 		public override void PostAI()
 		{
+			projectile.frameCounter++;
+			if (projectile.frameCounter > 9)
+			{
+				projectile.frameCounter = 0;
+				projectile.frame++;
+				if (projectile.frame > 3)
+				{
+					projectile.frame = 0;
+				}
+			}
 			if (!held)
 			{
 				return;
 			}
-			if (projectile.velocity.X != 0)
-				projectile.spriteDirection = Math.Sign(projectile.velocity.X);
-			release += 1;
-			if (release >= 28)
+			fireDelay++;
+			if (fireDelay >= 60)
 			{
-				release = 0;
+				fireDelay = 0;
 				if (projectile.owner == Main.myPlayer)
 				{
-					Main.PlaySound(SoundID.Item17, projectile.position);
 					Vector2 vector = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-					Projectile.NewProjectile(vector.X + (6 * projectile.spriteDirection), vector.Y+16, (12 + Main.rand.Next(-4, 4)) * projectile.spriteDirection, 6, mod.ProjectileType("SkeletonBoneLauncherProj"), (int)(projectile.damage), projectile.knockBack, Main.player[projectile.owner].whoAmI);
+					Projectile.NewProjectile(vector.X, vector.Y, 0, 16, mod.ProjectileType("TKPrimeCannonProj"), (int)(projectile.damage), projectile.knockBack, Main.player[projectile.owner].whoAmI);
 				}
 			}
 		}

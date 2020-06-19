@@ -13,14 +13,14 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Spawns bats that will hunt down enemies");
+			Tooltip.SetDefault("Spawns bats that will hunt down enemies\nRequires shaking up and down to function");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 10;
+			item.damage = 12;
 			item.width = 16;
 			item.height = 28;
 			item.useTime = 15;

@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.Hardmode
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hallowed Canister");
+            DisplayName.SetDefault("Goldropper");
             Tooltip.SetDefault("Pours down a piercing liquid");
         }
 
@@ -22,8 +22,8 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.channel = true;
 			item.maxStack = 1;
 			item.damage = 48;
-			item.width = 16;
-			item.height = 24;
+			item.width = 14;
+			item.height = 36;
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.useStyle = 1;

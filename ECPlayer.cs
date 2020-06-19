@@ -324,9 +324,34 @@ namespace EsperClass
 
 		public void PsychosisRegen()
 		{
-			psychosis = Math.Min(TotalPsychosis(), psychosis += ((TotalPsychosis() / 10) / 20f) * psychosisRec);
+			bool flag = false;
+			if (psychosis < TotalPsychosis())
+			{
+				flag = true;
+			}
+			psychosis = Math.Min(TotalPsychosis(), psychosis += ((maxPsychosis / 10) / 20f) * psychosisRec);
 			if (psychosis >= 0f && psychosisWarning)
 				psychosisWarning = false;
+			if (psychosis >= TotalPsychosis() && flag)
+			{
+				Main.PlaySound(25);
+				for (int i = 0; i < 5; i++)
+				{
+					int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 86, 0f, 0f, 100, default(Color), 2f);
+					Dust dust = Main.dust[num];
+					dust.position.X = dust.position.X + (float)Main.rand.Next(-20, 21);
+					Dust dust2 = Main.dust[num];
+					dust2.position.Y = dust2.position.Y + (float)Main.rand.Next(-20, 21);
+					Main.dust[num].velocity *= 0.4f;
+					Main.dust[num].scale *= 1f + (float)Main.rand.Next(40) * 0.01f;
+					Main.dust[num].shader = GameShaders.Armor.GetSecondaryShader(player.cWaist, player);
+					Main.dust[num].noGravity = true;
+					if (Main.rand.Next(2) == 0)
+					{
+						Main.dust[num].scale *= 1f + (float)Main.rand.Next(40) * 0.01f;
+					}
+				}
+			}
 		}
 
 		public bool PsychosisFull()

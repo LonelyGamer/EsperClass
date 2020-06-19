@@ -25,6 +25,14 @@ Future Plans...
 
 Change Log...
 
+- 0.6: Added several new weapons, a helmet piece, and few accessories to cover the period between post mecha bosses and right after defeating Plantera.
+- Plenty of redone sprites, mostly for weapons.
+- Jar weapons now require shaking in order to release projectiles. Due to the extra effort to use, damage has been increased about 20%. Also added shake effects for the Hellbat Jar and Pixie Jar.
+- Standardized Esper buff potion durations to now all be 5 minutes long.
+- Psychosis regeneration is now based on max base psychosis, not total psychosis from temporary boosts.
+- Regenerating to full psychosis now has feedback similar to regenerating mana to full.
+- Pixie Jar projectiles no longer can chase in water, based off of the Pixie NPC behavior.
+
 - 0.5: Added several new weapons, armor, and accessories to cover early hardmode, up and including the mecha bosses. This includes two full armor sets (one in pre-hardmode) and seven armor pieces.
 - Nerfed damage of Tin Sawblade from 8 to 7.
 - Changed tooltip for the Butcher's Barbs.

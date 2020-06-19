@@ -13,14 +13,14 @@ namespace EsperClass.Items.Weapons.Hardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Spawns one of three coloured pixies that will hunt down enemies");
+			Tooltip.SetDefault("Spawns one of three coloured pixies that will hunt down enemies\nRequires shaking up and down to function");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 36;
+			item.damage = 44;
 			item.width = 16;
 			item.height = 28;
 			item.useTime = 15;

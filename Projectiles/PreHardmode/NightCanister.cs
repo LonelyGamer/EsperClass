@@ -7,20 +7,13 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class NightCanister : SlimyCanister
+	public class NightCanister : BaseCanister
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 32;
-			projectile.friendly = true;
-			projectile.tileCollide = true;
-			projectile.penetrate = -1;
-			projectile.hide = true;
-			projectile.noEnchantments = true;
-			maxVel = 16f;
-			whizze = false;
-			rotate = false;
+			base.SetDefaults();
+			projectile.width = 22;
+			projectile.height = 38;
 			releaseRate = 12;
 			projType = mod.ProjectileType("NightCanisterProj");
 			pourSpeed = 8f;

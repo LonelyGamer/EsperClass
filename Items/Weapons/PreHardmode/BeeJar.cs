@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Spawns bees that will chase your enemies");
+			Tooltip.SetDefault("Spawns bees that will chase your enemies\nRequires shaking up and down to function");
 		}
 
 		public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			//Bee Apiary
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 20;
+			item.damage = 24;
 			item.width = 16;
 			item.height = 28;
 			item.useTime = 15;

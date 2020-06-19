@@ -26,7 +26,7 @@ namespace EsperClass.Items.Potions
 			item.width = 14;
 			item.height = 24;
 			item.buffType = mod.BuffType("Focused");
-			item.buffTime = 14400;
+			item.buffTime = 18000;
 			item.value = 1000;
 			item.rare = 1;
 		}

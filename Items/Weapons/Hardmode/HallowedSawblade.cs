@@ -11,13 +11,18 @@ namespace EsperClass.Items.Weapons.Hardmode
 {
 	public class HallowedSawblade : ECItem
 	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Fenrir's Teeth");
+		}
+
 		public override void SetDefaults()
 		{
 			item.channel = true;
 			item.maxStack = 1;
 			item.damage = 48;
-			item.width = 20;
-			item.height = 20;
+			item.width = 34;
+			item.height = 34;
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.useStyle = 1;

@@ -23,7 +23,6 @@ namespace EsperClass.Projectiles.Hardmode
 			projectile.penetrate = 5;
 			projectile.timeLeft = 600;
 			Main.projFrames[projectile.type] = 2;
-			chaseLiquid = true;
 		}
 
 		public override void ExtraAI()

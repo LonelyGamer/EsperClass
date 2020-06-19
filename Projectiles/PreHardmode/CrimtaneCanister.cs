@@ -7,20 +7,13 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class CrimtaneCanister : SlimyCanister
+	public class CrimtaneCanister : BaseCanister
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 16;
-			projectile.height = 32;
-			projectile.friendly = true;
-			projectile.tileCollide = true;
-			projectile.penetrate = -1;
-			projectile.hide = true;
-			projectile.noEnchantments = true;
-			maxVel = 16f;
-			whizze = false;
-			rotate = false;
+			base.SetDefaults();
+			projectile.width = 20;
+			projectile.height = 34;
 			releaseRate = 15;
 			projType = mod.ProjectileType("CrimtaneCanisterProj");
 			pourSpeed = 4f;

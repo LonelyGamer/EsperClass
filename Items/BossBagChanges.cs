@@ -23,6 +23,13 @@ namespace EsperClass.Items
 					if (Main.rand.Next(3) == 0)
 						player.QuickSpawnItem(mod.ItemType("GiantGear"));
 				}
+				if (arg == 3328) //Plantera
+				{
+					if (Main.rand.Next(2) == 0)
+						player.QuickSpawnItem(mod.ItemType("WaspJar"));
+					if (Main.rand.Next(2) == 0)
+						player.QuickSpawnItem(mod.ItemType("TKThornBall"), Main.rand.Next(80, 120));
+				}
 			}
             if (context == "lockBox")
             {

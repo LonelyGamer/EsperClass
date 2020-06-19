@@ -115,6 +115,21 @@ namespace EsperClass
 				if (Main.rand.Next(chance) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CrystalGrenade"));
 			}
+			if (npc.type == NPCID.Mothron)
+			{
+				int chance = 3;
+				if (Main.expertMode)
+					chance = 2;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BrokenHeroPsychicParts"));
+			}
+			if (npc.type == NPCID.Plantera && !Main.expertMode)
+			{
+				if (Main.rand.Next(3) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WaspJar"));
+				if (Main.rand.Next(3) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TKThornBall"), Main.rand.Next(80, 120));
+			}
 			/*if (npc.type == NPCID.LunarTowerSolar || npc.type == NPCID.LunarTowerVortex || npc.type == NPCID.LunarTowerNebula || npc.type == NPCID.LunarTowerStardust)
 			{
 				int amount;
@@ -134,6 +149,11 @@ namespace EsperClass
 			if (type == NPCID.SkeletonMerchant)
 			{
 				shop.item[nextSlot].SetDefaults(mod.ItemType("SkeletonBoneLobber"));
+				nextSlot++;
+			}
+			if (type == NPCID.WitchDoctor && NPC.downedPlantBoss)
+			{
+				shop.item[nextSlot].SetDefaults(mod.ItemType("VenomVialNecklace"));
 				nextSlot++;
 			}
 		}

@@ -7,23 +7,12 @@ using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.PreHardmode
 {
-	public class PinkSlimyCanister : SlimyCanister
+	public class PinkSlimyCanister : BaseCanister
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 28;
-			projectile.friendly = true;
-			projectile.tileCollide = true;
-			projectile.penetrate = -1;
-			projectile.hide = true;
-			projectile.noEnchantments = true;
-			maxVel = 16f;
-			whizze = false;
-			rotate = false;
-			releaseRate = 15;
+			base.SetDefaults();
 			projType = mod.ProjectileType("PinkSlimyCanisterProj");
-			pourSpeed = 6f;
 		}
 	}
 }

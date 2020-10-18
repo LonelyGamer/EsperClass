@@ -20,6 +20,12 @@ namespace EsperClass
 		public static List<int> TKItem = new List<int>();
 		public static List<int> TKProjectile = new List<int>();
 
+		//public static DynamicSpriteFont exampleFont;
+
+		private UserInterface _psychosisMeterUserInterface;
+
+		internal PsychosisMeter PsychosisMeter;
+
 		public EsperClass()
 		{
 			Properties = new ModProperties()
@@ -40,7 +46,13 @@ namespace EsperClass
 		{
 			Instance = this;
 			//TKItem = TKItem;
-			ECUI.Initialize();
+			if (!Main.dedServ)
+			{
+				// Custom Resource Bar
+				PsychosisMeter = new PsychosisMeter();
+				_psychosisMeterUserInterface = new UserInterface();
+				_psychosisMeterUserInterface.SetState(PsychosisMeter);
+			}
 		}
 
 		public override void Unload()
@@ -51,9 +63,25 @@ namespace EsperClass
 			Instance = null;
 		}
 
+		public override void UpdateUI(GameTime gameTime)
+		{
+			_psychosisMeterUserInterface?.Update(gameTime);
+		}
+
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
-			ECUI.ModifyInterfaceLayers(layers);
+			int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+			if (resourceBarIndex != -1)
+			{
+				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer("EsperClass: Psychosis Meter",
+					delegate
+					{
+						_psychosisMeterUserInterface.Draw(Main.spriteBatch, new GameTime());
+						return true;
+					},
+					InterfaceScaleType.UI)
+				);
+			}
 		}
 
 		public override void PostSetupContent()
@@ -67,6 +95,7 @@ namespace EsperClass
 				LootBags.Call(.05, ItemType("TKBoulder"), 20, 30, 1);
 				LootBags.Call(.05, ItemType("MoltenBoulder"), 20, 30, 2);
 				LootBags.Call(.05, ItemType("SnowmanBoulder"), 20, 30, 3);
+				LootBags.Call(.05, ItemType("TKThornBall"), 20, 30, 4);
 				//}
 			}
 			Main.NewText("Size: " + TKItem.Count, 255, 192, 203);
@@ -113,7 +142,7 @@ namespace EsperClass
 			}
 			catch (Exception e)
 			{
-				ErrorLogger.Log("Esper Class Call Error: " + e.StackTrace + e.Message);
+				Logger.Error("Esper Class Call Error: " + e.StackTrace + e.Message);
 			}
 			return "Failure";
 		}

@@ -17,8 +17,8 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.maxStack = 999;
 			item.consumable = true;
 			item.damage = 200;
-			item.width = 42;
-			item.height = 42;
+			item.width = 26;
+			item.height = 26;
 			item.useTime = 60;
 			item.useAnimation = 60;
 			item.useStyle = 1;

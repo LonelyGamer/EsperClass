@@ -28,7 +28,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.useAnimation = 15;
 			item.useStyle = 1;
 			item.knockBack = 3f;
-			item.value = Item.sellPrice(0, 2, 70, 0);
+			item.value = Item.sellPrice(0, 1, 75, 0);
 			item.rare = 2;
 			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;

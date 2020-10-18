@@ -38,7 +38,8 @@ namespace EsperClass.Items.Misc
 		{
 			if (Main.myPlayer == player.whoAmI)
 			{
-				player.HealEffect(1, true);
+				//player.HealEffect(1, true);
+				CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(255, 105, 180, 255), 1);
 			}
 			ECPlayer.ModPlayer(player).maxPsychosis++;
 			return true;

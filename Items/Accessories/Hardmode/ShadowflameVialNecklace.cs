@@ -20,7 +20,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Enchants telekinesis attacks with umbra-pyrokinesis, enabling a chance to cause 'Shadowflame' on hit");
+			Tooltip.SetDefault("Enchants telekinetic attacks with umbra-pyrokinesis, enabling a chance to cause 'Shadowflame' on hit");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

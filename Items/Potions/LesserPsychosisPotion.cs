@@ -9,9 +9,11 @@ namespace EsperClass.Items.Potions
 {
 	public class LesserPsychosisPotion : PsychosisPotion
 	{
+		public override int restoreAmount => 10;
+
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Restores 10 psychosis");
+			Tooltip.SetDefault("Restores 10 psychosis\nTake damage equal to amount of psychosis restored");
 		}
 
 		public override void SetDefaults()
@@ -26,7 +28,6 @@ namespace EsperClass.Items.Potions
 			item.width = 14;
 			item.height = 24;
 			item.value = Item.buyPrice(0, 0, 1, 0);
-			restoreAmount = 10f;
 		}
 
 		public override void AddRecipes()

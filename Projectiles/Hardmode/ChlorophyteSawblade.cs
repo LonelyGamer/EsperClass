@@ -14,6 +14,13 @@ namespace EsperClass.Projectiles.Hardmode
 		{
 			base.SetDefaults();
 			maxVel = 24f;
+			projectile.width = 26;
+			projectile.height = 26;
+		}
+
+        public override void ModifyDamageHitbox(ref Rectangle hitbox)
+        {
+            hitbox = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, 42, 38);
 		}
 
 		public override void PostAI()

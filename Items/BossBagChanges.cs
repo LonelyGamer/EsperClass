@@ -28,7 +28,7 @@ namespace EsperClass.Items
 					if (Main.rand.Next(2) == 0)
 						player.QuickSpawnItem(mod.ItemType("WaspJar"));
 					if (Main.rand.Next(2) == 0)
-						player.QuickSpawnItem(mod.ItemType("TKThornBall"), Main.rand.Next(80, 120));
+						player.QuickSpawnItem(mod.ItemType("TKThornBall"), Main.rand.Next(120, 201));
 				}
 			}
             if (context == "lockBox")

@@ -12,8 +12,8 @@ namespace EsperClass.Projectiles.Hardmode
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			projectile.width = 46;
-			projectile.height = 46;
+			projectile.width = 30;
+			projectile.height = 30;
 			projectile.penetrate = 20;
 			maxVel = 20f;
 		}

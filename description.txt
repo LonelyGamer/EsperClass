@@ -2,7 +2,7 @@ This mod adds a new class by adding telekinetic weapons with their own damage ty
 
 - New class, the Esper, that deals telekinetic damage.
 - Plenty of new weapons.
-- Two new armor sets.
+- Four new armor sets, plus eight helmet pieces.
 - Some new accessories.
 - Global damage bonuses (specifically the lowest value of the five vanilla damage types above 100%) will add to telekinetic damage. This also applies to telekinetic critical chance.
 
@@ -13,7 +13,6 @@ Vanilla changes...
 Known Issues because I either can code it better or can't due to hardcoding...
 
 - Sawblades can get stuck on slopes.
-- The custom HUD display isn't entirely smooth with centering on the player or zooming in and out.
 - TK weapon collision on tiles can be janky.
 - Shooters (currently the Spitting Sandfish and Super Spitting Sandfish) can be hard to aim when the screen scrolls.
 
@@ -27,11 +26,16 @@ Change Log...
 
 - 0.6: Added several new weapons, a helmet piece, and few accessories to cover the period between post mecha bosses and right after defeating Plantera.
 - Plenty of redone sprites, mostly for weapons.
-- Jar weapons now require shaking in order to release projectiles. Due to the extra effort to use, damage has been increased about 20%. Also added shake effects for the Hellbat Jar and Pixie Jar.
+- Jar weapons now require shaking in order to release projectiles. Also added shake effects for the Hellbat Jar and Pixie Jar.
 - Standardized Esper buff potion durations to now all be 5 minutes long.
 - Psychosis regeneration is now based on max base psychosis, not total psychosis from temporary boosts.
 - Regenerating to full psychosis now has feedback similar to regenerating mana to full.
 - Pixie Jar projectiles no longer can chase in water, based off of the Pixie NPC behavior.
+- Changed the sell prices for many weapons, massively making them cheaper to reforge, although very few cost somewhat more to reforge.
+- Did an overhaul of the UI code. Most of it is under the hood changes, but should make the UI function just a bit better, especially in regards to UI scaling.
+- Fixed Skeleton Bone Lobber being sold pre-hardmode.
+- The combat text from psychosis restoration is now pink instead of green.
+- Using psychosis potions now damages the player equal to the amount of psychosis restored instead of triggering the Side Effects debuff.
 
 - 0.5: Added several new weapons, armor, and accessories to cover early hardmode, up and including the mecha bosses. This includes two full armor sets (one in pre-hardmode) and seven armor pieces.
 - Nerfed damage of Tin Sawblade from 8 to 7.

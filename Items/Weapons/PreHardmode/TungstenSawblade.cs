@@ -22,7 +22,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.useAnimation = 15;
 			item.useStyle = 1;
 			item.knockBack = 3f;
-			item.value = Item.sellPrice(0, 0, 67, 50);
+			item.value = Item.sellPrice(0, 0, 13, 50);
 			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;
 			item.noMelee = true;

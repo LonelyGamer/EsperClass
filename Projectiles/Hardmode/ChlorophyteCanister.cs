@@ -16,8 +16,8 @@ namespace EsperClass.Projectiles.Hardmode
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.width = 16;
-            projectile.height = 30;
+            projectile.width = 30;
+            projectile.height = 34;
             projType = mod.ProjectileType("ChlorophyteCanisterProj");
             pourSpeed = 5f;
         }

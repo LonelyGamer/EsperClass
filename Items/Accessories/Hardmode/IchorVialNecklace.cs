@@ -20,7 +20,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Enchants telekinesis attacks with hemokinesis, enabling a chance to cause 'Ichor' on hit");
+			Tooltip.SetDefault("Enchants telekinetic attacks with hemokinesis, enabling a chance to cause 'Ichor' on hit");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

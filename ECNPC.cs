@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace EsperClass
 {
-	public class NPCChanges : GlobalNPC
+	public class ECNPC : GlobalNPC
 	{
 		public override void NPCLoot(NPC npc)
 		{
@@ -128,7 +128,7 @@ namespace EsperClass
 				if (Main.rand.Next(3) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WaspJar"));
 				if (Main.rand.Next(3) == 0)
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TKThornBall"), Main.rand.Next(80, 120));
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TKThornBall"), Main.rand.Next(120, 201));
 			}
 			/*if (npc.type == NPCID.LunarTowerSolar || npc.type == NPCID.LunarTowerVortex || npc.type == NPCID.LunarTowerNebula || npc.type == NPCID.LunarTowerStardust)
 			{
@@ -146,7 +146,7 @@ namespace EsperClass
 		
 		public override void SetupShop(int type, Chest shop, ref int nextSlot)
 		{
-			if (type == NPCID.SkeletonMerchant)
+			if (type == NPCID.SkeletonMerchant && Main.hardMode)
 			{
 				shop.item[nextSlot].SetDefaults(mod.ItemType("SkeletonBoneLobber"));
 				nextSlot++;
@@ -154,6 +154,11 @@ namespace EsperClass
 			if (type == NPCID.WitchDoctor && NPC.downedPlantBoss)
 			{
 				shop.item[nextSlot].SetDefaults(mod.ItemType("VenomVialNecklace"));
+				nextSlot++;
+			}
+			if (type == NPCID.Wizard)
+			{
+				shop.item[nextSlot].SetDefaults(mod.ItemType("MysticalEyeglass"));
 				nextSlot++;
 			}
 		}

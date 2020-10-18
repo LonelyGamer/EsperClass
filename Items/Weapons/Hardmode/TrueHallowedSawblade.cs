@@ -14,6 +14,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("True Fenrir's Teeth");
+            Tooltip.SetDefault("A smaller sawblade rotates around the main sawblade");
 		}
 
 		public override void SetDefaults()

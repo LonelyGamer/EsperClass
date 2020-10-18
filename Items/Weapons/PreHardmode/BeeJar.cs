@@ -21,14 +21,14 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			//Bee Apiary
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 24;
+			item.damage = 20;
 			item.width = 16;
 			item.height = 28;
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.useStyle = 1;
 			item.knockBack = 1f;
-			item.value = Item.sellPrice(0, 1, 0, 0);
+			item.value = Item.sellPrice(0, 2, 0, 0);
 			item.rare = 3;
 			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;

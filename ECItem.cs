@@ -40,7 +40,7 @@ namespace EsperClass
 
 		public override void GetWeaponKnockback(Player player, ref float knockback)
 		{
-			knockback = knockback;
+			knockback += ECPlayer.ModPlayer(player).tkKnockback;
 		}
 
 		public override void GetWeaponCrit(Player player, ref int crit)
@@ -190,7 +190,7 @@ namespace EsperClass
 		public override void GetWeaponKnockback(Item item, Player player, ref float knockback)
 		{
 			if (DetectPositives(item))
-				knockback = knockback;
+				knockback += ECPlayer.ModPlayer(player).tkKnockback;
 		}
 
 		public override void GetWeaponCrit(Item item, Player player, ref int crit)

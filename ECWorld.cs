@@ -30,14 +30,28 @@ namespace EsperClass
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers)
 				{
 					// Golden Chests
-					if (Main.tile[chest.x, chest.y].frameX == 1 * 36 && Main.rand.Next(3) == 0)
+					if (Main.tile[chest.x, chest.y].frameX == 1 * 36)
 					{
-						for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+						if (Main.rand.Next(5) == 0)
 						{
-							if (chest.item[inventoryIndex].type == 0)
+							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 							{
-								chest.item[inventoryIndex].SetDefaults(mod.ItemType("BatJar"));
-								break;
+								if (chest.item[inventoryIndex].type == 0)
+								{
+									chest.item[inventoryIndex].SetDefaults(mod.ItemType("BatJar"));
+									break;
+								}
+							}
+						}
+						if (Main.rand.Next(10) == 0)
+						{
+							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+							{
+								if (chest.item[inventoryIndex].type == 0)
+								{
+									chest.item[inventoryIndex].SetDefaults(mod.ItemType("EnchantedSawblade"));
+									break;
+								}
 							}
 						}
 					}

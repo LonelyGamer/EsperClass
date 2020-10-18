@@ -9,11 +9,11 @@ namespace EsperClass.Items.Potions
 {
 	public class PsychosisPotion : ECTagItem
 	{
-		public float restoreAmount = 20f;
+		public virtual int restoreAmount => 20;
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Restores 20 psychosis");
+			Tooltip.SetDefault("Restores 20 psychosis\nTake damage equal to amount of psychosis restored");
 		}
 
 		public override void SetDefaults()
@@ -34,7 +34,7 @@ namespace EsperClass.Items.Potions
 		public override bool CanUseItem(Player player)
 		{
 			if (player.FindBuffIndex(mod.BuffType("SideEffects")) > -1
-			|| ECPlayer.ModPlayer(player).PsychosisFull())
+			|| ECPlayer.ModPlayer(player).PsychosisFull() || player.statLife <= (int)restoreAmount)
 			{
 				return false;
 			}
@@ -56,10 +56,15 @@ namespace EsperClass.Items.Potions
 
 			if (Main.myPlayer == player.whoAmI)
 			{
-				player.HealEffect((int)Math.Ceiling((psychosisDiff[1] - psychosisDiff[0])), true);
+				//player.HealEffect((int)Math.Ceiling((psychosisDiff[1] - psychosisDiff[0])), true);
+				CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(255, 105, 180, 255), (int)Math.Ceiling((psychosisDiff[1] - psychosisDiff[0])));
 			}
+			player.statLife -= (int)Math.Ceiling((psychosisDiff[1] - psychosisDiff[0]));
+			player.lifeRegenCount = 0;
+			player.lifeRegenTime = 0;
 
 			return true;
+			//return base.UseItem(player);
 		}
 
 		public override void AddRecipes()

@@ -964,7 +964,6 @@ namespace EsperClass
 		public override void AI()
 		{
 			ExtraAI();
-			int num3;
 			if (dustType >= 0)
 			{
 				for (int i = 0; i < 2; i++)
@@ -1067,7 +1066,7 @@ namespace EsperClass
 		int lastShakeDir = 0;
 		int shakeDur = 0;
 		int shakeReset = 0;
-		int shakeStart = 0; //Don't start the shake count right as the projectile is spawn
+		bool shakeStart = false; //Don't start the shake count right as the projectile is spawn
 		protected int releaseDelay = 30;
 		protected int projType;
 
@@ -1106,8 +1105,7 @@ namespace EsperClass
 			{
 				return;
 			}
-			shakeStart++;
-			if (shakeStart >= 6)
+			if (shakeStart)
 			{
 				if (projectile.velocity.Y >= 4)
 				{
@@ -1129,8 +1127,16 @@ namespace EsperClass
 				{
 					shakeAmount = 0;
 					ready = true;
-					shakeDur = 180;
+					shakeDur = 300;
 				}
+			}
+			else
+			{
+				if (projectile.velocity.Y > 0)
+					lastShakeDir = 1;
+				if (projectile.velocity.Y < 0)
+					lastShakeDir = -1;
+				shakeStart = true;
 			}
 			if (ready)
 			{

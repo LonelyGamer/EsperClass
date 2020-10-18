@@ -16,13 +16,13 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.channel = true;
 			item.maxStack = 1;
 			item.damage = 60;
-			item.width = 22;
-			item.height = 22;
+			item.width = 38;
+			item.height = 34;
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.useStyle = 1;
 			item.knockBack = 4f;
-			item.value = Item.sellPrice(0, 27, 60, 0);
+			item.value = Item.sellPrice(0, 5, 52, 0);
 			item.rare = 7;
 			item.UseSound = SoundID.Item1;
 			item.noUseGraphic = true;

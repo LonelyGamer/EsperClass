@@ -18,6 +18,7 @@ namespace EsperClass
 		public float tkDamage = 1f;
 		public int tkCrit = 0;
 		public float tkVel = 1f;
+		public float tkKnockback = 0f;
 		public bool willfulPotion = false;
 		public bool alertPotion = false;
 		public bool focusedPotion = false;
@@ -25,13 +26,14 @@ namespace EsperClass
 		public int maxPsychosis = 10;
 		public int maxPsychosis2 = 0;
 		public float psychosisRec = 1f;
-		public bool psychosisBlock = false;
-		public int psychosisDelay = 0;
+		public bool psychosisBlock = false; //Blocks psychosis regen
+		public int psychosisDelay = 0; //Used to delay when psychosis regeneration can begin
 		public int psychosisDelay2 = 0; //Used to force display the psychosis bar when full
 		public float tkDodge = 0f;
-		public bool overPsychosis = false;
+		public bool overPsychosis = false; //The state for when health is lost while using TK weapons
 		public bool psychicEyeMagnet = false;
-		public bool psychosisWarning = false;
+		public bool psychosisWarning = false; //Plays a warning sound when psychosis falls below 0, but before the related debuff happens
+		public bool tkZoom = false;
 
 		public bool fireVial = false;
 		public bool frostburnVial = false;
@@ -80,6 +82,7 @@ namespace EsperClass
 			tkDamage = 1f;
 			tkCrit = 0;
 			tkVel = 1f;
+			tkKnockback = 0f;
 			willfulPotion = false;
 			alertPotion = false;
 			focusedPotion = false;
@@ -98,6 +101,7 @@ namespace EsperClass
 			//overPsychosis = false;
 			psychicEyeMagnet = false;
 			cambrianSetBonus = false;
+			tkZoom = false;
 
 			accMaxPsychosis1 = false;
 			accPsychosisRec1 = false;
@@ -138,6 +142,15 @@ namespace EsperClass
 		{
 			psychosis = tag.GetFloat("psychosis");
 			maxPsychosis = tag.GetInt("maxPsychosis");
+		}
+		
+		public override void ModifyZoom(ref float zoom2)
+		{
+			if (tkZoom && Main.LocalPlayer.HeldItem.modItem is ECItem
+			&& (/*(PlayerInput.UsingGamepad && PlayerInput.GamepadThumbstickRight.Length() != 0f) ||*/ Main.mouseRight))
+			{
+				zoom2 = 0.8f;
+			}
 		}
 
 		public override void PostUpdateMiscEffects()
@@ -206,7 +219,7 @@ namespace EsperClass
 						damageSource = PlayerDeathReason.ByCustomReason(player.name + " was consumed by visions.");
 						break;
 					case 3:
-						damageSource = PlayerDeathReason.ByCustomReason(player.name + "s' head inexplicably exploded.");
+						damageSource = PlayerDeathReason.ByCustomReason(player.name + "'s head inexplicably exploded.");
 						break;
 					case 4:
 						damageSource = PlayerDeathReason.ByCustomReason(player.name + " has seen too much.");
@@ -389,11 +402,12 @@ namespace EsperClass
 				{
 					psychosisDelay2 = 60;
 				}
-				psychosis = Math.Min(TotalPsychosis(), psychosis += amount);
+				psychosis = Math.Min(TotalPsychosis(), psychosis + amount);
 			}
 			if (Main.myPlayer == player.whoAmI && showNum)
 			{
-				player.HealEffect(numDisplay, true);
+				//player.HealEffect(numDisplay, true);
+				CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), new Color(255, 105, 180, 255), numDisplay);
 			}
 			if (psychosis >= 0f && psychosisWarning)
 				psychosisWarning = false;

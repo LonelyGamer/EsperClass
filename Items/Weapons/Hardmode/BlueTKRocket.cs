@@ -10,6 +10,14 @@ namespace EsperClass.Items.Weapons.Hardmode
 {
     public class BlueTKRocket : RedTKRocket
     {
+		public override string Texture
+		{
+			get
+			{
+				return "Terraria/Projectile_169";
+			}
+		}
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Blue TK Rocket");

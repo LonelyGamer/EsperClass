@@ -14,13 +14,14 @@ namespace EsperClass.Items.Weapons.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("True Night's Shred");
+            Tooltip.SetDefault("Causes shorter target immune frames on hit");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 66;
+			item.damage = 72;
 			item.width = 34;
 			item.height = 34;
 			item.useTime = 15;

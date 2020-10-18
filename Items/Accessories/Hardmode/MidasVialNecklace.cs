@@ -20,7 +20,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Enchants telekinesis attacks with aurokinesis, enabling a chance to cause 'Midas' on hit");
+			Tooltip.SetDefault("Enchants telekinetic attacks with aurokinesis, enabling a chance to cause 'Midas' on hit");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

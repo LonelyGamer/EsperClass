@@ -20,7 +20,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Enchants telekinesis attacks with venokinesis, enabling a chance to cause 'Venom' on hit");
+			Tooltip.SetDefault("Enchants telekinetic attacks with venokinesis, enabling a chance to cause 'Venom' on hit");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

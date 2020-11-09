@@ -12,10 +12,10 @@ namespace EsperClass.Projectiles.PreHardmode
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			twirlerDust = 156;
-			dustR *= 0.75f;
-			dustG *= 1.3499999f;
-			dustB *= 1.5f;
+			twirlerDust = 6;
+			dustR = 1f;
+			dustG = 0.95f;
+			dustB = 0.8f;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

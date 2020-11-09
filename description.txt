@@ -1,4 +1,4 @@
-This mod adds a new class by adding telekinetic weapons with their own damage type and resource, psychosis. New weapons, armors, accessories, and three buff potions are added. Current version is supported up to the end of pre-hardmode with custom items. Since this is an alpha, much is subjected to change and there are some known issues. This mod is open source. In general this mod covers...
+This mod adds a new class by adding telekinetic weapons with their own damage type and resource, psychosis. New weapons, armors, accessories, and three buff potions are added. Current version is supported up to right after defeating Plantera, inclunding drops from it. Since this is an alpha, much is subjected to change and there are some known issues. This mod is open source. In general this mod covers...
 
 - New class, the Esper, that deals telekinetic damage.
 - Plenty of new weapons.
@@ -8,7 +8,7 @@ This mod adds a new class by adding telekinetic weapons with their own damage ty
 
 Vanilla changes...
 
-- The flying knife is now a telekinetic damage weapon.
+- The Flying Knife is now a telekinetic damage weapon.
 
 Known Issues because I either can code it better or can't due to hardcoding...
 
@@ -23,6 +23,11 @@ Future Plans...
 - Better balancing.
 
 Change Log...
+
+- 0.6.1: Switching away from the current TK weapon while using it now cancels its projectile in use. This should fix free psychosis usage if switching to a non-TK weapon and unintentional psychosis usage if no TK projectile is in use
+- Having Expanded Sentries loaded aside this mod without imkSushi's Mod also loaded should no longer cause an error stopping this mod and Expanded Sentries from loading together.
+- Fixed Torch Twirler having the wrong dust and light.
+- Multiplayer issues with psychosis should be fixed.
 
 - 0.6: Added several new weapons, a helmet piece, and few accessories to cover the period between post mecha bosses and right after defeating Plantera.
 - Plenty of redone sprites, mostly for weapons.

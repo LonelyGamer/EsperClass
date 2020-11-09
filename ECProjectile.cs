@@ -19,6 +19,7 @@ namespace EsperClass
 		protected bool held = true;
 		protected bool canReturn = true;
 		protected int controlDelay = 0;
+		bool created = false;
 
 		//Adapted from The Example Mod's Magic Missile code. Much neater and cleaner than the vanilla aiStyle 9 code
 		/*public override void AI()
@@ -147,6 +148,11 @@ namespace EsperClass
 		//Adopted from AiStyle 9
 		public override void AI()
 		{
+			if (!created)
+			{
+				Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkInUse = Main.player[projectile.owner].HeldItem.type;
+				created = true;
+			}
 			ExtraAI();
 			if (rateScale == 0)
 				rateScale = projectile.velocity.Length();
@@ -157,7 +163,7 @@ namespace EsperClass
 				{
 					controlDelay--;
 				}
-				if (Main.player[projectile.owner].channel)
+				if (Main.player[projectile.owner].channel && Main.player[projectile.owner].HeldItem.type == Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkInUse)
 				{
 					held = true;
 					projectile.timeLeft++;
@@ -281,6 +287,11 @@ namespace EsperClass
 					projectile.velocity.Y = maxVel * extraSpeed;
 					return;
 				}
+			}
+			else if (Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkInUse > 0 && Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkInUse != Main.player[projectile.owner].HeldItem.type)
+			{
+				Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkInUse = Main.player[projectile.owner].HeldItem.type;
+				Main.player[projectile.owner].channel = false;
 			}
 		}
 

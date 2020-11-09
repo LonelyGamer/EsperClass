@@ -92,23 +92,24 @@ namespace EsperClass.Items.Weapons.Hardmode.NonTK
 				recipe.AddTile(TileID.TinkerersWorkbench);
 				recipe.SetResult(ItemID.IlluminantHook);
 				recipe.AddRecipe();
-			}
-			Mod expandedSentries = ModLoader.GetMod("ExpandedSentries");
-			if (expandedSentries != null)
-			{
-				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddIngredient(expandedSentries, "HallowedMimicTrap");
-				recipe.AddIngredient(otherMod, "SwapToken");
-				recipe.AddTile(TileID.TinkerersWorkbench);
-				recipe.SetResult(this);
-				recipe.AddRecipe();
 
-				recipe = new ModRecipe(mod);
-				recipe.AddIngredient(this);
-				recipe.AddIngredient(otherMod, "SwapToken");
-				recipe.AddTile(TileID.TinkerersWorkbench);
-				recipe.SetResult(expandedSentries, "HallowedMimicTrap");
-				recipe.AddRecipe();
+				Mod expandedSentries = ModLoader.GetMod("ExpandedSentries");
+				if (expandedSentries != null)
+				{
+					recipe = new ModRecipe(mod);
+					recipe.AddIngredient(expandedSentries, "HallowedMimicTrap");
+					recipe.AddIngredient(otherMod, "SwapToken");
+					recipe.AddTile(TileID.TinkerersWorkbench);
+					recipe.SetResult(this);
+					recipe.AddRecipe();
+
+					recipe = new ModRecipe(mod);
+					recipe.AddIngredient(this);
+					recipe.AddIngredient(otherMod, "SwapToken");
+					recipe.AddTile(TileID.TinkerersWorkbench);
+					recipe.SetResult(expandedSentries, "HallowedMimicTrap");
+					recipe.AddRecipe();
+				}
 			}
 		}
 	}

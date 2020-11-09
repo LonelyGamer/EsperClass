@@ -137,7 +137,7 @@ namespace EsperClass
 		public override void HoldItem(Player player)
 		{
 			ECPlayer.ModPlayer(player).overPsychosis = false;
-			if (player.channel)
+			if (player.channel && player.ownedProjectileCounts[item.shoot] > 0)
 			{
 				float amount = 1f;
 				if (!onlyOne)

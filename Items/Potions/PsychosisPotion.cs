@@ -33,8 +33,7 @@ namespace EsperClass.Items.Potions
 
 		public override bool CanUseItem(Player player)
 		{
-			if (player.FindBuffIndex(mod.BuffType("SideEffects")) > -1
-			|| ECPlayer.ModPlayer(player).PsychosisFull() || player.statLife <= (int)restoreAmount)
+			if (ECPlayer.ModPlayer(player).PsychosisFull() || player.statLife <= (int)restoreAmount)
 			{
 				return false;
 			}
@@ -45,7 +44,6 @@ namespace EsperClass.Items.Potions
 		{
 			ECPlayer modPlayer = player.GetModPlayer<ECPlayer>();
 
-			player.AddBuff(mod.BuffType("SideEffects"), 300);
 			float[] psychosisDiff = {modPlayer.psychosis, 0};
 			if (modPlayer.psychosis < 0f)
 			{

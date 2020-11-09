@@ -1,3 +1,4 @@
+using EsperClass;
 using EsperClass.Items;
 using EsperClass.Projectiles;
 using EsperClass.Buffs;
@@ -7,10 +8,13 @@ using Microsoft.Xna.Framework;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
+using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass
 {
@@ -28,10 +32,6 @@ namespace EsperClass
 
 		public EsperClass()
 		{
-			Properties = new ModProperties()
-			{
-				Autoload = true
-			};
 		}
 
 		public override void AddRecipeGroups()
@@ -81,6 +81,45 @@ namespace EsperClass
 					},
 					InterfaceScaleType.UI)
 				);
+			}
+		}
+
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
+			EsperClassMessageType msgType = (EsperClassMessageType)reader.ReadByte();
+			switch (msgType)
+			{
+				case EsperClassMessageType.ECPlayerSyncPlayer:
+				{
+					byte playernumber = reader.ReadByte();
+					ECPlayer ecplayer = Main.player[playernumber].GetModPlayer<ECPlayer>();
+					float psychosis = reader.ReadSingle();
+					ecplayer.psychosis = psychosis;
+					/*int psychosisDelay = reader.ReadInt32();
+					ecplayer.psychosisDelay = psychosisDelay;
+					int psychosisDelay2 = reader.ReadInt32();
+					ecplayer.psychosisDelay2 = psychosisDelay2;
+					int maxPsychosis = reader.ReadInt32();
+					ecplayer.maxPsychosis = maxPsychosis;
+					bool psychosisWarning = reader.ReadInt32();
+					ecplayer.psychosisWarning = psychosisWarning;
+					ecplayer.nonStopParty = reader.ReadBoolean();*/
+					// SyncPlayer will be called automatically, so there is no need to forward this data to other clients.
+					break;
+				}
+				case EsperClassMessageType.psychosis:
+				{
+					byte playernumber = reader.ReadByte();
+					ECPlayer ecPlayer = Main.player[playernumber].GetModPlayer<ECPlayer>();
+					float psychosis = reader.ReadSingle();
+					ecPlayer.psychosis = psychosis;
+					break;
+				}
+				default:
+				{
+					Logger.WarnFormat("EsperClass: Unknown Message type: {0}", msgType);
+					break;
+				}
 			}
 		}
 
@@ -146,5 +185,11 @@ namespace EsperClass
 			}
 			return "Failure";
 		}
+	}
+
+	internal enum EsperClassMessageType : byte
+	{
+		ECPlayerSyncPlayer,
+		psychosis
 	}
 }

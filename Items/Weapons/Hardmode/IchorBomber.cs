@@ -112,23 +112,23 @@ namespace EsperClass.Items.Weapons.Hardmode
 				recipe.AddTile(TileID.TinkerersWorkbench);
 				recipe.SetResult(ItemID.TendonHook);
 				recipe.AddRecipe();
-			}
-			Mod expandedSentries = ModLoader.GetMod("ExpandedSentries");
-			if (expandedSentries != null)
-			{
-				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddIngredient(expandedSentries, "CrimsonMimicTrap");
-				recipe.AddIngredient(otherMod, "SwapToken");
-				recipe.AddTile(TileID.TinkerersWorkbench);
-				recipe.SetResult(this);
-				recipe.AddRecipe();
+				Mod expandedSentries = ModLoader.GetMod("ExpandedSentries");
+				if (expandedSentries != null)
+				{
+					recipe = new ModRecipe(mod);
+					recipe.AddIngredient(expandedSentries, "CrimsonMimicTrap");
+					recipe.AddIngredient(otherMod, "SwapToken");
+					recipe.AddTile(TileID.TinkerersWorkbench);
+					recipe.SetResult(this);
+					recipe.AddRecipe();
 
-				recipe = new ModRecipe(mod);
-				recipe.AddIngredient(this);
-				recipe.AddIngredient(otherMod, "SwapToken");
-				recipe.AddTile(TileID.TinkerersWorkbench);
-				recipe.SetResult(expandedSentries, "CrimsonMimicTrap");
-				recipe.AddRecipe();
+					recipe = new ModRecipe(mod);
+					recipe.AddIngredient(this);
+					recipe.AddIngredient(otherMod, "SwapToken");
+					recipe.AddTile(TileID.TinkerersWorkbench);
+					recipe.SetResult(expandedSentries, "CrimsonMimicTrap");
+					recipe.AddRecipe();
+				}
 			}
 		}
 	}

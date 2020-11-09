@@ -1,15 +1,19 @@
+using EsperClass;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Events;
+using Terraria.GameInput;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass
 {
@@ -34,6 +38,7 @@ namespace EsperClass
 		public bool psychicEyeMagnet = false;
 		public bool psychosisWarning = false; //Plays a warning sound when psychosis falls below 0, but before the related debuff happens
 		public bool tkZoom = false;
+		public int tkInUse = 0; //Check what item the player used, mainly to make a TK projectile return if the player switches items in use
 
 		public bool fireVial = false;
 		public bool frostburnVial = false;
@@ -75,6 +80,10 @@ namespace EsperClass
 		public override void UpdateDead()
 		{
 			ResetEsperVariables();
+			psychosis = TotalPsychosis();
+			psychosisDelay = 0;
+			psychosisDelay2 = 0;
+			psychosisWarning = false;
 		}
 
 		private void ResetEsperVariables()
@@ -123,14 +132,65 @@ namespace EsperClass
 		public override void clientClone(ModPlayer clientClone)
 		{
 			ECPlayer clone = clientClone as ECPlayer;
+			clone.psychosis = psychosis;
+			clone.psychosisDelay = psychosisDelay;
+			clone.psychosisDelay2 = psychosisDelay2;
+			clone.maxPsychosis = maxPsychosis;
+			clone.psychosisWarning = psychosisWarning;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			ModPacket packet = mod.GetPacket();
+			packet.Write((byte)EsperClassMessageType.ECPlayerSyncPlayer);
 			packet.Write((byte)player.whoAmI);
-			//packet.Write(exampleLifeFruits);
+			packet.Write(psychosis);
+			//packet.Write(psychosisDelay);
+			//packet.Write(psychosisDelay2);
+			//packet.Write(maxPsychosis);
+			//packet.Write(psychosisWarning);
 			packet.Send(toWho, fromWho);
+		}
+
+		public override void SendClientChanges(ModPlayer clientPlayer)
+		{
+			ECPlayer clone = clientPlayer as ECPlayer;
+			if (clone.psychosis != psychosis)
+			{
+				var packet = mod.GetPacket();
+				packet.Write((byte)EsperClassMessageType.psychosis);
+				packet.Write((byte)player.whoAmI);
+				packet.Write(psychosis);
+				packet.Send();
+			}
+			/*if (clone.maxPsychosis != maxPsychosis)
+			{
+				var packet = mod.GetPacket();
+				packet.Write((byte)player.whoAmI);
+				packet.Write(maxPsychosis);
+				packet.Send();
+			}
+			if (clone.psychosisDelay != psychosisDelay)
+			{
+				var packet = mod.GetPacket();
+				packet.Write((byte)player.whoAmI);
+				packet.Write(psychosisDelay);
+				packet.Send();
+			}
+			if (clone.psychosisDelay2 != psychosisDelay2)
+			{
+				var packet = mod.GetPacket();
+				packet.Write((byte)player.whoAmI);
+				packet.Write(psychosisDelay2);
+				packet.Send();
+			}
+			if (clone.psychosisWarning != psychosisWarning)
+			{
+				var packet = mod.GetPacket();
+				packet.Write((byte)player.whoAmI);
+				packet.Write(psychosisWarning);
+				packet.Send();
+			}*/
 		}
 
 		public override TagCompound Save()
@@ -297,6 +357,14 @@ namespace EsperClass
 			if (psychosis > TotalPsychosis())
 			{
 				psychosis = TotalPsychosis();
+			}
+			//A temp failsafe
+			if (psychosis < -10)
+			{
+				psychosis = TotalPsychosis();
+				psychosisDelay = 0;
+				psychosisDelay2 = 0;
+				psychosisWarning = false;
 			}
 			if (!psychosisBlock)
 			{

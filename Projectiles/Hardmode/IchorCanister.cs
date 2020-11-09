@@ -12,8 +12,8 @@ namespace EsperClass.Projectiles.Hardmode
 		public override void SetDefaults()
 		{
             base.SetDefaults();
-			projectile.width = 16;
-			projectile.height = 28;
+			projectile.width = 18;
+			projectile.height = 40;
 			releaseRate = 12;
 			projType = mod.ProjectileType("IchorCanisterProj");
 			pourSpeed = 8f;

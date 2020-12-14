@@ -1026,6 +1026,12 @@ namespace EsperClass
 			}
 		}
 
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		{
+			fallThrough = held;
+			return true;
+		}
+
 		public override void ExtraAI()
 		{
 			if (!held)

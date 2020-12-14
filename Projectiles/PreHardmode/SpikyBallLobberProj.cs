@@ -22,5 +22,11 @@ namespace EsperClass.Projectiles.PreHardmode
 			if (projectile.velocity.Y < -2)
 				projectile.velocity.Y = -2;
 		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		{
+			fallThrough = false;
+			return true;
+		}
 	}
 }

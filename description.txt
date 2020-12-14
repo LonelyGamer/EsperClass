@@ -24,7 +24,9 @@ Future Plans...
 
 Change Log...
 
-- 0.6.1: Switching away from the current TK weapon while using it now cancels its projectile in use. This should fix free psychosis usage if switching to a non-TK weapon and unintentional psychosis usage if no TK projectile is in use
+- 0.7: Boulders (when held) and Lobber projectiles no longer go through platforms.
+
+- 0.6.1: Switching away from the current TK weapon while using it now cancels its projectile in use. This should fix free psychosis usage if switching to a non-TK weapon and unintentional psychosis usage if no TK projectile is in use.
 - Having Expanded Sentries loaded aside this mod without imkSushi's Mod also loaded should no longer cause an error stopping this mod and Expanded Sentries from loading together.
 - Fixed Torch Twirler having the wrong dust and light.
 - Multiplayer issues with psychosis should be fixed.

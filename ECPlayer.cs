@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Events;
@@ -66,6 +67,8 @@ namespace EsperClass
 		public bool accTkDodge5 = false;
 		
 		public bool cambrianSetBonus = false;
+
+		public Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
 
 		public static ECPlayer ModPlayer(Player player)
 		{
@@ -327,20 +330,21 @@ namespace EsperClass
 		//A way to make global damage and critical increases work
 		public override void PostUpdate()
 		{
-			float addedDamage = 1000f;
-			if (addedDamage > Main.player[player.whoAmI].meleeDamage)
-				addedDamage = Main.player[player.whoAmI].meleeDamage;
-			if (addedDamage > Main.player[player.whoAmI].rangedDamage)
-				addedDamage = Main.player[player.whoAmI].rangedDamage;
-			if (addedDamage > Main.player[player.whoAmI].thrownDamage)
-				addedDamage = Main.player[player.whoAmI].thrownDamage;
-			if (addedDamage > Main.player[player.whoAmI].magicDamage)
-				addedDamage = Main.player[player.whoAmI].magicDamage;
-			if (addedDamage > Main.player[player.whoAmI].minionDamage)
-				addedDamage = Main.player[player.whoAmI].minionDamage;
-			if (addedDamage < 1f)
-				addedDamage = 1f;
-			tkDamage += (addedDamage - 1f);
+			//The following crit code provided by Verveine (Orchid Mod)
+			int customCrit = 0;
+
+			if (thoriumMod != null)
+			{
+				ModPlayer thoriumPlayer = player.GetModPlayer(this.thoriumMod, "ThoriumPlayer");
+				FieldInfo field = thoriumPlayer.GetType().GetField("allCrit", BindingFlags.Public | BindingFlags.Instance);
+				if (field != null)
+				{
+					int thoriumCrit = (int)field.GetValue(thoriumPlayer);
+					customCrit += thoriumCrit;
+				}
+			}
+
+			tkCrit += customCrit;
 
 			int addedCrit = 1000;
 			if (addedCrit > Main.player[player.whoAmI].meleeCrit)

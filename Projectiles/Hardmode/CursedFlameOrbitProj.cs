@@ -53,14 +53,13 @@ namespace EsperClass.Projectiles.Hardmode
 		{
 			if (projectile.velocity.X != 0)
 				hitDirection = Math.Sign(projectile.velocity.X);
+			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			if (Main.rand.Next(4) == 0)
-			{
 				target.AddBuff(BuffID.CursedInferno, 180, false);
-			}
 			base.OnHitNPC(target, damage, knockback, crit);
 		}
 	}

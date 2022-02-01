@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Spawns eyes that will hunt down enemies\nRequires shaking up and down to function");
+			Tooltip.SetDefault("Spawns eyes that will hunt down enemies\nRequires shaking up and down to function\nWill last for 5 seconds before needing more shaking");
 		}
 
 		public override void SetDefaults()
@@ -29,7 +29,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.knockBack = 1f;
 			item.value = Item.sellPrice(0, 0, 75, 0);
 			item.rare = 2;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 12f;

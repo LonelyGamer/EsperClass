@@ -35,8 +35,8 @@ namespace EsperClass.Items.Armor.PreHardmode
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "30% faster psychosis recovery\nImmunity to 'Mighty Wind'";
-			ECPlayer.ModPlayer(player).psychosisRec += 0.3f;
+			player.setBonus = "25% less life drained while using Esper weapons in Over Psychosis state\nImmunity to 'Mighty Wind'";
+			ECPlayer.ModPlayer(player).desertWandererSetBonus = true;
 			player.buffImmune[BuffID.WindPushed] = true;
 		}
 

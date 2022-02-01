@@ -19,23 +19,28 @@ namespace EsperClass.Items.Weapons.PreHardmode
 		public override void SetDefaults()
 		{
 			item.channel = true;
-			item.maxStack = 999;
-			item.consumable = true;
-			item.damage = 40;
+			item.maxStack = 1;
+			item.damage = 60;
 			item.width = 26;
 			item.height = 26;
 			item.useTime = 60;
 			item.useAnimation = 60;
 			item.useStyle = 1;
 			item.knockBack = 5f;
-			item.value = Item.sellPrice(0, 0, 2, 0);
+			item.value = Item.buyPrice(0, 5, 0, 0);
 			item.rare = 2;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("BowlingBall");
 			onlyOne = false;
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			if (item.stack > 1)
+				item.stack = 1;
 		}
 	}
 }

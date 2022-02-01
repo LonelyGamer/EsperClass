@@ -13,14 +13,14 @@ namespace EsperClass.Items.Weapons.Hardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("TK Prime Saw");
+			DisplayName.SetDefault("Psi Prime Saw");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 48;
+			item.damage = 60;
 			item.width = 14;
 			item.height = 40;
 			item.useTime = 15;
@@ -29,7 +29,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.knockBack = 3f;
 			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.rare = 5;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;

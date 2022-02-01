@@ -14,7 +14,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gooey Canister");
-			Tooltip.SetDefault("Rapidly pours down damaging liquid");
+			Tooltip.SetDefault("Rapidly pours down damaging liquid\nDoes more damage (up to a limit) the further it falls");
 		}
 
 		public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.knockBack = 0;
 			item.value = Item.sellPrice(0, 1, 75, 0);
 			item.rare = 2;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;

@@ -92,6 +92,33 @@ namespace EsperClass.UI
 			Vector2 maxTextSize = font.MeasureString(psychosisText);
 			Color textColor = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor);
 			Main.spriteBatch.DrawString(font, psychosisText, new Vector2(value.X + maxTextSize.X / 2f, value.Y + 20f), textColor, 0f, new Vector2(font.MeasureString(psychosisText).X, 0f), 1f, SpriteEffects.None, 0f);
+			if (ECPlayer.ModPlayer(player).lihzahrdSetBonus)
+			{
+				float precent2 = modPlayer.lihzahrdPower / 30f;
+				if (precent2 <= 0f)
+					frameY = 0;
+				else if (precent2 <= 0.1f)
+					frameY = 18;
+				else if (precent2 <= 0.2f)
+					frameY = 36;
+				else if (precent2 <= 0.3f)
+					frameY = 54;
+				else if (precent2 <= 0.4f)
+					frameY = 72;
+				else if (precent2 <= 0.5f)
+					frameY = 90;
+				else if (precent2 <= 0.6f)
+					frameY = 108;
+				else if (precent2 <= 0.7f)
+					frameY = 126;
+				else if (precent2 <= 0.8f)
+					frameY = 144;
+				else if (precent2 <= 0.9f)
+					frameY = 162;
+				else if (precent2 <= 1f)
+					frameY = 180;
+				Main.spriteBatch.Draw(GetTexture("EsperClass/UI/PsychosisMeterExtra"), new Vector2(value.X - 40, value.Y), new Rectangle(0, frameY, 74, 18), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			}
 			//spriteBatch.Draw(bubbleTexture, value + new Vector2((float)(26 * (j - 1) + num20) - 125f, 32f + ((float)bubbleTexture.Height - (float)bubbleTexture.Height * num23) / 2f + (float)num19), new Rectangle(0, 0, bubbleTexture.Width, bubbleTexture.Height), new Color(num22, num22, num22, num22), 0f, default(Vector2), num23, SpriteEffects.None, 0f);
 		}
 

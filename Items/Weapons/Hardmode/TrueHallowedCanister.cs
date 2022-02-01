@@ -19,22 +19,18 @@ namespace EsperClass.Items.Weapons.Hardmode
 
         public override void SetDefaults()
         {
-			item.channel = true;
 			item.maxStack = 1;
 			item.damage = 66;
 			item.width = 12;
 			item.height = 26;
 			item.useTime = 15;
 			item.useAnimation = 15;
-			item.useStyle = 1;
 			item.knockBack = 0;
 			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.rare = 8;
-			item.UseSound = SoundID.Item1;
-			item.noUseGraphic = true;
-			item.noMelee = true;
 			item.shootSpeed = 16f;
 			item.shoot = mod.ProjectileType("TrueHallowedCanister");
+			base.SetDefaults();
 		}
 
 		public override void AddRecipes()

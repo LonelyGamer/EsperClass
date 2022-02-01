@@ -11,7 +11,7 @@ namespace EsperClass.Items.Potions
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Increases telekinetic critical by 12%");
+			Tooltip.SetDefault("Increases telekinetic critical chance by 12%");
 		}
 
 		public override void SetDefaults()

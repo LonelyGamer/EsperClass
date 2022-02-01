@@ -14,7 +14,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ichor Canister");
-			Tooltip.SetDefault("Spill the god's blood...\nSpills damaging ichor liquid.");
+			Tooltip.SetDefault("Spill the god's blood...\nSpills damaging ichor liquid\nDoes more damage (up to a limit) the further it falls");
 		}
 
 		public override void SetDefaults()
@@ -22,15 +22,15 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.channel = true;
 			item.maxStack = 1;
 			item.damage = 36;
-			item.width = 14;
-			item.height = 36;
+			item.width = 22;
+			item.height = 32;
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.useStyle = 1;
 			item.knockBack = 0;
 			item.value = Item.sellPrice(0, 1, 30, 0);
 			item.rare = 4;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;

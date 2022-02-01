@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("TK Prime Laser");
+			DisplayName.SetDefault("Psi Prime Laser");
 		}
 
 		public override void SetDefaults()
@@ -29,7 +29,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.knockBack = 2f;
 			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.rare = 5;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;

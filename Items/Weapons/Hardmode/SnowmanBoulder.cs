@@ -14,23 +14,28 @@ namespace EsperClass.Items.Weapons.Hardmode
 		public override void SetDefaults()
 		{
 			item.channel = true;
-			item.maxStack = 999;
-			item.consumable = true;
+			item.maxStack = 1;
 			item.damage = 120;
-			item.width = 38;
-			item.height = 30;
+			item.width = 28;
+			item.height = 28;
 			item.useTime = 60;
 			item.useAnimation = 60;
 			item.useStyle = 1;
 			item.knockBack = 6f;
-			item.value = Item.sellPrice(0, 0, 10, 0);
+			item.value = Item.sellPrice(0, 4, 50, 0);
 			item.rare = 5;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("SnowmanBoulder");
 			onlyOne = false;
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			if (item.stack > 1)
+				item.stack = 1;
 		}
 	}
 }

@@ -20,7 +20,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Enchants telekinetic attacks with chlorokinesis, enabling a chance to cause 'Cursed Flames' on hit");
+			Tooltip.SetDefault("Enchants telekinetic attacks with chlorokinesis, enabling a chance to cause 'Cursed Inferno' on hit");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

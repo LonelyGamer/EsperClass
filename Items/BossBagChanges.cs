@@ -28,8 +28,12 @@ namespace EsperClass.Items
 					if (Main.rand.Next(2) == 0)
 						player.QuickSpawnItem(mod.ItemType("WaspJar"));
 					if (Main.rand.Next(2) == 0)
-						player.QuickSpawnItem(mod.ItemType("TKThornBall"), Main.rand.Next(120, 201));
+						player.QuickSpawnItem(mod.ItemType("TKThornBall"));
 				}
+				if (arg == 3329 && Main.rand.Next(2) == 0) //Golem
+					player.QuickSpawnItem(mod.ItemType("GolemHeadRift"));
+				if (arg == 3332 && Main.rand.Next(3) == 0) //Moon Lord
+					player.QuickSpawnItem(mod.ItemType("EldritchEyeJar"));
 			}
             if (context == "lockBox")
             {

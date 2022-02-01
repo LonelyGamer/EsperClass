@@ -33,6 +33,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 			ECPlayer.ModPlayer(player).ichorVial = true;
 			ECPlayer.ModPlayer(player).shadowflameVial = true;
 			ECPlayer.ModPlayer(player).venomVial = true;
+			ECPlayer.ModPlayer(player).terraVial = true;
 		}
 
 		public override void AddRecipes()

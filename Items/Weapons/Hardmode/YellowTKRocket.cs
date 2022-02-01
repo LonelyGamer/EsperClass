@@ -20,7 +20,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Yellow TK Rocket");
+            DisplayName.SetDefault("Yellow Psy Rocket");
         }
         
         public override void SetDefaults()
@@ -32,7 +32,7 @@ namespace EsperClass.Items.Weapons.Hardmode
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.YellowRocket, 1);
+            recipe.AddIngredient(ItemID.YellowRocket, 20);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -29,7 +29,7 @@ namespace EsperClass.Items.Weapons.Hardmode.CrossMod
 			item.knockBack = 3f;
 			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.rare = 4;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 24f;

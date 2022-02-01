@@ -13,14 +13,13 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("TK Meteor");
+			DisplayName.SetDefault("Psi Meteor");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
-			item.maxStack = 999;
-			item.consumable = true;
+			item.maxStack = 1;
 			item.damage = 60;
 			item.width = 26;
 			item.height = 26;
@@ -28,9 +27,9 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.useAnimation = 60;
 			item.useStyle = 1;
 			item.knockBack = 5f;
-			item.value = Item.sellPrice(0, 0, 0, 20);
+			item.value = Item.sellPrice(0, 0, 40, 0);
 			item.rare = 1;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 10f;
@@ -38,12 +37,18 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			onlyOne = false;
 		}
 
+		public override void UpdateInventory(Player player)
+		{
+			if (item.stack > 1)
+				item.stack = 1;
+		}
+
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.MeteoriteBar, 1);
+			recipe.AddIngredient(ItemID.MeteoriteBar, 20);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this, 5);
+			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
 	}

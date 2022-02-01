@@ -13,14 +13,13 @@ namespace EsperClass.Items.Weapons.Hardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("TK Cannonball");
+			DisplayName.SetDefault("Psi Cannonball");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
-			item.maxStack = 999;
-			item.consumable = true;
+			item.maxStack = 1;
 			item.damage = 200;
 			item.width = 26;
 			item.height = 26;
@@ -28,14 +27,20 @@ namespace EsperClass.Items.Weapons.Hardmode
 			item.useAnimation = 60;
 			item.useStyle = 1;
 			item.knockBack = 5f;
-			item.value = Item.sellPrice(0, 0, 1, 0);
+			item.value = Item.sellPrice(0, 3, 60, 0);
 			item.rare = 4;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("TKCannonball");
 			onlyOne = false;
+		}
+
+		public override void UpdateInventory(Player player)
+		{
+			if (item.stack > 1)
+				item.stack = 1;
 		}
 	}
 }

@@ -13,14 +13,13 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("TK Boulder");
+			DisplayName.SetDefault("Psi Boulder");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
-			item.maxStack = 999;
-			item.consumable = true;
+			item.maxStack = 1;
 			item.damage = 40;
 			item.width = 26;
 			item.height = 26;
@@ -28,7 +27,9 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.useAnimation = 60;
 			item.useStyle = 1;
 			item.knockBack = 5f;
-			item.UseSound = SoundID.Item1;
+			item.value = Item.sellPrice(0, 0, 27, 0);
+			item.rare = 1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 10f;
@@ -36,16 +37,22 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			onlyOne = false;
 		}
 
+		public override void UpdateInventory(Player player)
+		{
+			if (item.stack > 1)
+				item.stack = 1;
+		}
+
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.StoneBlock, 6);
+			recipe.AddIngredient(ItemID.StoneBlock, 60);
 			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.Boulder);
+			recipe.AddIngredient(ItemID.Boulder, 10);
 			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

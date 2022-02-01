@@ -30,7 +30,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.knockBack = 0;
 			item.value = Item.sellPrice(0, 0, 54, 0);
 			item.rare = 3;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;

@@ -2,6 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass
 {
@@ -69,20 +70,21 @@ namespace EsperClass
 			}
 			if (npc.type == NPCID.MisterStabby || npc.type == NPCID.SnowmanGangsta || npc.type == NPCID.SnowBalla)
 			{
-				int chance = 6;
+				int chance = 100;
 				if (Main.expertMode)
-					chance = 3;
+					chance = 50;
 				if (Main.rand.Next(chance) == 0)
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SnowmanBoulder"), Main.rand.Next(5, 8));
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SnowmanBoulder"));
 			}
 			if (npc.type == NPCID.PirateShip)
 			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TKCannonball"), Main.rand.Next(30, 40));
 				int chance = 6;
 				if (Main.expertMode)
 					chance = 3;
 				if (Main.rand.Next(chance) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MidasVialNecklace"));
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TKCannonball"));
 			}
 			if (npc.type == NPCID.Mimic && npc.ai[3] == 4f && npc.value > 0)
 			{
@@ -115,6 +117,14 @@ namespace EsperClass
 				if (Main.rand.Next(chance) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("CrystalGrenade"));
 			}
+			if (npc.type == NPCID.ThePossessed)
+			{
+				int chance = 20;
+				if (Main.expertMode)
+					chance = 10;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DeadDoll"));
+			}
 			if (npc.type == NPCID.Mothron)
 			{
 				int chance = 3;
@@ -128,7 +138,73 @@ namespace EsperClass
 				if (Main.rand.Next(3) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("WaspJar"));
 				if (Main.rand.Next(3) == 0)
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TKThornBall"), Main.rand.Next(120, 201));
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TKThornBall"));
+			}
+			if (npc.type >= NPCID.BlueArmoredBones && npc.type <= NPCID.BlueArmoredBonesSword)
+			{
+				int chance = 100;
+				if (Main.expertMode)
+					chance = 50;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PsiSpikeBall"));
+			}
+			if (npc.type >= NPCID.RustyArmoredBonesAxe && npc.type <= NPCID.RustyArmoredBonesSwordNoArmor)
+			{
+				int chance = 100;
+				if (Main.expertMode)
+					chance = 50;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SpectreRift"));
+			}
+			if (npc.type >= NPCID.HellArmoredBones && npc.type <= NPCID.HellArmoredBonesSword)
+			{
+				int chance = 100;
+				if (Main.expertMode)
+					chance = 50;
+				if (Main.rand.Next(chance) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ImpiousBrooch"));
+			}
+			if (Main.pumpkinMoon)
+			{
+				int wave = NPC.waveNumber;
+				int dropRate = (int)((double)(17 - wave) / 1.25);
+				if (Main.expertMode)
+					wave += 6;
+				if (dropRate < 1)
+					dropRate = 1;
+				if (Main.rand.Next(dropRate) == 0)
+				{
+					if (npc.type == NPCID.MourningWood)
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MourningTwirler"));
+					if (npc.type == NPCID.Pumpking)
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PsiPumpKing"));
+				}
+			}
+			if (Main.snowMoon)
+			{
+				int wave = NPC.waveNumber;
+				int dropRate = (int)((double)(30 - wave) / 2.5);
+				if (Main.expertMode)
+				{
+					wave += 7;
+					dropRate -= 2;
+				}
+				if (dropRate < 1)
+					dropRate = 1;
+				if (Main.rand.Next(dropRate) == 0)
+				{
+					if (npc.type == NPCID.Everscream)
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OrnamentsOrbit"));
+					if (npc.type == NPCID.SantaNK1)
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PsiExplodingPresent"));
+					//if (npc.type == NPCID.IceQueen)
+					//	Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("IceSpinner"));
+				}
+			}
+			if (npc.type == NPCID.Golem && !Main.expertMode)
+			{
+				if (Main.rand.Next(3) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GolemHeadRift"));
 			}
 			/*if (npc.type == NPCID.LunarTowerSolar || npc.type == NPCID.LunarTowerVortex || npc.type == NPCID.LunarTowerNebula || npc.type == NPCID.LunarTowerStardust)
 			{
@@ -140,6 +216,31 @@ namespace EsperClass
 				for (int i = 0; i < amount; i++)
 				{
 					Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, mod.ItemType("GravityFragment"), Main.rand.Next(1, 4), false, 0, false, false);
+				}
+			}*/
+			if (npc.type == NPCID.LunarTowerVortex)
+			{
+				int amount = Main.rand.Next(25, 41) / 2;
+				if (Main.expertMode)
+				{
+					amount = (int)((float)amount * 1.5f);
+				}
+				for (int i = 0; i < amount; i++)
+				{
+					Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, mod.ItemType("GravityFragment"), Main.rand.Next(1, 4));
+				}
+			}
+			if (npc.type == NPCID.MoonLordCore && !Main.expertMode)
+			{
+				if (Main.rand.Next(4) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EldritchEyeJarProj"));
+			}
+			/*if (Main.hardMode && npc.value > 0f)
+			{
+				int dropChance = GetInstance<ECConfigServer>().easierOceanKey ? 1000 : 2500;
+				if (Main.rand.Next(dropChance) == 0 && Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].ZoneBeach)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OceanKey"));
 				}
 			}*/
 		}

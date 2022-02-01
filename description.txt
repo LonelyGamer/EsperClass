@@ -1,10 +1,9 @@
-This mod adds a new class by adding telekinetic weapons with their own damage type and resource, psychosis. New weapons, armors, accessories, and three buff potions are added. Current version is supported up to right after defeating Plantera, inclunding drops from it. Since this is an alpha, much is subjected to change and there are some known issues. This mod is open source. In general this mod covers...
+This mod adds a new class by adding telekinetic weapons with their own damage type and resource, psychosis. New weapons, armors, accessories, and three buff potions are added. Current version is supported up to right after defeating Golem, inclunding drops from it. Since this is an alpha, much is subjected to change and there are some known issues. This mod is open source. In general this mod covers...
 
 - New class, the Esper, that deals telekinetic damage.
 - Plenty of new weapons.
-- Four new armor sets, plus eight helmet pieces.
+- 5 new armor sets, plus 8 helmet pieces.
 - Some new accessories.
-- Global damage bonuses (specifically the lowest value of the five vanilla damage types above 100%) will add to telekinetic damage. This also applies to telekinetic critical chance.
 
 Vanilla changes...
 
@@ -21,10 +20,32 @@ Future Plans...
 - More weapons, armors and accessories.
 - Cross mod support to add new weapons and items to fit within the themes of the mods.
 - Better balancing.
+- Add weapons for the following: Duke Fishron, biome chest, Betsy, Martian Madness, two from Gravity Fragments, and two more from Moon Lord
 
 Change Log...
 
-- 0.7: Boulders (when held) and Lobber projectiles no longer go through platforms.
+- 0.7: Updated for tModLoader v0.11.8.6.
+- Boulders (when held) and Lobber projectiles no longer go through platforms.
+- Added use, held, and release sounds for telekinetic weapons.
+- Added support for W1K's Weapon Scaling mod. This means weapons can be upgraded throughout the game. This is set for tier only, not fine tuned on a per weapon basis, so some weapons may be very powerful when upgraded.
+- Consumable weapons are no longer consumable. They still function and drain psychosis faster as before. Sell prices and obtaining methods adjusted.
+- TK weapons renamed to Psi. Display only name change, not code name change, so existing weapons won't be lost.
+- Rift weapons will now fire at the closest target instead of the first detected enemy in range, much like how the Psi Prime Laser acts.
+- Terra Vial Necklace will now correctly apply all debuffs instead of only 5 of them by using a custom debuff with all of the combined debuffs.
+- Mostly added Boss Checklist's Boss Log support for this mod's loot, with the moon event bosses currently not covered.
+- The method to add critical damage to telekinetic damage based on vanilla crit increases (due to no allCrit stat) no longer accounts for throwing crit chance, since newer mods tend to not touch it.
+- Updated handling of Thorium Mod mod calls.
+- Vortex Tower now drops Gravity Fragments.
+- Canister projectiles now do more damage (up to 40% more) the higher up they fall onto mobs. They also get wider up to a limit as well.
+- Desert Wanderer set bonus now reduces life drained while using Esper weapons in Over Psychosis state by 25% instead of giving 30% more psychosis regen.
+- Taurus set bonus changed to allow a special kind of dashing that gives immunity frames, but costs psychosis to use.
+- Added LuiAFK styled charms. While that mod is loaded, 30 of any Esper Class buff potion can be crafted into an unlimited charm that works while in the inventory. All 3 buff potion charms can also be combined.
+- Fixed most of the janky collision with Esper projectiles, although sawblades remain unaffected.
+- Added Gravity accessories.
+- Added Gravity Drill.
+- Buffed Psi Prime Saw damage from 48 to 60.
+- Buffed damage from boulders rolling fast.
+- Added several new weapons, with content for the hardmode dungeon, most of the moon event bosses (Ice Queen currently missing), Golem, a craftable post Golem weapon, a Solar Eclipse enemy, and even a single post Moon Lord weapon due to when the weapon sprites were made.
 
 - 0.6.1: Switching away from the current TK weapon while using it now cancels its projectile in use. This should fix free psychosis usage if switching to a non-TK weapon and unintentional psychosis usage if no TK projectile is in use.
 - Having Expanded Sentries loaded aside this mod without imkSushi's Mod also loaded should no longer cause an error stopping this mod and Expanded Sentries from loading together.

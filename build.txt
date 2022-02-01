@@ -4,3 +4,4 @@ version = 0.7
 includeSource = true
 includePDB = true
 homepage = https://forums.terraria.org/index.php?threads/esper-class.86858/
+loadAfter = ThoriumMod

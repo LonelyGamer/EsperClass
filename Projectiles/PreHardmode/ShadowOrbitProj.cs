@@ -43,6 +43,7 @@ namespace EsperClass.Projectiles.PreHardmode
 		{
 			if (projectile.velocity.X != 0)
 				hitDirection = Math.Sign(projectile.velocity.X);
+			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
 		}
 	}
 }

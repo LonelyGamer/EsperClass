@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.ID;
 using Terraria.GameContent.Events;
@@ -20,6 +21,9 @@ namespace EsperClass
 		protected bool canReturn = true;
 		protected int controlDelay = 0;
 		bool created = false;
+		int soundStartDelay = 0;
+		
+		SoundEffectInstance loopSound;
 
 		//Adapted from The Example Mod's Magic Missile code. Much neater and cleaner than the vanilla aiStyle 9 code
 		/*public override void AI()
@@ -165,8 +169,51 @@ namespace EsperClass
 				}
 				if (Main.player[projectile.owner].channel && Main.player[projectile.owner].HeldItem.type == Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkInUse)
 				{
+					if (Main.player[projectile.owner].GetModPlayer<ECPlayer>().lihzahrdPower >= 30f)
+					{
+						int damageAmount = 5000;
+						Main.player[projectile.owner].GetModPlayer<ECPlayer>().lihzahrdPower -= 30f;
+						Main.PlaySound(SoundLoader.customSoundType, projectile.position, mod.GetSoundSlot(SoundType.Custom, "Sounds/LihzahrdSolarExplosion"));
+						int finalDamage = (int)((damageAmount * Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkDamage) + (damageAmount * Main.player[projectile.owner].allDamage) - damageAmount);
+						Projectile.NewProjectile(projectile.position, Vector2.Zero, mod.ProjectileType("LihzahrdExplosion"), finalDamage, 12f, Main.myPlayer, 0f, 0f);
+					}
 					held = true;
 					projectile.timeLeft++;
+					soundStartDelay++;
+					if (loopSound == null || loopSound.State != SoundState.Playing)
+					{
+						loopSound = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperLoop"));
+					}
+
+					Player player = Main.player[projectile.owner];
+					player.heldProj = projectile.whoAmI;
+					if (player.itemAnimation < 2)
+						player.itemAnimation = 2;
+					if (player.itemTime < 2)
+						player.itemTime = 2;
+					if (projectile.position.X + (float)(projectile.width / 2) > player.position.X + (float)(player.width / 2))
+					{
+						player.ChangeDir(1);
+						projectile.direction = 1;
+					}
+					else
+					{
+						player.ChangeDir(-1);
+						projectile.direction = -1;
+					}
+					/*if (projectile.Center.Y < player.Center.Y - player.height)
+					{
+						player.bodyFrame.Y = (__Null) (player.bodyFrame.Height * 3);
+					}
+					else if (projectile.Center.Y < player.Center.Y + player.height)
+					{
+						player.bodyFrame.Y = (__Null) (player.bodyFrame.Height * 2);
+					}
+					else
+					{
+						player.bodyFrame.Y = player.bodyFrame.Height;
+					}*/
+
 					Vector2 vector10 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
 					float num115 = (float)Main.mouseX + Main.screenPosition.X - vector10.X;
 					float num116 = (float)Main.mouseY + Main.screenPosition.Y - vector10.Y;
@@ -179,6 +226,13 @@ namespace EsperClass
 					if (projectile.ai[0] < 0f)
 					{
 						projectile.ai[0] += 1f;
+					}
+					if (soundStartDelay == 10)
+					{
+						if (loopSound == null || loopSound.State != SoundState.Playing)
+						{
+							loopSound = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperLoop"));
+						}
 					}
 					if (whizze && num117 < 100f && controlDelay <= 0)
 					{
@@ -241,6 +295,11 @@ namespace EsperClass
 				{
 					held = false;
 					projectile.netUpdate = true;
+					Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperRelease"));
+					if (loopSound != null)
+					{
+						loopSound.Stop(true);
+					}
 					if (canReturn)
 					{
 						projectile.timeLeft = 120;
@@ -375,13 +434,20 @@ namespace EsperClass
 		{
 			float critChance = Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkCrit;
 			crit = Main.rand.Next(1, 101) <= critChance;
+			ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
+			if (modPlayer.lihzahrdSetBonus)
+				damage += (int)(damage * (modPlayer.lihzahrdPower * 0.01f));
 		}
 
-		/*public override void Kill(int timeLeft)
+		public override void Kill(int timeLeft)
 		{
-			if (held)
-				Main.player[projectile.owner].channel = false;
-		}*/
+			/*if (held)
+				Main.player[projectile.owner].channel = false;*/
+			if (loopSound != null)
+			{
+				loopSound.Stop(true);
+			}
+		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
@@ -393,37 +459,44 @@ namespace EsperClass
 			ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
 			if (!projectile.noEnchantments)
 			{
-				if (Main.rand.Next(4) == 0 && modPlayer.fireVial)
+				if (modPlayer.terraVial)
 				{
-					target.AddBuff(BuffID.OnFire, 180, false);
+					target.AddBuff(mod.BuffType("TerraDebuff"), 600, false);
 				}
-				if (Main.rand.Next(4) == 0 && modPlayer.frostburnVial)
+				else
 				{
-					target.AddBuff(BuffID.Frostburn, 180, false);
-				}
-				if (Main.rand.Next(4) == 0 && modPlayer.poisonVial)
-				{
-					target.AddBuff(BuffID.Poisoned, 180, false);
-				}
-				if (Main.rand.Next(4) == 0 && modPlayer.midasVial)
-				{
-					target.AddBuff(BuffID.Midas, 600, false);
-				}
-				if (Main.rand.Next(4) == 0 && modPlayer.cursedFlamesVial)
-				{
-					target.AddBuff(BuffID.CursedInferno, 180, false);
-				}
-				if (Main.rand.Next(4) == 0 && modPlayer.ichorVial)
-				{
-					target.AddBuff(BuffID.Ichor, 300, false);
-				}
-				if (Main.rand.Next(4) == 0 && modPlayer.shadowflameVial) //Umbrakinesis
-				{
-					target.AddBuff(BuffID.ShadowFlame, 180, false);
-				}
-				if (Main.rand.Next(4) == 0 && modPlayer.venomVial)
-				{
-					target.AddBuff(BuffID.Venom, 180, false);
+					if (Main.rand.Next(4) == 0 && modPlayer.fireVial)
+					{
+						target.AddBuff(BuffID.OnFire, 180, false);
+					}
+					if (Main.rand.Next(4) == 0 && modPlayer.frostburnVial)
+					{
+						target.AddBuff(BuffID.Frostburn, 180, false);
+					}
+					if (Main.rand.Next(4) == 0 && modPlayer.poisonVial)
+					{
+						target.AddBuff(BuffID.Poisoned, 180, false);
+					}
+					if (Main.rand.Next(4) == 0 && modPlayer.midasVial)
+					{
+						target.AddBuff(BuffID.Midas, 600, false);
+					}
+					if (Main.rand.Next(4) == 0 && modPlayer.cursedFlamesVial)
+					{
+						target.AddBuff(BuffID.CursedInferno, 180, false);
+					}
+					if (Main.rand.Next(4) == 0 && modPlayer.ichorVial)
+					{
+						target.AddBuff(BuffID.Ichor, 300, false);
+					}
+					if (Main.rand.Next(4) == 0 && modPlayer.shadowflameVial) //Umbrakinesis
+					{
+						target.AddBuff(BuffID.ShadowFlame, 180, false);
+					}
+					if (Main.rand.Next(4) == 0 && modPlayer.venomVial)
+					{
+						target.AddBuff(BuffID.Venom, 180, false);
+					}
 				}
 			}
 		}
@@ -431,6 +504,9 @@ namespace EsperClass
 
 	public class ECProjectile2 : GlobalProjectile
 	{
+		int FKBuildUp = 0;
+		float oldRotation;
+		//oldRot
 		public override void SetDefaults(Projectile projectile)
 		{
 			if (DetectPositives(projectile))
@@ -444,8 +520,35 @@ namespace EsperClass
 			}
 		}
 
+		public override bool InstancePerEntity => true;
+
 		public override void AI(Projectile projectile)
 		{
+			/*if (projectile.type == ProjectileID.FlyingKnife)
+			{
+				//Main.NewText(FKBuildUp + "", 255, 105, 180);
+				if (Math.Abs(projectile.rotation - oldRotation) < 0.0001f)
+				{
+					oldRotation = projectile.rotation;
+					FKBuildUp = 0;
+				}
+				else
+				{
+					FKBuildUp++;
+					if (FKBuildUp == 60)
+					{
+						Main.PlaySound(SoundID.Item43, (int)projectile.position.X, (int)projectile.position.Y);
+					}
+					if (FKBuildUp > 60)
+					{
+						int num5 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, projectile.velocity.X * 0.2f + (float)(projectile.direction * 3), projectile.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+						Main.dust[num5].noGravity = true;
+						Main.dust[num5].velocity *= 0.7f;
+						Dust dust3 = Main.dust[num5];
+						dust3.velocity.Y = dust3.velocity.Y - 0.5f;
+					}
+				}
+			}*/
 			if (DetectPositives(projectile))
 			{
 				if (!projectile.noEnchantments)
@@ -645,11 +748,11 @@ namespace EsperClass
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.position -= projectile.velocity;
+			/*projectile.position -= projectile.velocity;
 			if ((double)projectile.velocity.X != (double)oldVelocity.X)
 				projectile.velocity.X = -oldVelocity.X;
 			if ((double)projectile.velocity.Y != (double)oldVelocity.Y)
-				projectile.velocity.Y = -oldVelocity.Y;
+				projectile.velocity.Y = -oldVelocity.Y;*/
 			return false;
 		}
 
@@ -700,6 +803,8 @@ namespace EsperClass
 		protected int dustNum = 4;
 		protected Color dustColor = new Color(255, 255, 255, 100);
 		public bool doOnce = false;
+		public float yStart;
+		public int origWidth;
 		public override void SetDefaults()
 		{
 			projectile.friendly = true;
@@ -717,39 +822,60 @@ namespace EsperClass
 		{
 			ExtraAI();
 			projectile.ai[0]++;
-			for (int i = 0; i < 6; i++)
+			if (projectile.ai[0] < 2)
 			{
-				Vector2 vector45 = projectile.velocity * (float)i / 6f;
-				int num594 = 6;
-				int num595 = Dust.NewDust(projectile.position + Vector2.One * 6f, projectile.width - num594 * 2, projectile.height - num594 * 2, dustNum, 0f, 0f, 175, dustColor, 1.2f);
-				Dust dust3;
-				if (Main.rand.Next(2) == 0)
+				yStart = projectile.position.Y;
+				origWidth = projectile.width;
+			}
+			float bonusWidth = projectile.position.Y - yStart;
+			bonusWidth = bonusWidth / 80f + 1f;
+			if (bonusWidth >= 6f)
+				bonusWidth = 6f;
+			//Main.NewText(bonusWidth + "", 255, 105, 180);
+			projectile.position.X = projectile.position.X + (float)(projectile.width / 2);
+			projectile.width = (int)(origWidth * bonusWidth);
+			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
+			for (int i = 0; i < projectile.width / origWidth; i++)
+			{
+				for (int j = -1; j < 2; j++)
 				{
-					dust3 = Main.dust[num595];
-					dust3.alpha += 25;
+					Vector2 vector45 = projectile.velocity * (float)i / 6f;
+					int dust1 = Dust.NewDust(projectile.position + Vector2.One * 6f, projectile.width - 6 * 2, projectile.height - 6 * 2, dustNum, 0f, 0f, 175, dustColor, 1.2f);
+					//int dust2 = Dust.NewDust(projectile.position + Vector2.One * 6f, projectile.width - 6 * 2, projectile.height - 6 * 2, dustNum, 0f, 0f, 175, dustColor, 1.2f);
+					Dust dust3;
+					if (Main.rand.Next(2) == 0)
+					{
+						dust3 = Main.dust[dust1];
+						dust3.alpha += 25;
+					}
+					if (Main.rand.Next(2) == 0)
+					{
+						dust3 = Main.dust[dust1];
+						dust3.alpha += 25;
+					}
+					if (Main.rand.Next(2) == 0)
+					{
+						dust3 = Main.dust[dust1];
+						dust3.alpha += 25;
+					}
+					Main.dust[dust1].noGravity = true;
+					dust3 = Main.dust[dust1];
+					dust3.velocity *= 0.3f;
+					dust3 = Main.dust[dust1];
+					dust3.velocity += projectile.velocity * 0.5f;
+					Main.dust[dust1].position = projectile.Center;
+					if (j != 0)
+						Main.dust[dust1].position.X += origWidth * i * j;
+					Dust dust78 = Main.dust[dust1];
+					dust78.position.X = dust78.position.X - vector45.X;
+					Dust dust79 = Main.dust[dust1];
+					dust79.position.Y = dust79.position.Y - vector45.Y;
+					dust3 = Main.dust[dust1];
+					dust3.velocity *= 0.2f;
+					//Main.dust[dust2].noGravity = true;
+					//Main.dust[dust2].position = projectile.Center;
+					//Main.dust[dust2].position.X -= origWidth * i;
 				}
-				if (Main.rand.Next(2) == 0)
-				{
-					dust3 = Main.dust[num595];
-					dust3.alpha += 25;
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					dust3 = Main.dust[num595];
-					dust3.alpha += 25;
-				}
-				Main.dust[num595].noGravity = true;
-				dust3 = Main.dust[num595];
-				dust3.velocity *= 0.3f;
-				dust3 = Main.dust[num595];
-				dust3.velocity += projectile.velocity * 0.5f;
-				Main.dust[num595].position = projectile.Center;
-				Dust dust78 = Main.dust[num595];
-				dust78.position.X = dust78.position.X - vector45.X;
-				Dust dust79 = Main.dust[num595];
-				dust79.position.Y = dust79.position.Y - vector45.Y;
-				dust3 = Main.dust[num595];
-				dust3.velocity *= 0.2f;
 			}
 			if (Main.rand.Next(4) == 0)
 			{
@@ -765,8 +891,13 @@ namespace EsperClass
 
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-			if (projectile.ai[0] < 2)
-				damage /= 2;
+			//if (projectile.ai[0] < 2)
+			//	damage /= 2;
+			float bonusDamage = projectile.position.Y - yStart;
+			if (bonusDamage > 600f)
+				bonusDamage = 600f;
+			bonusDamage = bonusDamage / 1500f + 1f;
+			damage = (int)(damage * bonusDamage);
 			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
 		}
 	}
@@ -777,6 +908,9 @@ namespace EsperClass
 		protected int fireDelay = 39;
 		protected int projType;
 		protected float fireVel = 12f;
+		protected bool ignoreLoS = false;
+		protected bool angled = true;
+		protected float targetDist = 400f;
 
 		public override void SetStaticDefaults()
 		{
@@ -799,7 +933,7 @@ namespace EsperClass
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			bool flag13 = false;
+			/*bool flag13 = false;
 			if (projectile.velocity.X != oldVelocity.X)
 			{
 				flag13 = true;
@@ -822,7 +956,7 @@ namespace EsperClass
 				{
 					projectile.velocity *= 0.5f;
 				}
-			}
+			}*/
 			return false;
 		}
 
@@ -839,29 +973,30 @@ namespace EsperClass
 			{
 				return;
 			}
-			projectile.rotation = -0.785f;
+			if (angled)
+				projectile.rotation = -0.785f;
 			fireTimer += 1;
 			if (fireTimer >= fireDelay)
 			{
 				Vector2 targetPos = projectile.position;
-				float targetDist = 400f;
-				bool target = false;
+				int target = -1;
+				target = this.GetTarget(targetDist, projectile.Center);
 
-				for (int k = 0; k < 200; k++)
+				/*for (int k = 0; k < 200; k++)
 				{
 					NPC npc = Main.npc[k];
 					if (npc.CanBeChasedBy(this, false))
 					{
 						float distance = Vector2.Distance(npc.Center, projectile.Center);
-						if ((distance < targetDist) && Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height))
+						if ((distance < targetDist) && (Collision.CanHitLine(projectile.position, projectile.width, projectile.height, npc.position, npc.width, npc.height) || ignoreLoS))
 						{
 							//targetDist = distance;
 							targetPos = npc.Center;
 							target = true;
 						}
 					}
-				}
-				if (target)
+				}*/
+			if (target != -1)
 				{
 					/*if ((targetPos - projectile.Center).X > 0f)
 					{
@@ -873,19 +1008,21 @@ namespace EsperClass
 					}*/
 					if (Main.myPlayer == projectile.owner)
 					{
-						Vector2 shootVel = targetPos - projectile.Center;
+						Vector2 shootVel = Main.npc[target].Center - projectile.Center;
 						if (shootVel == Vector2.Zero)
 						{
 							shootVel = new Vector2(0f, 1f);
 						}
 						shootVel.Normalize();
 						shootVel *= fireVel;
-						Main.PlaySound(SoundID.Item43, (int)projectile.position.X, (int)projectile.position.Y);
-						int proj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, shootVel.X, shootVel.Y, projType, projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
+						if (projectile.owner == Main.myPlayer)
+						{
+							Fire(shootVel, target);
+						}
 						fireTimer = 0;
 						if (rotate)
 						{
-							projectile.rotation = targetPos.ToRotation();
+							projectile.rotation = Main.npc[target].Center.ToRotation();
 							if (projectile.rotation > 1.57079637f || projectile.rotation < -1.57079637f)
 							{
 								projectile.direction = -1;
@@ -925,6 +1062,34 @@ namespace EsperClass
 			return first;
 		}*/
 
+		public int GetTarget(float maxRange, Vector2 shootingSpot)
+		{
+			int first = -1;
+			for (int j = 0; j < 200; j++)
+			{
+				NPC nPC = Main.npc[j];
+				if (nPC.CanBeChasedBy(this, false))
+				{
+					float distance2 = Vector2.Distance(shootingSpot, nPC.Center);
+					if (distance2 <= maxRange)
+					{
+						Vector2 vector2 = (nPC.Center - shootingSpot).SafeNormalize(Vector2.UnitY);
+						if ((first == -1 || distance2 < Vector2.Distance(shootingSpot, Main.npc[first].Center)) && (Collision.CanHitLine(shootingSpot, 0, 0, nPC.Center, 0, 0) || ignoreLoS))
+						{
+							first = j;
+						}
+					}
+				}
+			}
+			return first;
+		}
+
+		public virtual void Fire(Vector2 vector2, int target = -1)
+		{
+			Main.PlaySound(SoundID.Item43, (int)projectile.position.X, (int)projectile.position.Y);
+			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vector2.X, vector2.Y, projType, projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
+		}
+
 		public override bool? CanCutTiles()
 		{
 			return false;
@@ -957,7 +1122,7 @@ namespace EsperClass
 
 		public override bool PreKill(int timeLeft)
 		{
-			Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0f);
+			Main.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0f);
 			int num3;
 			for (int num507 = 0; num507 < 15; num507 = num3 + 1)
 			{
@@ -997,6 +1162,7 @@ namespace EsperClass
 	public abstract class BaseBoulderProj : ECProjectile
 	{
 		protected bool touched = false;
+		protected bool noDamageScale = false;
 
 		public override void SetDefaults()
 		{
@@ -1020,7 +1186,7 @@ namespace EsperClass
 				if ((projectile.velocity.X != oldVelocity.X && (oldVelocity.X < -3f || oldVelocity.X > 3f)) || (projectile.velocity.Y != oldVelocity.Y && (oldVelocity.Y < -3f || oldVelocity.Y > 3f)))
 				{
 					Collision.HitTiles(projectile.position, projectile.velocity, projectile.width, projectile.height);
-					Main.PlaySound(0, (int)projectile.Center.X, (int)projectile.Center.Y, 1, 1f, 0f);
+					Main.PlaySound(SoundID.Dig, (int)projectile.Center.X, (int)projectile.Center.Y, 1, 1f, 0f);
 				}
 				return false;
 			}
@@ -1061,10 +1227,13 @@ namespace EsperClass
 
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-			float damageScale = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
-			if (damageScale < 1f)
-				damageScale = 1f;
-			damage = (int)((float)damage * damageScale / maxVel);
+			if (!noDamageScale)
+			{
+				float damageScale = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
+				if (damageScale < 1f)
+					damageScale = 1f;
+				damage = (int)((float)damage * damageScale / (maxVel * 0.5f));
+			}
 			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
 		}
 
@@ -1072,6 +1241,7 @@ namespace EsperClass
 		{
 			if (held)
 				Main.player[projectile.owner].channel = false;
+			base.Kill(timeLeft);
 		}
 	}
 
@@ -1108,11 +1278,11 @@ namespace EsperClass
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.position -= projectile.velocity;
+			/*projectile.position -= projectile.velocity;
 			if ((double)projectile.velocity.X != (double)oldVelocity.X)
 				projectile.velocity.X = -oldVelocity.X;
 			if ((double)projectile.velocity.Y != (double)oldVelocity.Y)
-				projectile.velocity.Y = -oldVelocity.Y;
+				projectile.velocity.Y = -oldVelocity.Y;*/
 			return false;
 		}
 
@@ -1178,12 +1348,7 @@ namespace EsperClass
 			{
 				release = 0;
 				if (projectile.owner == Main.myPlayer)
-				{
-					float speedX = (float)Main.rand.Next(-35, 36) * 0.02f;
-					float speedY = (float)Main.rand.Next(-35, 36) * 0.02f;
-					Vector2 vector = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-					Projectile.NewProjectile(vector.X, vector.Y, speedX, speedY, projType, (int)(projectile.damage), projectile.knockBack, Main.player[projectile.owner].whoAmI);
-				}
+					Fire();
 			}
 		}
 
@@ -1192,6 +1357,14 @@ namespace EsperClass
 			shakeReset = 60;
 			shakeAmount++;
 			Main.PlaySound(SoundID.Item7, projectile.position);
+		}
+
+		public virtual void Fire()
+		{
+			float speedX = (float)Main.rand.Next(-35, 36) * 0.02f;
+			float speedY = (float)Main.rand.Next(-35, 36) * 0.02f;
+			Vector2 vector = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
+			Projectile.NewProjectile(vector.X, vector.Y, speedX, speedY, projType, (int)(projectile.damage), projectile.knockBack, Main.player[projectile.owner].whoAmI);
 		}
 
 		public override bool? CanCutTiles()
@@ -1351,11 +1524,11 @@ namespace EsperClass
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			//projectile.position -= projectile.velocity;
+			/*projectile.position -= projectile.velocity;
 			if ((double)projectile.velocity.X != (double)oldVelocity.X)
 				projectile.velocity.X = -Math.Sign(projectile.velocity.X);
 			if ((double)projectile.velocity.Y != (double)oldVelocity.Y)
-				projectile.velocity.Y = -Math.Sign(projectile.velocity.Y);
+				projectile.velocity.Y = -Math.Sign(projectile.velocity.Y);*/
 			return false;
 		}
 

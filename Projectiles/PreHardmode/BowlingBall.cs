@@ -30,11 +30,11 @@ namespace EsperClass.Projectiles.PreHardmode
 				}
 				projectile.velocity *= 1.9f;
 			}
-			if (!projectile.noDropItem)
+			/*if (!projectile.noDropItem)
 			{
 				if (Main.rand.Next(2) == 0)
 					Item.NewItem((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height, mod.ItemType("BowlingBall"), 1, false, 0, false);
-			}
+			}*/
 			base.Kill(timeLeft);
 		}
 	}

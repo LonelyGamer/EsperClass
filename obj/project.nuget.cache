@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uKwUCToVtEIc+pylC8uKtZ9q10akwWe5/DS9ELGiDOnH9Zkp3O0JdzfstXovjKM9iiaNUZQmYr8WopnPNMU1mQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Owner\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\EsperClass\\EsperClass.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Owner\\.nuget\\packages\\tmodloader.codeassist\\0.1.3\\tmodloader.codeassist.0.1.3.nupkg.sha512"
+  ],
+  "logs": []
+}

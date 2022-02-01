@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,10 +35,22 @@ namespace EsperClass.Items.Armor.PreHardmode
 			return body.type == mod.ItemType("TaurusChestplate") && legs.type == mod.ItemType("TaurusGreaves");
 		}
 
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			int line = tooltips.FindLastIndex(x => x.mod == "Terraria" && x.Name == "Tooltip0");
+			if (line >= 0)
+			{
+				TooltipLine newtip = new TooltipLine(mod, "Warning", "Only works if no other vanilla dash accessory or Solar Armor set bonus is active");
+				newtip.overrideColor = new Color(255, 0, 0);
+				tooltips.Insert(line + 1, newtip);
+			}
+			base.ModifyTooltips(tooltips);
+		}
+
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "6 increased psychosis";
-			ECPlayer.ModPlayer(player).maxPsychosis2 += 6;
+			player.setBonus = "Enables Psy Dashing.\nDouble tap a cardinal direction to dash that way.\nGain 20 immunity frames during the dash.\nCosts 5 psychosis to use\nTake 20 damage if used during Psyched Out state";
+			ECPlayer.ModPlayer(player).taurusSetBonus = true;
 		}
 
 		public override void AddRecipes()

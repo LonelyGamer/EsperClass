@@ -40,6 +40,7 @@ namespace EsperClass
 		public bool psychosisWarning = false; //Plays a warning sound when psychosis falls below 0, but before the related debuff happens
 		public bool tkZoom = false;
 		public int tkInUse = 0; //Check what item the player used, mainly to make a TK projectile return if the player switches items in use
+		public int overPsychosisDrain = 20; //How much negative lifeRegen accounts for
 
 		public bool fireVial = false;
 		public bool frostburnVial = false;
@@ -49,6 +50,7 @@ namespace EsperClass
 		public bool ichorVial = false;
 		public bool shadowflameVial = false;
 		public bool venomVial = false;
+		public bool terraVial = false;
 
 		public bool accMaxPsychosis1 = false;
 		public bool accPsychosisRec1 = false;
@@ -65,8 +67,32 @@ namespace EsperClass
 		public bool accMaxPsychosis5 = false;
 		public bool accPsychosisRec5 = false;
 		public bool accTkDodge5 = false;
-		
+
+		public bool desertWandererSetBonus = false;
 		public bool cambrianSetBonus = false;
+		public bool taurusSetBonus = false;
+		public bool lihzahrdSetBonus = false;
+		public float lihzahrdPower = 0f; //For the set bonus
+
+		//This is mostly copied over from Example Mod's Example Dash Accessory
+		public static readonly int DashDown = 0;
+		public static readonly int DashUp = 1;
+		public static readonly int DashRight = 2;
+		public static readonly int DashLeft = 3;
+
+		//The direction the player is currently dashing towards.  Defaults to -1 if no dash is ocurring.
+		public int DashDir = -1;
+
+		//The fields related to the dash accessory
+		public static readonly int MAX_DASH_DELAY = 60;
+		public static readonly int MAX_DASH_TIMER = 20;
+		public bool DashActive = false;
+		public int DashDelay = MAX_DASH_DELAY;
+		public int DashTimer = MAX_DASH_TIMER;
+		//The initial velocity.  10 velocity is about 37.5 tiles/second or 50 mph
+		public readonly float DashVelocity = 12f;
+		//These two fields are the max values for the delay between dashes and the length of the dash in that order
+		//The time is measured in frames
 
 		public Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
 
@@ -110,10 +136,14 @@ namespace EsperClass
 			ichorVial = false;
 			shadowflameVial = false;
 			venomVial = false;
+			terraVial = false;
 			//overPsychosis = false;
 			psychicEyeMagnet = false;
 			cambrianSetBonus = false;
+			taurusSetBonus = false;
+			lihzahrdSetBonus = false;
 			tkZoom = false;
+			overPsychosisDrain = 20;
 
 			accMaxPsychosis1 = false;
 			accPsychosisRec1 = false;
@@ -254,7 +284,128 @@ namespace EsperClass
 				tkDodge += 0.2f;
 			if (accTkDodge5)
 				tkDodge += 0.25f;
+			if (desertWandererSetBonus)
+				overPsychosisDrain -= 5;
+			if (!lihzahrdSetBonus)
+				lihzahrdPower = 0f;
+			//if (Main.time % 60 == 0)
+			//	Main.NewText(taurusSetBonus + "", 255, 105, 180);
+
+			//If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
+			//Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
+			if (!taurusSetBonus || player.setSolar || player.mount.Active || DashActive)
+				return;
+
+			for (int i = 3; i < 8 + player.extraAccessorySlots; i++)
+			{
+				Item item = player.armor[i];
+				if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
+				if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
+					return;
+			}
+
+			//When a directional key is pressed and released, vanilla starts a 15 tick (1/4 second) timer during which a second press activates a dash
+			//If the timers are set to 15, then this is the first press just processed by the vanilla logic.  Otherwise, it's a double-tap
+			if(player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[DashDown] < 15)
+				DashDir = DashDown;
+			else if(player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[DashUp] < 15)
+				DashDir = DashUp;
+			else if(player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
+				DashDir = DashRight;
+			else if(player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
+				DashDir = DashLeft;
+			else
+				return;	 //No dash was activated, return
+
+			DashActive = true;
 		}
+
+        public override void PostUpdateEquips()
+        {
+			//If the dash is not active, immediately return so we don't do any of the logic for it
+			if (!DashActive)
+				return;
+			if (DashTimer > 0)
+			{
+				for (int j = 0; j < 2; j++)
+				{
+					int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 86, 0f, 0f, 100, default(Color), 2f);
+					Dust dust = Main.dust[num];
+					dust.position.X = dust.position.X + (float)Main.rand.Next(-20, 21);
+					Dust dust2 = Main.dust[num];
+					dust2.position.Y = dust2.position.Y + (float)Main.rand.Next(-20, 21);
+					Main.dust[num].velocity *= 0.4f;
+					Main.dust[num].scale *= 0.33f + (float)Main.rand.Next(40) * 0.01f;
+					Main.dust[num].shader = GameShaders.Armor.GetSecondaryShader(player.cWaist, player);
+					Main.dust[num].noGravity = true;
+					if (Main.rand.Next(2) == 0)
+					{
+						Main.dust[num].scale *= 1f + (float)Main.rand.Next(40) * 0.01f;
+					}
+				}
+			}
+			player.eocDash = DashTimer;
+			player.armorEffectDrawShadowEOCShield = true;
+
+			//If the dash has just started, apply the dash velocity in whatever direction we wanted to dash towards
+			if (DashTimer == MAX_DASH_TIMER)
+			{
+				player.immune = true;
+				player.immuneTime = MAX_DASH_TIMER;
+				if (Collision.DrownCollision(player.position, player.width, player.height, player.gravDir))
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperDash2"));
+				else
+					Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperDash1"));
+				for (int i = 0; i < player.hurtCooldowns.Length; i++)
+				{
+					player.hurtCooldowns[i] = player.immuneTime;
+				}
+				Vector2 newVelocity = player.velocity;
+				if (!player.HasBuff(mod.BuffType("PsychedOut")))
+					PsychosisDrain(300f);
+				else
+				{
+					player.statLife -= 20;
+					if (player.statLife <= 0)
+					{
+						player.statLife = 0;
+						player.KillMe(PlayerDeathReason.ByOther(8), 10.0, 0);
+					}
+					player.lifeRegenCount = 0;
+					player.lifeRegenTime = 0;
+				}
+
+				//Only apply the dash velocity if our current speed in the wanted direction is less than DashVelocity
+				if ((DashDir == DashUp && player.velocity.Y > -DashVelocity) || (DashDir == DashDown && player.velocity.Y < DashVelocity))
+				{
+					//Y-velocity is set here
+					//If the direction requested was DashUp, then we adjust the velocity to make the dash appear "faster" due to gravity being immediately in effect
+					//This adjustment is roughly 1.3x the intended dash velocity
+					float dashDirection = DashDir == DashDown ? 1 : -1.3f;
+					newVelocity.Y = dashDirection * DashVelocity;
+				}
+				else if ((DashDir == DashLeft && player.velocity.X > -DashVelocity) || (DashDir == DashRight && player.velocity.X < DashVelocity))
+				{
+					//X-velocity is set here
+					int dashDirection = DashDir == DashRight ? 1 : -1;
+					newVelocity.X = dashDirection * DashVelocity;
+				}
+				player.velocity = newVelocity;
+			}
+
+			//Decrement the timers
+			DashTimer--;
+			DashDelay--;
+
+			if (DashDelay == 0)
+			{
+				//The dash has ended.  Reset the fields
+				DashDelay = MAX_DASH_DELAY;
+				DashTimer = MAX_DASH_TIMER;
+				DashActive = false;
+			}
+            base.PostUpdateEquips();
+        }
 
 		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
@@ -268,7 +419,7 @@ namespace EsperClass
 
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
-			if (overPsychosis && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
+			if ((overPsychosis || DashActive) && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
 			{
 				switch (Main.rand.Next(5))
 				{
@@ -323,7 +474,7 @@ namespace EsperClass
 			}
 			if (player.whoAmI == Main.myPlayer)
 			{
-				NetMessage.SendData(62, -1, -1, null, player.whoAmI, 1f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(MessageID.Dodge, -1, -1, null, player.whoAmI, 1f, 0f, 0f, 0, 0, 0);
 			}
 		}
 
@@ -343,27 +494,29 @@ namespace EsperClass
 					customCrit += thoriumCrit;
 				}
 			}
-
-			tkCrit += customCrit;
+			//tkCrit += customCrit;
 
 			int addedCrit = 1000;
 			if (addedCrit > Main.player[player.whoAmI].meleeCrit)
 				addedCrit = Main.player[player.whoAmI].meleeCrit;
 			if (addedCrit > Main.player[player.whoAmI].rangedCrit)
 				addedCrit = Main.player[player.whoAmI].rangedCrit;
-			if (addedCrit > Main.player[player.whoAmI].thrownCrit)
-				addedCrit = Main.player[player.whoAmI].thrownCrit;
+			//if (addedCrit > Main.player[player.whoAmI].thrownCrit)
+			//	addedCrit = Main.player[player.whoAmI].thrownCrit;
 			if (addedCrit > Main.player[player.whoAmI].magicCrit)
 				addedCrit = Main.player[player.whoAmI].magicCrit;
 			if (addedCrit < 0)
 				addedCrit = 0;
-			tkCrit += addedCrit;
+			//if (thoriumMod != null)
+			//	customCrit = (int)thoriumMod.Call("GetAllCrit", player);
+			if (customCrit >= addedCrit)
+				tkCrit += customCrit;
+			else
+				tkCrit += addedCrit;
 			if (psychosis > TotalPsychosis())
-			{
 				psychosis = TotalPsychosis();
-			}
 			//A temp failsafe
-			if (psychosis < -10)
+			if (psychosis < -15)
 			{
 				psychosis = TotalPsychosis();
 				psychosisDelay = 0;
@@ -400,6 +553,13 @@ namespace EsperClass
 				Main.dust[newDust].noGravity = true;
 				Main.dust[newDust].velocity *= 1.4f;
 			}
+			/*if (lihzahrdPower >= 10f)
+			{
+				lihzahrdPower -= 10f;
+				Main.PlaySound(SoundID.Item15,Main.MouseWorld);
+				int finalDamage = (int)((2500 * player.GetModPlayer<ECPlayer>().tkDamage) + (2500 * player.allDamage) - 2500);
+				Projectile.NewProjectile(Main.MouseWorld, Vector2.Zero, mod.ProjectileType("LihzahrdExplosion"), finalDamage, 12f, Main.myPlayer, 0f, 0f);
+			}*/
 		}
 
 		public int TotalPsychosis()
@@ -419,7 +579,7 @@ namespace EsperClass
 				psychosisWarning = false;
 			if (psychosis >= TotalPsychosis() && flag)
 			{
-				Main.PlaySound(25);
+				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperFull"));
 				for (int i = 0; i < 5; i++)
 				{
 					int num = Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 86, 0f, 0f, 100, default(Color), 2f);
@@ -451,7 +611,7 @@ namespace EsperClass
 				if (player.lifeRegen > 0)
 					player.lifeRegen = 0;
 				player.lifeRegenTime = 0;
-				player.lifeRegen -= 20;
+				player.lifeRegen -= overPsychosisDrain;
 			}
 		}
 
@@ -488,6 +648,9 @@ namespace EsperClass
 		//Amount should be drain per second, not per frame
 		public void PsychosisDrain(float amount, bool delayRegen = true, bool bypassDebuff = false)
 		{
+			if (lihzahrdSetBonus)
+				lihzahrdPower += amount / 60f;
+			//Main.NewText(lihzahrdPower + "", 255, 105, 180);
 			if (player.HasBuff(mod.BuffType("PsychedOut")) && !bypassDebuff)
 				return;
 			if (delayRegen)
@@ -496,7 +659,9 @@ namespace EsperClass
 			psychosis -= amount / 60f;
 			if (psychosis <= 0f && !psychosisWarning)
 			{
-				Main.PlaySound(23, (int)player.position.X, (int)player.position.Y);
+				//Because adding the formula directly without using a variable somehow didn't work properly
+				//int s = 1 + Main.rand.Next(5);
+				Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperDrain"));
 				psychosisWarning = true;
 			}
 		}

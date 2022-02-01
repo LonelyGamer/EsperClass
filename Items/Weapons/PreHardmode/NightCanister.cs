@@ -14,7 +14,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Midnight Canister");
-			Tooltip.SetDefault("Pours down damaging liquid");
+			Tooltip.SetDefault("Pours down damaging liquid\nDoes more damage (up to a limit) the further it falls");
 		}
 
 		public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			item.knockBack = 0;
 			item.value = Item.sellPrice(0, 4, 0, 0);
 			item.rare = 3;
-			item.UseSound = SoundID.Item1;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shootSpeed = 16f;

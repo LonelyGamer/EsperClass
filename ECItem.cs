@@ -27,8 +27,8 @@ namespace EsperClass
 		public override void SetDefaults()
 		{
 			item.channel = true;
-			item.useStyle = 1;
-			item.UseSound = SoundID.Item1;
+			item.useStyle = 5;
+			item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			item.noUseGraphic = true;
 			item.noMelee = true;
 		}
@@ -176,29 +176,30 @@ namespace EsperClass
 				item.summon = false;
 				item.thrown = false;
 				item.sentry = false;
+				item.UseSound = mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/EsperUse");
 			}
+			base.SetDefaults(item);
 		}
 
 		public override void ModifyWeaponDamage(Item item, Player player, ref float add, ref float mult, ref float flat)
 		{
 			if (DetectPositives(item))
-			{
 				mult *= ECPlayer.ModPlayer(player).tkDamage;
-			}
+			base.ModifyWeaponDamage(item, player, ref add, ref mult, ref flat);
 		}
 
 		public override void GetWeaponKnockback(Item item, Player player, ref float knockback)
 		{
 			if (DetectPositives(item))
 				knockback += ECPlayer.ModPlayer(player).tkKnockback;
+			base.GetWeaponKnockback(item, player, ref knockback);
 		}
 
 		public override void GetWeaponCrit(Item item, Player player, ref int crit)
 		{
 			if (DetectPositives(item))
-			{
 				crit = crit + ECPlayer.ModPlayer(player).tkCrit;
-			}
+			base.GetWeaponCrit(item, player, ref crit);
 		}
 
 		public override void HoldItem(Item item, Player player)
@@ -213,6 +214,7 @@ namespace EsperClass
 						ECPlayer.ModPlayer(player).overPsychosis = true;
 				}
 			}
+			base.HoldItem(item, player);
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -235,6 +237,7 @@ namespace EsperClass
 					tt.text = damageValue + " telekinetic " + damageWord;
 				}
 			}
+			base.ModifyTooltips(item, tooltips);
 		}
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)

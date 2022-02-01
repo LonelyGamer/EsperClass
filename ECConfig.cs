@@ -26,4 +26,13 @@ namespace EsperClass
 		[Tooltip("Shows Esper Class tag on items directly related to it")]
 		public bool showEsperTag;
 	}
+
+	public class ECConfigServer : ModConfig
+	{
+		public override ConfigScope Mode => ConfigScope.ServerSide;
+        [DefaultValue(true)]
+		[Label("Easier Ocean Key Drop")]
+		[Tooltip("If true, Ocean Key has 1/1000 chance of dropping from enemies killed in the ocean biome, otherwise 1/2500 chance")]
+		public bool easierOceanKey;
+	}
 }

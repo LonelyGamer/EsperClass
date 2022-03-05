@@ -11,7 +11,7 @@ namespace EsperClass.Items.Armor.Hardmode
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Tooltip.SetDefault("20% increased throwing velocity\n30% increased telekinetic velocity");
+			Tooltip.SetDefault("30% increased throwing and telekinetic velocity");
 		}
 
 		public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace EsperClass.Items.Armor.Hardmode
 
 		public override void UpdateEquip(Player player)
 		{
-			player.thrownVelocity += 0.2f;
+			player.thrownVelocity += 0.3f;
 			ECPlayer.ModPlayer(player).tkVel += 0.3f;
 		}
 

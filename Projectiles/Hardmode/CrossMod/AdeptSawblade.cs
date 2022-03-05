@@ -10,7 +10,7 @@ namespace EsperClass.Projectiles.Hardmode.CrossMod
 {
     public class AdeptSawblade : BaseSawbladeProj
     {
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
             base.SetDefaults();
             maxVel = 16f;

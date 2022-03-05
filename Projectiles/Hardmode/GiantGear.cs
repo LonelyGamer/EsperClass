@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class GiantGear : BaseSawbladeProj
+    public class GiantGear : BaseSawbladeProj
 	{
 		public override void SetDefaults()
 		{

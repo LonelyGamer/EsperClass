@@ -37,9 +37,9 @@ namespace EsperClass.Items.Armor.PreHardmode
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.FossilOre, 14);
+			recipe.AddIngredient(ItemID.FossilOre, 10);
 			recipe.AddIngredient(ItemID.Coral, 8);
-			recipe.AddTile(TileID.Loom);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

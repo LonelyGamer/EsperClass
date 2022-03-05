@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Creates a rift that fires shadowflame bolts toward the nearest enemy");
+			Tooltip.SetDefault("Fires shadowflame bolts toward the nearest enemy");
 		}
 
 		public override void SetDefaults()

@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Has a chance to burn enemies");
+			Tooltip.SetDefault("Does more damage the more velocity it has on impact\nHas a chance to burn enemies");
 		}
 
 		public override void SetDefaults()

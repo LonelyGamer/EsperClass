@@ -21,6 +21,8 @@ namespace EsperClass.Projectiles.PostMoonLord
 			//projectile.extraUpdates = 3;
 			Main.projFrames[projectile.type] = 2;
 			chaseLiquid = true;
+			chaseSpeed = 20f;
+			chaseAcc = 1f;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -44,6 +46,10 @@ namespace EsperClass.Projectiles.PostMoonLord
 					projectile.frame = 0;
 				}
 			}
+			/*Tile tile = Framing.GetTileSafetly((int)projectile.center.X / 16, (int)projectile.center.Y / 16);
+			if (tile.Active())
+			{
+			}*/
 			Lighting.AddLight((int)((projectile.position.X + (float)(projectile.width / 2)) / 16f), (int)((projectile.position.Y + (float)(projectile.height / 2)) / 16f), 1f, 1f, 1f);
 			int num445 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 204, 0f, 0f, 150, default(Color), 0.8f);
 			Dust dust81 = Main.dust[num445];

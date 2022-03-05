@@ -14,7 +14,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Psi Pumpking Boulder");
-			Tooltip.SetDefault("Leaves a trail of Greek Fire while rolling on the ground");
+			Tooltip.SetDefault("Does more damage the more velocity it has on impact\nLeaves a trail of Greek Fire while rolling on the ground");
 		}
 
 		public override void SetDefaults()

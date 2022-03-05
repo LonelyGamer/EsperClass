@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
@@ -78,28 +75,6 @@ namespace EsperClass.Projectiles.Hardmode
 					}
 				}
 			}
-		}
-
-		public int GetTarget(float maxRange, Vector2 shootingSpot)
-		{
-			int first = -1;
-			for (int j = 0; j < 200; j++)
-			{
-				NPC nPC = Main.npc[j];
-				if (nPC.CanBeChasedBy(this, false))
-				{
-					float distance2 = Vector2.Distance(shootingSpot, nPC.Center);
-					if (distance2 <= maxRange)
-					{
-						Vector2 vector2 = (nPC.Center - shootingSpot).SafeNormalize(Vector2.UnitY);
-						if ((first == -1 || distance2 < Vector2.Distance(shootingSpot, Main.npc[first].Center)) && Collision.CanHitLine(shootingSpot, 0, 0, nPC.Center, 0, 0))
-						{
-							first = j;
-						}
-					}
-				}
-			}
-			return first;
 		}
 	}
 }

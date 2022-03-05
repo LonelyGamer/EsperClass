@@ -20,7 +20,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Red Psy Rocket");
+			DisplayName.SetDefault("Red Psi Rocket");
 		}
 
 		public override void SetDefaults()

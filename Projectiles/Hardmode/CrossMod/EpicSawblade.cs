@@ -13,7 +13,7 @@ namespace EsperClass.Projectiles.Hardmode.CrossMod
     public class EpicSawblade : BaseSawbladeProj
     {
 		int explosionDelay;
-        public override void SetStaticDefaults()
+        public override void SetDefaults()
         {
             base.SetDefaults();
 			projectile.width = 38;

@@ -13,14 +13,14 @@ namespace EsperClass.Items.Weapons.Hardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Creates a rift that fires tile ignoring spectre bolts toward the nearest enemy");
+			Tooltip.SetDefault("Fires tile ignoring spectre bolts toward the nearest enemy");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 72;
+			item.damage = 96;
 			item.width = 50;
 			item.height = 52;
 			item.useTime = 15;

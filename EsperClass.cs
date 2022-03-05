@@ -1,24 +1,16 @@
-using EsperClass;
-using EsperClass.Items;
-using EsperClass.Projectiles;
-using EsperClass.Buffs;
-using EsperClass.UI;
-using Microsoft.Xna.Framework;
-﻿using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using EsperClass.UI;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass
 {
-	public class EsperClass : Mod
+    public class EsperClass : Mod
 	{
 		public static Mod Instance;
 		public static List<int> TKItem = new List<int>();
@@ -296,11 +288,21 @@ namespace EsperClass
 				wWeaponScaling.Call(ItemType("PsiPumpKing"), 12, 1f);
 				wWeaponScaling.Call(ItemType("OrnamentsOrbit"), 12, 1f);
 				wWeaponScaling.Call(ItemType("PsiExplodingPresent"), 12, 1f);
-				//wWeaponScaling.Call(ItemType("IceSpinner"), 12, 1f);
+				wWeaponScaling.Call(ItemType("IcicleSpitter"), 12, 1f);
 				wWeaponScaling.Call(ItemType("GolemHeadRift"), 12, 1f);
 				wWeaponScaling.Call(ItemType("BeetleJar"), 12, 1f);
+				wWeaponScaling.Call(ItemType("LegendarySawblade"), 12, 1f);
+				wWeaponScaling.Call(ItemType("MartianPsi"), 12, 1f);
+				wWeaponScaling.Call(ItemType("SharknadoRift"), 12, 1f);
+				wWeaponScaling.Call(ItemType("BetsyPsi"), 12, 1f);
 
 				wWeaponScaling.Call(ItemType("EldritchEyeJar"), 14, 1f);
+				wWeaponScaling.Call(ItemType("GravityPickaxe"), 14, 1f);
+				wWeaponScaling.Call(ItemType("GravityHamaxe"), 14, 1f);
+				wWeaponScaling.Call(ItemType("GravityAxe"), 14, 1f);
+				wWeaponScaling.Call(ItemType("GravityHammer"), 14, 1f);
+				wWeaponScaling.Call(ItemType("GravityDrill"), 14, 1f);
+				wWeaponScaling.Call(ItemType("GravityChainsaw"), 14, 1f);
 
 				Mod bossChecklist = ModLoader.GetMod("BossChecklist");
 				if (bossChecklist != null)
@@ -310,9 +312,24 @@ namespace EsperClass
 					bossChecklist.Call("AddToBossLoot", "Terraria", "Goblin Army", new List<int> {ModContent.ItemType<Items.Weapons.PreHardmode.SpikyBallLobber>(), ModContent.ItemType<Items.Weapons.Hardmode.ShadowflameRift>(), ModContent.ItemType<Items.Accessories.Hardmode.ShadowflameVialNecklace>()});
 					bossChecklist.Call("AddToBossLoot", "Terraria", "WallofFlesh", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.GiantGear>(), ModContent.ItemType<Items.Accessories.Hardmode.EsperEmblem>()});
 					bossChecklist.Call("AddToBossLoot", "Terraria", "Frost Legion", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.SnowmanBoulder>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Pirate Invasion", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.TKCannonball>(), ModContent.ItemType<Items.Accessories.Hardmode.MidasVialNecklace>()});
 					bossChecklist.Call("AddToBossLoot", "Terraria", "PirateShip", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.TKCannonball>(), ModContent.ItemType<Items.Accessories.Hardmode.MidasVialNecklace>()});
-					bossChecklist.Call("AddToBossLoot", "Terraria", "Solar Eclipse", new List<int> {ModContent.ItemType<Items.Materials.BrokenHeroPsychicParts>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Solar Eclipse", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.DeadDoll>(), ModContent.ItemType<Items.Materials.BrokenHeroPsychicParts>()});
 					bossChecklist.Call("AddToBossLoot", "Terraria", "Plantera", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.WaspJar>(), ModContent.ItemType<Items.Weapons.Hardmode.TKThornBall>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Pumpkin Moon", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.MourningTwirler>(), ModContent.ItemType<Items.Weapons.Hardmode.PsiPumpKing>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "MourningWood", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.MourningTwirler>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Pumpking", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.PsiPumpKing>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Frost Moon", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.OrnamentsOrbit>(), ModContent.ItemType<Items.Weapons.Hardmode.PsiExplodingPresent>(), ModContent.ItemType<Items.Weapons.Hardmode.IcicleSpitter>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Everscream", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.OrnamentsOrbit>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "SantaNK1", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.PsiExplodingPresent>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "IceQueen", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.IcicleSpitter>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Golem", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.GolemHeadRift>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "DukeFishron", new List<int> { ModContent.ItemType<Items.Weapons.Hardmode.SharknadoRift>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Martian Madness", new List<int> { ModContent.ItemType<Items.Weapons.Hardmode.MartianPsi>() });
+					bossChecklist.Call("AddToBossLoot", "Terraria", "MartianSaucer", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.MartianPsi>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "DD2Betsy", new List<int> { ModContent.ItemType<Items.Weapons.Hardmode.BetsyPsi>() });
+					bossChecklist.Call("AddToBossLoot", "Terraria", "Lunar Event", new List<int> {ModContent.ItemType<Items.Materials.GravityFragment>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "MoonLord", new List<int> {ModContent.ItemType<Items.Weapons.PostMoonLord.EldritchEyeJar>()});
 				}
             }
 		}

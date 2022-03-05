@@ -14,6 +14,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Psi Thorn Ball");
+			Tooltip.SetDefault("Does more damage the more velocity it has on impact");
 		}
 
 		public override void SetDefaults()

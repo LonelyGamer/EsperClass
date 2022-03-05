@@ -37,7 +37,7 @@ namespace EsperClass.Projectiles.Hardmode
 		{
 			if (projectile.velocity != Vector2.Zero)
 			{
-				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) +1.5f;
+				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.5f;
 				targetPos.X = Main.mouseX + Main.screenPosition.X + projectile.velocity.X;
 				targetPos.Y = Main.mouseY + Main.screenPosition.Y + projectile.velocity.Y;
 			}

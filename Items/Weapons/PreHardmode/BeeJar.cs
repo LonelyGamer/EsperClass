@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Spawns bees that will chase your enemies\nRequires shaking up and down to function\nWill last for 5 seconds before needing more shaking");
+			Tooltip.SetDefault("Spawns bees that will chase your enemies\nRequires shaking up and down to function\nWill last for 8 seconds before needing more shaking");
 		}
 
 		public override void SetDefaults()

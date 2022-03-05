@@ -17,9 +17,20 @@ namespace EsperClass.Projectiles.PreHardmode
 			projectile.penetrate = 6;
 		}
 
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if (crit && projectile.ai[1] == 0f)
+			{
+				Main.PlaySound(SoundLoader.customSoundType, projectile.position, mod.GetSoundSlot(SoundType.Custom, "Sounds/BowlingStrike"));
+				projectile.ai[1]++;
+
+			}
+			base.OnHitNPC(target, damage, knockback, crit);
+		}
+
 		public override void Kill(int timeLeft)
 		{
-			Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0f);
+			Main.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0f);
 			for (int i = 0; i < 30; i++)
 			{
 				int num472 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 1, 0f, 0f, 0, default(Color), 1f);

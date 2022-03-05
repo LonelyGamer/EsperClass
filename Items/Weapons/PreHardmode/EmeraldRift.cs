@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Creates a rift that fires emerald bolts toward the nearest enemy");
+			Tooltip.SetDefault("Fires emerald bolts toward the nearest enemy");
 		}
 
 		public override void SetDefaults()

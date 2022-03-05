@@ -25,7 +25,7 @@ namespace EsperClass.Items.Misc
 			item.useTime = 30;
 			item.maxStack = 99;
 			item.consumable = true;
-			item.value = Item.sellPrice(0, 2, 0, 0);
+			item.value = Item.sellPrice(0, 1, 20, 0);
 			item.rare = 5;
 		}
 
@@ -48,7 +48,7 @@ namespace EsperClass.Items.Misc
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.HallowedBar, 5);
+			recipe.AddIngredient(ItemID.HallowedBar, 3);
 			recipe.AddTile(TileID.Bottles);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

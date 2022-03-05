@@ -1,4 +1,4 @@
-using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +8,35 @@ namespace EsperClass
 {
 	public class ECNPC : GlobalNPC
 	{
+		public override bool InstancePerEntity => true;
+
+		public bool irradiated;
+
+		public override void ResetEffects(NPC npc)
+		{
+			irradiated = false;
+		}
+
+		public override void DrawEffects(NPC npc, ref Color drawColor)
+		{
+			if (irradiated)
+			{
+				/*if (Main.rand.Next(4) < 3)
+				{
+					int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustType<EtherealFlame>(), npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
+					Main.dust[dust].noGravity = true;
+					Main.dust[dust].velocity *= 1.8f;
+					Main.dust[dust].velocity.Y -= 0.5f;
+					if (Main.rand.NextBool(4))
+					{
+						Main.dust[dust].noGravity = false;
+						Main.dust[dust].scale *= 0.5f;
+					}
+				}*/
+				Lighting.AddLight(npc.position, 0.1f, 0.7f, 0.2f);
+			}
+		}
+
 		public override void NPCLoot(NPC npc)
 		{
 			//Drop psychosis refills
@@ -197,14 +226,31 @@ namespace EsperClass
 						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OrnamentsOrbit"));
 					if (npc.type == NPCID.SantaNK1)
 						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("PsiExplodingPresent"));
-					//if (npc.type == NPCID.IceQueen)
-					//	Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("IceSpinner"));
+					if (npc.type == NPCID.IceQueen)
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("IcicleSpitter"));
 				}
 			}
 			if (npc.type == NPCID.Golem && !Main.expertMode)
 			{
 				if (Main.rand.Next(3) == 0)
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GolemHeadRift"));
+			}
+			if (npc.type == NPCID.DukeFishron && !Main.expertMode)
+			{
+				if (Main.rand.Next(3) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SharknadoRift"));
+				//if (Main.rand.Next(3) == 0)
+				//	Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BubbleTurret"));
+			}
+			if (npc.type == NPCID.MartianSaucerCore)
+			{
+				if (Main.rand.Next(3) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MartianPsi"));
+			}
+			if (npc.type == NPCID.DD2Betsy && !Main.expertMode)
+			{
+				if (Main.rand.Next(2) == 0)
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BetsyPsi"));
 			}
 			/*if (npc.type == NPCID.LunarTowerSolar || npc.type == NPCID.LunarTowerVortex || npc.type == NPCID.LunarTowerNebula || npc.type == NPCID.LunarTowerStardust)
 			{

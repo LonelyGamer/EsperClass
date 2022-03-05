@@ -18,6 +18,8 @@ namespace EsperClass.Projectiles.Hardmode
 			projectile.penetrate = 10;
 			Main.projFrames[projectile.type] = 4;
 			chaseLiquid = true;
+			chaseSpeed = 16f;
+			chaseAcc = 0.8f;
 		}
 	}
 }

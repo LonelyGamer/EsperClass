@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.ID;
-using Terraria.GameContent.Events;
 using Terraria.ModLoader;
 
 namespace EsperClass
@@ -22,6 +20,7 @@ namespace EsperClass
 		protected int controlDelay = 0;
 		bool created = false;
 		int soundStartDelay = 0;
+		protected bool ignoreLihzahrdPower = false;
 		
 		SoundEffectInstance loopSound;
 
@@ -435,7 +434,7 @@ namespace EsperClass
 			float critChance = Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkCrit;
 			crit = Main.rand.Next(1, 101) <= critChance;
 			ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
-			if (modPlayer.lihzahrdSetBonus)
+			if (modPlayer.lihzahrdSetBonus && !ignoreLihzahrdPower)
 				damage += (int)(damage * (modPlayer.lihzahrdPower * 0.01f));
 		}
 
@@ -504,8 +503,8 @@ namespace EsperClass
 
 	public class ECProjectile2 : GlobalProjectile
 	{
-		int FKBuildUp = 0;
-		float oldRotation;
+		float FKBuildUp = 0f;
+		float oldDirection;
 		//oldRot
 		public override void SetDefaults(Projectile projectile)
 		{
@@ -526,20 +525,21 @@ namespace EsperClass
 		{
 			/*if (projectile.type == ProjectileID.FlyingKnife)
 			{
+				ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
 				//Main.NewText(FKBuildUp + "", 255, 105, 180);
-				if (Math.Abs(projectile.rotation - oldRotation) < 0.0001f)
+				if (Math.Abs(projectile.direction - oldDirection) > 0.001f)
 				{
-					oldRotation = projectile.rotation;
+					oldDirection = projectile.direction;
 					FKBuildUp = 0;
 				}
 				else
 				{
-					FKBuildUp++;
-					if (FKBuildUp == 60)
+					FKBuildUp += modPlayer.tkVel;
+					if (FKBuildUp == 10)
 					{
 						Main.PlaySound(SoundID.Item43, (int)projectile.position.X, (int)projectile.position.Y);
 					}
-					if (FKBuildUp > 60)
+					if (FKBuildUp >= 10)
 					{
 						int num5 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, projectile.velocity.X * 0.2f + (float)(projectile.direction * 3), projectile.velocity.Y * 0.2f, 100, default(Color), 2.5f);
 						Main.dust[num5].noGravity = true;
@@ -551,6 +551,14 @@ namespace EsperClass
 			}*/
 			if (DetectPositives(projectile))
 			{
+				if (Main.player[projectile.owner].GetModPlayer<ECPlayer>().lihzahrdPower >= 30f)
+				{
+					int damageAmount = 5000;
+					Main.player[projectile.owner].GetModPlayer<ECPlayer>().lihzahrdPower -= 30f;
+					Main.PlaySound(SoundLoader.customSoundType, projectile.position, mod.GetSoundSlot(SoundType.Custom, "Sounds/LihzahrdSolarExplosion"));
+					int finalDamage = (int)((damageAmount * Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkDamage) + (damageAmount * Main.player[projectile.owner].allDamage) - damageAmount);
+					Projectile.NewProjectile(projectile.position, Vector2.Zero, mod.ProjectileType("LihzahrdExplosion"), finalDamage, 12f, Main.myPlayer, 0f, 0f);
+				}
 				if (!projectile.noEnchantments)
 				{
 					ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
@@ -665,6 +673,7 @@ namespace EsperClass
 					}
 				}
 			}
+			base.OnHitNPC(projectile, target, damage, knockback, crit);
 		}
 
 		public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -673,7 +682,16 @@ namespace EsperClass
 			{
 				float critChance = Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkCrit;
 				crit = Main.rand.Next(1, 101) <= critChance;
+				ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
+				if (modPlayer.lihzahrdSetBonus)
+					damage += (int)(damage * (modPlayer.lihzahrdPower * 0.01f));
 			}
+			if (projectile.type == ProjectileID.FlyingKnife)
+			{
+				if (FKBuildUp >= 10)
+					damage += (int)(damage * 0.5f);
+			}
+			base.ModifyHitNPC(projectile, target, ref damage, ref knockback, ref crit, ref hitDirection);
 		}
 
 		public bool DetectPositives(Projectile projectile)
@@ -899,6 +917,13 @@ namespace EsperClass
 			bonusDamage = bonusDamage / 1500f + 1f;
 			damage = (int)(damage * bonusDamage);
 			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		{
+			width = 10;
+			height = 10;
+			return true;
 		}
 	}
 
@@ -1178,11 +1203,9 @@ namespace EsperClass
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			touched = true;
-			if (held)
-				return true;
-			else
+			if (!held)
 			{
+				touched = true;
 				if ((projectile.velocity.X != oldVelocity.X && (oldVelocity.X < -3f || oldVelocity.X > 3f)) || (projectile.velocity.Y != oldVelocity.Y && (oldVelocity.Y < -3f || oldVelocity.Y > 3f)))
 				{
 					Collision.HitTiles(projectile.position, projectile.velocity, projectile.width, projectile.height);
@@ -1190,6 +1213,7 @@ namespace EsperClass
 				}
 				return false;
 			}
+			return false;
 		}
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
@@ -1208,7 +1232,7 @@ namespace EsperClass
 					projectile.ai[0] = 15f;
 					if (projectile.velocity.Y == 0f && projectile.velocity.X != 0f)
 					{
-						projectile.velocity.X = projectile.velocity.X * 0.97f;
+						projectile.velocity.X = projectile.velocity.X * 0.98f;
 						if ((double)projectile.velocity.X > -0.01 && (double)projectile.velocity.X < 0.01 && touched)
 						{
 							projectile.Kill();
@@ -1230,9 +1254,19 @@ namespace EsperClass
 			if (!noDamageScale)
 			{
 				float damageScale = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
-				if (damageScale < 1f)
-					damageScale = 1f;
-				damage = (int)((float)damage * damageScale / (maxVel * 0.5f));
+				/*float finalDamage = (int)((float)damage * damageScale / (maxVel * 0.5f));
+				if (finalDamage > (damage * 2))
+					finalDamage = 2f;
+				Main.NewText(finalDamage + "", 255, 105, 180);
+				damage *= (int)finalDamage;*/
+				damageScale /= (float)(maxVel * 0.5f);
+				//MathHelper.Clamp(damageScale, 1f, 2f);
+				if (damageScale < 0.5f)
+					damageScale = 0.5f;
+				if (damageScale > 2f)
+					damageScale = 2f;
+				Main.NewText(damageScale + "", 255, 105, 180);
+				damage = (int)((float)damage * damageScale);
 			}
 			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
 		}
@@ -1314,7 +1348,7 @@ namespace EsperClass
 				{
 					shakeAmount = 0;
 					ready = true;
-					shakeDur = 300;
+					shakeDur = 480;
 				}
 			}
 			else
@@ -1386,6 +1420,8 @@ namespace EsperClass
 	public abstract class BaseJarProj : ECProjectile
 	{
 		protected bool chaseLiquid = false;
+		protected float chaseSpeed = 6f;
+		protected float chaseAcc = 0.1f;
 
 		public override void SetDefaults()
 		{
@@ -1453,45 +1489,43 @@ namespace EsperClass
 				num1220 = projectile.position.X + (float)(projectile.width / 2) + projectile.velocity.X * 100f;
 				num1222 = projectile.position.Y + (float)(projectile.height / 2) + projectile.velocity.Y * 100f;
 			}
-			float num1255 = 6f;
-			float num1257 = 0.1f;
 			Vector2 vector310 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
 			float num1259 = num1220 - vector310.X;
 			float num1262 = num1222 - vector310.Y;
 			float num1263 = (float)Math.Sqrt(num1259 * num1259 + num1262 * num1262);
-			num1263 = num1255 / num1263;
+			num1263 = chaseSpeed / num1263;
 			num1259 *= num1263;
 			num1262 *= num1263;
 			if (projectile.velocity.X < num1259)
 			{
-				projectile.velocity.X = projectile.velocity.X + num1257;
+				projectile.velocity.X = projectile.velocity.X + chaseAcc;
 				if (projectile.velocity.X < 0f && num1259 > 0f)
 				{
-					projectile.velocity.X = projectile.velocity.X + num1257 * 2f;
+					projectile.velocity.X = projectile.velocity.X + chaseAcc * 2f;
 				}
 			}
 			else if (projectile.velocity.X > num1259)
 			{
-				projectile.velocity.X = projectile.velocity.X - num1257;
+				projectile.velocity.X = projectile.velocity.X - chaseAcc;
 				if (projectile.velocity.X > 0f && num1259 < 0f)
 				{
-					projectile.velocity.X = projectile.velocity.X - num1257 * 2f;
+					projectile.velocity.X = projectile.velocity.X - chaseAcc * 2f;
 				}
 			}
 			if (projectile.velocity.Y < num1262)
 			{
-				projectile.velocity.Y = projectile.velocity.Y + num1257;
+				projectile.velocity.Y = projectile.velocity.Y + chaseAcc;
 				if (projectile.velocity.Y < 0f && num1262 > 0f)
 				{
-					projectile.velocity.Y = projectile.velocity.Y + num1257 * 2f;
+					projectile.velocity.Y = projectile.velocity.Y + chaseAcc * 2f;
 				}
 			}
 			else if (projectile.velocity.Y > num1262)
 			{
-				projectile.velocity.Y = projectile.velocity.Y - num1257;
+				projectile.velocity.Y = projectile.velocity.Y - chaseAcc;
 				if (projectile.velocity.Y > 0f && num1262 < 0f)
 				{
-					projectile.velocity.Y = projectile.velocity.Y - num1257 * 2f;
+					projectile.velocity.Y = projectile.velocity.Y - chaseAcc * 2f;
 				}
 			}
 		}

@@ -35,7 +35,7 @@ namespace EsperClass.Items.Armor.PreHardmode
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Free movement in liquid\nTK projectiles no longer slower in liquid";
+			player.setBonus = "Free movement in liquid\nEsper projectiles no longer slower in liquid";
             player.ignoreWater = true;
             player.accFlipper = true;
 			ECPlayer.ModPlayer(player).cambrianSetBonus = true;
@@ -44,9 +44,9 @@ namespace EsperClass.Items.Armor.PreHardmode
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.FossilOre, 8);
+			recipe.AddIngredient(ItemID.FossilOre, 10);
 			recipe.AddIngredient(ItemID.Coral, 6);
-			recipe.AddTile(TileID.Loom);
+			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

@@ -1,6 +1,6 @@
 displayName = Esper Class
 author = TheLoneGamer
-version = 0.7
+version = 0.9
 includeSource = true
 includePDB = true
 homepage = https://forums.terraria.org/index.php?threads/esper-class.86858/

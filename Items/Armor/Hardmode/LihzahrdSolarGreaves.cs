@@ -34,7 +34,7 @@ namespace EsperClass.Items.Armor.Hardmode
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.LunarTabletFragment, 6);
 			recipe.AddIngredient(ItemID.Nanites, 3);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.LihzahrdFurnace);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

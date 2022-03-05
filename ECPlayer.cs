@@ -73,6 +73,7 @@ namespace EsperClass
 		public bool taurusSetBonus = false;
 		public bool lihzahrdSetBonus = false;
 		public float lihzahrdPower = 0f; //For the set bonus
+		public int playerTic = 0; //For when the time of day is frozen or counts differently
 
 		//This is mostly copied over from Example Mod's Example Dash Accessory
 		public static readonly int DashDown = 0;
@@ -288,6 +289,8 @@ namespace EsperClass
 				overPsychosisDrain -= 5;
 			if (!lihzahrdSetBonus)
 				lihzahrdPower = 0f;
+			if (lihzahrdPower > 30f)
+				lihzahrdPower = 30f;
 			//if (Main.time % 60 == 0)
 			//	Main.NewText(taurusSetBonus + "", 255, 105, 180);
 
@@ -560,6 +563,15 @@ namespace EsperClass
 				int finalDamage = (int)((2500 * player.GetModPlayer<ECPlayer>().tkDamage) + (2500 * player.allDamage) - 2500);
 				Projectile.NewProjectile(Main.MouseWorld, Vector2.Zero, mod.ProjectileType("LihzahrdExplosion"), finalDamage, 12f, Main.myPlayer, 0f, 0f);
 			}*/
+			playerTic++;;
+			if (playerTic > 9)
+				playerTic = 0;
+			//With help from Verveine
+			if (player.wings == mod.GetEquipSlot("GravityWings", EquipType.Wings) && player.velocity.Y != 0)
+			{
+				player.legFrameCounter = 0;
+				player.legFrame.Y = 0;
+			}
 		}
 
 		public int TotalPsychosis()

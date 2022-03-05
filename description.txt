@@ -12,17 +12,52 @@ Vanilla changes...
 Known Issues because I either can code it better or can't due to hardcoding...
 
 - Sawblades can get stuck on slopes.
-- TK weapon collision on tiles can be janky.
 - Shooters (currently the Spitting Sandfish and Super Spitting Sandfish) can be hard to aim when the screen scrolls.
+- Gravity Barrier Platform will display even when on the ground. Recommended to toggle accessory visibility off for it.
 
 Future Plans...
 
 - More weapons, armors and accessories.
 - Cross mod support to add new weapons and items to fit within the themes of the mods.
 - Better balancing.
-- Add weapons for the following: Duke Fishron, biome chest, Betsy, Martian Madness, two from Gravity Fragments, and two more from Moon Lord
+- Add weapons for the following: 1 more Duke Fishron and Martian Madness, ocean biome chest, 2 Gravity Fragment, and 2 Moon Lord.
+- Add Esper buff station.
+- Right click function to hold certain Esper weapon types in place.
+- Possible Twirlers rework to be unique.
+- Possibly custom prefixes
 
 Change Log...
+
+- 0.9: Lihzahrd Solar armor now requires crafting at a Lihzahrd Furance.
+- Lihzahrd Solar Chestplate now gives 40% increased telekinetic velocity.
+- Added Gravity Pickaxe, Hamaxe, Axe, Hammer, and Chainsaw.
+- Corrected Gravity Fragment rarity from 10 (red) to 9 (cyan).
+- Hallowed accessories now only take 5 Hallowed Bars to craft instead of 10. Reforge value also dropped to 2 gold from 5 gold.
+- Cambrian armor is now crafted at an anvil instead of a loom.
+- Fixed some tooltips due to either not being constant with others (for True Goldropper compared to other canisters) or incorrect (Bowling Ball making mention of being consumable).
+- Standardized the Wyvern Scale Vest to give 30% increased velocity for both throwing and telekinetic instead of different values.
+- Renamed Psy Rockets to Psi Rockets.
+- The rest of the non-sawblade projectiles janky collision should be fixed.
+- Updated Boss Checklist support to correctly show all item drops that were missing from the previous update.
+- Canister projectiles getting wider should no longer touch tiles beyond 10 pixels.
+- Hallowed Lotus Petals now cost 3 Hallowed Bars instead of 5 and adjusted sell price accordingly.
+- Psychosis meter when under the Psyched Out debuff will now animate even if the time of day counts differently.
+- Boulder projectiles lose horizontal velocity slower.
+- Boulder projectiles no longer despawn on collision while being controlled.
+- Added Gravity Furniture in style of the 1.4 fragment furniture sets.
+- Bowling Ball now has a unique sound on crit hits once during its lifespan.
+- Added Icicle Spitter, a new Shooter type weapon that can drop from the Ice Queen. Also added Rolling Neutronium Core, Sharknado Rift, and Betsy Lobber.
+- Buffed Spectre Rift damage from 72 to 96.
+- Buffed Hellbat Jar damage from 24 to 28.
+- Buffed Pixie Jar damage from 36 to 45.
+- Buffed Wasp Jar damage from 50 to 75.
+- Buffed Beetle Jar damage from 75 to 100.
+- Added Gravity Barrier Platform, the endgame wings for Esper.
+- HUD is now much less janky and should position itself much better even when zooming in.
+- Boulders upper damage now capped at 200% and lower damage at 50%.
+- Lihzahrd Solar set bonus damage scaling and explosions now work for non-Esper Class telekinetic projectiles. Thus far, just the vanilla Flying Knife and Omni-Hammer's Telekinetic Hammer.
+- Lihzahrd Solar set bonus explosion should now always deal damage regardless of enemy iframes from penetrating projectiles.
+- Shaken jars now last for 8 seconds, up from 5.
 
 - 0.7: Updated for tModLoader v0.11.8.6.
 - Boulders (when held) and Lobber projectiles no longer go through platforms.

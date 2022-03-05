@@ -30,10 +30,16 @@ namespace EsperClass.Projectiles.Hardmode
 			projectile.ignoreWater = true;
             projectile.tileCollide = false;
 			projectile.timeLeft = 5;
+			ignoreLihzahrdPower = true;
 		}
 
 		public override void AI()
 		{
+			if (projectile.owner == Main.myPlayer && projectile.timeLeft == 5)
+			{
+				projectile.maxPenetrate = 0;
+				projectile.Damage();
+			}
 			for (int i = 0; i < 20; i++)
 			{
 				int num103 = Dust.NewDust(new Vector2(projectile.position.X + projectile.velocity.X, projectile.position.Y + projectile.velocity.Y), projectile.width, projectile.height, 6, projectile.velocity.X, projectile.velocity.Y, 100, default(Color), 3f * projectile.scale);

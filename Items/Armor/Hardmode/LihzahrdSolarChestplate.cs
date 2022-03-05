@@ -11,7 +11,7 @@ namespace EsperClass.Items.Armor.Hardmode
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
-			Tooltip.SetDefault("30% increased telekinetic velocity");
+			Tooltip.SetDefault("40% increased telekinetic velocity");
 		}
 
 		public override void SetDefaults()
@@ -30,7 +30,7 @@ namespace EsperClass.Items.Armor.Hardmode
 
 		public override void UpdateEquip(Player player)
 		{
-			ECPlayer.ModPlayer(player).tkVel += 0.3f;
+			ECPlayer.ModPlayer(player).tkVel += 0.4f;
 		}
 
 		public override void AddRecipes()
@@ -38,7 +38,7 @@ namespace EsperClass.Items.Armor.Hardmode
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.LunarTabletFragment, 8);
 			recipe.AddIngredient(ItemID.Nanites, 4);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.LihzahrdFurnace);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

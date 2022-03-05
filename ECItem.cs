@@ -1,18 +1,15 @@
-using System;
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.GameContent.Events;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 using static Terraria.ModLoader.ModContent;
 
 namespace EsperClass
 {
-	public abstract class ECItem : ModItem
+    public abstract class ECItem : ModItem
 	{
 		public bool onlyOne = true;
 
@@ -236,6 +233,11 @@ namespace EsperClass
 					string damageWord = splitText.Last();
 					tt.text = damageValue + " telekinetic " + damageWord;
 				}
+			}
+			if (item.type == ItemID.FlyingKnife)
+			{
+				TooltipLine newtip = new TooltipLine(mod, "Extra", "Will deal 50% extra damage if it flies in a straight line for a moment");
+				tooltips.Add(newtip);
 			}
 			base.ModifyTooltips(item, tooltips);
 		}

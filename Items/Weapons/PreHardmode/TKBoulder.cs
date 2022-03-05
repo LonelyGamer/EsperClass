@@ -14,6 +14,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Psi Boulder");
+			Tooltip.SetDefault("Does more damage the more velocity it has on impact");
 		}
 
 		public override void SetDefaults()

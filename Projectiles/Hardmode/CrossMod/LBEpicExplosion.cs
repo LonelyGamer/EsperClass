@@ -9,7 +9,7 @@ using Terraria.ModLoader.IO;
 namespace EsperClass.Projectiles.Hardmode.CrossMod
 {
 	//This is copied over from LootBag's EpicExplosion
-    public class LBEpicExplosion : ModProjectile
+    public class LBEpicExplosion : ECProjectile
     {
         public override void SetStaticDefaults()
         {
@@ -25,10 +25,13 @@ namespace EsperClass.Projectiles.Hardmode.CrossMod
             projectile.timeLeft = 5;
             projectile.tileCollide = false;
             projectile.alpha = 255;
+			projectile.localNPCHitCooldown = -1;
+			projectile.usesLocalNPCImmunity = true;
         }
 
         public override void AI()
         {
+			ExtraAI();
             Dust dust;
             Vector2 position = projectile.position + projectile.velocity;
             dust = Main.dust[Terraria.Dust.NewDust(position, projectile.width, projectile.height, 27, 0f, 0f, 0, new Color(255, 255, 255), 1f)];

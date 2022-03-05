@@ -14,7 +14,7 @@ namespace EsperClass.Items.Weapons.Hardmode
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("True Goldropper");
-            Tooltip.SetDefault("Pours down a piercing liquid\nAlso acts like a rift weapon");
+            Tooltip.SetDefault("Pours down a piercing liquid\nDoes more damage (up to a limit) the further it falls\nAlso acts like a rift weapon");
         }
 
         public override void SetDefaults()

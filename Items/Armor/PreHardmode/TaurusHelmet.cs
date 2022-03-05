@@ -49,7 +49,7 @@ namespace EsperClass.Items.Armor.PreHardmode
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Enables Psy Dashing.\nDouble tap a cardinal direction to dash that way.\nGain 20 immunity frames during the dash.\nCosts 5 psychosis to use\nTake 20 damage if used during Psyched Out state";
+			player.setBonus = "Enables Psi Dashing.\nDouble tap a cardinal direction to dash that way.\nGain 20 immunity frames during the dash.\nCosts 5 psychosis to use\nTake 20 damage if used during Psyched Out state";
 			ECPlayer.ModPlayer(player).taurusSetBonus = true;
 		}
 

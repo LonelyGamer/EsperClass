@@ -27,25 +27,15 @@ namespace EsperClass.UI
 			var modPlayer = Main.LocalPlayer.GetModPlayer<ECPlayer>();
 			if (!(!modPlayer.PsychosisFull() || modPlayer.psychosisDelay2 > 0 || player.HasBuff(BuffType<Buffs.PsychedOut>()) && !player.dead))
 				return;
-			Vector2 value = player.Bottom + new Vector2(0f, player.gfxOffY + 110);
-			if (Main.playerInventory && Main.screenHeight < 1000)
-			{
-				value.Y += player.height - 20;
-			}
-			value = Vector2.Transform(value - Main.screenPosition, Main.GameViewMatrix.ZoomMatrix);
-			if (!Main.playerInventory || Main.screenHeight >= 1000)
-			{
-				value.Y -= 100f;
-			}
-			value /= Main.UIScale;
-			if (Main.ingameOptionsWindow || Main.InGameUI.IsVisible)
-			{
-				value = new Vector2(Main.screenWidth / 2, Main.screenHeight / 2 + 236);
-				if (Main.InGameUI.IsVisible)
-				{
-					value.Y = Main.screenHeight - 64;
-				}
-			}
+			//Thanks to Verveine for the revamped code
+			Vector2 vector = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height - 10 + player.gfxOffY : 10 + player.gfxOffY)).Floor();
+			vector = Vector2.Transform(vector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
+
+			this.Left.Set(vector.X, 0f);
+			this.Top.Set(vector.Y, 0f);
+
+			CalculatedStyle dimensions = GetDimensions();
+			Point value = new Point((int)dimensions.X, (int)dimensions.Y);
 
 			float precent = modPlayer.psychosis / modPlayer.TotalPsychosis();
 			int frameY = 0;
@@ -53,7 +43,7 @@ namespace EsperClass.UI
 			{
 				//if (player.FindBuffIndex(mod.BuffType("PsychedOut")) <= 15)
 				//	frameY = 234;
-				if (Main.time % 10 < 5)
+				if (modPlayer.playerTic < 5)
 					frameY = 198;
 				else
 					frameY = 216;
@@ -86,12 +76,12 @@ namespace EsperClass.UI
 					frameY = 234;
 			}
 
-			Main.spriteBatch.Draw(GetTexture("EsperClass/UI/PsychosisMeter"), new Vector2(value.X - 40, value.Y), new Rectangle(0, frameY, 74, 18), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(GetTexture("EsperClass/UI/PsychosisMeter"), new Vector2(value.X - 40, value.Y + 20f), new Rectangle(0, frameY, 74, 18), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			DynamicSpriteFont font = Main.fontMouseText;
 			string psychosisText = (int)ECPlayer.ModPlayer(player).psychosis + " / " + ECPlayer.ModPlayer(player).TotalPsychosis();
 			Vector2 maxTextSize = font.MeasureString(psychosisText);
 			Color textColor = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor);
-			Main.spriteBatch.DrawString(font, psychosisText, new Vector2(value.X + maxTextSize.X / 2f, value.Y + 20f), textColor, 0f, new Vector2(font.MeasureString(psychosisText).X, 0f), 1f, SpriteEffects.None, 0f);
+			Main.spriteBatch.DrawString(font, psychosisText, new Vector2(value.X + maxTextSize.X / 2f, value.Y + 40f), textColor, 0f, new Vector2(font.MeasureString(psychosisText).X, 0f), 1f, SpriteEffects.None, 0f);
 			if (ECPlayer.ModPlayer(player).lihzahrdSetBonus)
 			{
 				float precent2 = modPlayer.lihzahrdPower / 30f;
@@ -117,7 +107,7 @@ namespace EsperClass.UI
 					frameY = 162;
 				else if (precent2 <= 1f)
 					frameY = 180;
-				Main.spriteBatch.Draw(GetTexture("EsperClass/UI/PsychosisMeterExtra"), new Vector2(value.X - 40, value.Y), new Rectangle(0, frameY, 74, 18), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(GetTexture("EsperClass/UI/PsychosisMeterExtra"), new Vector2(value.X - 40, value.Y + 20f), new Rectangle(0, frameY, 74, 18), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 			}
 			//spriteBatch.Draw(bubbleTexture, value + new Vector2((float)(26 * (j - 1) + num20) - 125f, 32f + ((float)bubbleTexture.Height - (float)bubbleTexture.Height * num23) / 2f + (float)num19), new Rectangle(0, 0, bubbleTexture.Width, bubbleTexture.Height), new Color(num22, num22, num22, num22), 0f, default(Vector2), num23, SpriteEffects.None, 0f);
 		}

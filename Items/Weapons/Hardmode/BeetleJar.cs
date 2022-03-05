@@ -13,14 +13,14 @@ namespace EsperClass.Items.Weapons.Hardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Spawns beetles that will chase your enemies\nRequires shaking up and down to function\nWill last for 5 seconds before needing more shaking");
+			Tooltip.SetDefault("Spawns beetles that will chase your enemies\nRequires shaking up and down to function\nWill last for 8 seconds before needing more shaking");
 		}
 
 		public override void SetDefaults()
 		{
 			item.channel = true;
 			item.maxStack = 1;
-			item.damage = 75;
+			item.damage = 100;
 			item.width = 22;
 			item.height = 32;
 			item.useTime = 15;

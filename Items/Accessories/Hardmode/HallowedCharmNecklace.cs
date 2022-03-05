@@ -13,7 +13,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 		{
 			item.width = 30;
 			item.height = 30;
-			item.value = Item.sellPrice(0, 15, 0, 0);
+			item.value = Item.sellPrice(0, 6, 0, 0);
 			item.rare = 5;
 			item.accessory = true;
 		}

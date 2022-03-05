@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PostMoonLord
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Spawns eldritch eyes that will hunt down enemies\nRequires shaking up and down to function\nWill last for 5 seconds before needing more shaking");
+			Tooltip.SetDefault("Spawns eldritch eyes that will hunt down enemies\nRequires shaking up and down to function\nWill last for 8 seconds before needing more shaking");
 		}
 
 		public override void SetDefaults()

@@ -11,6 +11,11 @@ namespace EsperClass.Items.Weapons.Hardmode
 {
 	public class SnowmanBoulder : ECItem
 	{
+		public override void SetStaticDefaults()
+		{
+			Tooltip.SetDefault("Does more damage the more velocity it has on impact");
+		}
+
 		public override void SetDefaults()
 		{
 			item.channel = true;

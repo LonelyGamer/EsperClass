@@ -19,7 +19,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 		{
 			item.width = 18;
 			item.height = 26;
-			item.value = Item.sellPrice(0, 5, 0, 0);
+			item.value = Item.sellPrice(0, 2, 0, 0);
 			item.rare = 5;
 			item.accessory = true;
 		}
@@ -32,7 +32,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.HallowedBar, 10);
+			recipe.AddIngredient(ItemID.HallowedBar, 5);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

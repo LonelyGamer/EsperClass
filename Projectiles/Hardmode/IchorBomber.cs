@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace EsperClass.Projectiles.Hardmode
 {
-	public class IchorBomber : ECProjectile
+    public class IchorBomber : ECProjectile
 	{
 		int fireTimer = 0;
 
@@ -32,11 +31,6 @@ namespace EsperClass.Projectiles.Hardmode
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.position -= projectile.velocity;
-			if ((double)projectile.velocity.X != (double)oldVelocity.X)
-				projectile.velocity.X = -oldVelocity.X;
-			if ((double)projectile.velocity.Y != (double)oldVelocity.Y)
-				projectile.velocity.Y = -oldVelocity.Y;
 			return false;
 		}
 

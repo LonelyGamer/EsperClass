@@ -32,6 +32,18 @@ namespace EsperClass.Items
 				}
 				if (arg == 3329 && Main.rand.Next(2) == 0) //Golem
 					player.QuickSpawnItem(mod.ItemType("GolemHeadRift"));
+				if (arg == 3330) //Duke Fishron
+				{
+					if (Main.rand.Next(2) == 0)
+						player.QuickSpawnItem(mod.ItemType("SharknadoRift"));
+					//if (Main.rand.Next(2) == 0)
+					//	player.QuickSpawnItem(mod.ItemType("WaterTornado"));
+				}
+				if (arg == 3860) //Betsy
+				{
+					if (Main.rand.Next(2) == 0)
+						player.QuickSpawnItem(mod.ItemType("BetsyPsi"));
+				}
 				if (arg == 3332 && Main.rand.Next(3) == 0) //Moon Lord
 					player.QuickSpawnItem(mod.ItemType("EldritchEyeJar"));
 			}

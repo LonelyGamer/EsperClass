@@ -16,12 +16,13 @@ namespace EsperClass.Items
 					player.QuickSpawnItem(mod.ItemType("SlimyCanister"));
 				if (arg == ItemID.EyeOfCthulhuBossBag && Main.rand.Next(2) == 0)
 					player.QuickSpawnItem(mod.ItemType("EyeJar"));
-				if (arg == 3324)
+				if (arg == 3324) //Wall of Flesh
 				{
 					if (Main.rand.Next(3) == 0)
-						player.QuickSpawnItem(mod.ItemType("EsperEmblem"));
-					if (Main.rand.Next(3) == 0)
+					{
 						player.QuickSpawnItem(mod.ItemType("GiantGear"));
+						player.QuickSpawnItem(mod.ItemType("EsperEmblem"));
+					}
 				}
 				if (arg == 3328) //Plantera
 				{
@@ -44,8 +45,22 @@ namespace EsperClass.Items
 					if (Main.rand.Next(2) == 0)
 						player.QuickSpawnItem(mod.ItemType("BetsyPsi"));
 				}
-				if (arg == 3332 && Main.rand.Next(3) == 0) //Moon Lord
-					player.QuickSpawnItem(mod.ItemType("EldritchEyeJar"));
+				if (arg == 3332) //Moon Lord
+				{
+					int randomDrop = Main.rand.Next(3);
+					switch (randomDrop)
+					{
+						case 0:
+							player.QuickSpawnItem(mod.ItemType("EldritchEyeJar"));
+							break;
+						case 1:
+							player.QuickSpawnItem(mod.ItemType("AccretionDisc"));
+							break;
+						case 2:
+							player.QuickSpawnItem(mod.ItemType("BlackHoleBomb"));
+							break;
+					}
+				}
 			}
             if (context == "lockBox")
             {

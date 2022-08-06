@@ -16,6 +16,11 @@ namespace EsperClass.Items.Weapons.PreHardmode
 			Tooltip.SetDefault("Fires bubbles in the direction it is facing");
 		}
 
+		public override void UpdateInventory(Player player)
+		{
+			ECPlayer.ModPlayer(player).caughtSandfish = true;
+		}
+
 		public override void SetDefaults()
 		{
 			item.channel = true;

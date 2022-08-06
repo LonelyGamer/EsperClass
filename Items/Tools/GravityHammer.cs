@@ -10,6 +10,11 @@ namespace EsperClass.Items.Tools
 {
 	public class GravityHammer : ModItem
 	{
+		public override void SetStaticDefaults()
+		{
+			Tooltip.SetDefault("'Not to be confused with a Type-2 Energy Hammer'");
+		}
+
 		public override void SetDefaults()
 		{
 			item.useTurn = true;

@@ -278,8 +278,22 @@ namespace EsperClass
 			}
 			if (npc.type == NPCID.MoonLordCore && !Main.expertMode)
 			{
-				if (Main.rand.Next(4) == 0)
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EldritchEyeJarProj"));
+				if (Main.rand.Next(2) == 0)
+				{
+					int randomDrop = Main.rand.Next(3);
+					switch (randomDrop)
+					{
+						case 0:
+							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EldritchEyeJar"));
+							break;
+						case 1:
+							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("AccretionDisc"));
+							break;
+						case 2:
+							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BlackHoleBomb"));
+							break;
+					}
+				}
 			}
 			/*if (Main.hardMode && npc.value > 0f)
 			{

@@ -10,6 +10,7 @@ namespace EsperClass.Projectiles.Hardmode
 	public class BetsyHead : ECProjectile
 	{
 		int release = 0;
+		int soundDelay = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -57,7 +58,11 @@ namespace EsperClass.Projectiles.Hardmode
 				release = 0;
 				if (projectile.owner == Main.myPlayer)
 				{
-					Main.PlaySound(SoundID.DD2_BetsyFlameBreath, (int)projectile.position.X, (int)projectile.position.Y);
+					if (soundDelay++ >= 3)
+					{
+						soundDelay = 0;
+						Main.PlaySound(SoundID.DD2_BetsyFlameBreath, (int)projectile.position.X, (int)projectile.position.Y);
+					}
 					Vector2 vector = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
 					Projectile.NewProjectile(vector.X + (6 * projectile.spriteDirection), vector.Y+16, 12f * projectile.spriteDirection, 6, mod.ProjectileType("BetsyPsiFlame"), projectile.damage, projectile.knockBack, projectile.owner, 0f, projectile.whoAmI);
 				}

@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.Hardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Pours down damaging hairs\nRequires shaking up and down to function\nWill last for 5 seconds before needing more shaking");
+			Tooltip.SetDefault("Pours down damaging hairs\nRequires shaking up and down to function\nWill last for 8 seconds before needing more shaking");
 		}
 
 		public override void SetDefaults()

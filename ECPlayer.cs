@@ -73,7 +73,14 @@ namespace EsperClass
 		public bool taurusSetBonus = false;
 		public bool lihzahrdSetBonus = false;
 		public float lihzahrdPower = 0f; //For the set bonus
+		public bool gravitySetBonus = false;
+		public int gravityTapTime = 0;
 		public int playerTic = 0; //For when the time of day is frozen or counts differently
+		public bool gravityPotion = false;
+		
+		//Fishing variables
+		public bool caughtSandfish = false; //Pre-hardmode
+		public bool caughtSandfish2 = false; //Hardmode
 
 		//This is mostly copied over from Example Mod's Example Dash Accessory
 		public static readonly int DashDown = 0;
@@ -143,6 +150,7 @@ namespace EsperClass
 			cambrianSetBonus = false;
 			taurusSetBonus = false;
 			lihzahrdSetBonus = false;
+			gravitySetBonus = false;
 			tkZoom = false;
 			overPsychosisDrain = 20;
 
@@ -161,6 +169,8 @@ namespace EsperClass
 			accMaxPsychosis5 = false;
 			accPsychosisRec5 = false;
 			accTkDodge5 = false;
+
+			gravityPotion = false;
 		}
 
 		public override void clientClone(ModPlayer clientClone)
@@ -171,6 +181,8 @@ namespace EsperClass
 			clone.psychosisDelay2 = psychosisDelay2;
 			clone.maxPsychosis = maxPsychosis;
 			clone.psychosisWarning = psychosisWarning;
+			clone.caughtSandfish = caughtSandfish;
+			clone.caughtSandfish2 = caughtSandfish2;
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -179,6 +191,8 @@ namespace EsperClass
 			packet.Write((byte)EsperClassMessageType.ECPlayerSyncPlayer);
 			packet.Write((byte)player.whoAmI);
 			packet.Write(psychosis);
+			packet.Write(caughtSandfish);
+			packet.Write(caughtSandfish2);
 			//packet.Write(psychosisDelay);
 			//packet.Write(psychosisDelay2);
 			//packet.Write(maxPsychosis);
@@ -229,13 +243,21 @@ namespace EsperClass
 
 		public override TagCompound Save()
 		{
-			return new TagCompound { {"psychosis", psychosis}, {"maxPsychosis", maxPsychosis}, };
+			return new TagCompound
+			{
+				{"psychosis", psychosis},
+				{"maxPsychosis", maxPsychosis},
+				{"caughtSandfish", caughtSandfish},
+				{"caughtSandfish2", caughtSandfish2},
+			};
 		}
 
 		public override void Load(TagCompound tag)
 		{
 			psychosis = tag.GetFloat("psychosis");
 			maxPsychosis = tag.GetInt("maxPsychosis");
+			caughtSandfish = tag.GetBool("caughtSandfish");
+			caughtSandfish2 = tag.GetBool("caughtSandfish2");
 		}
 		
 		public override void ModifyZoom(ref float zoom2)
@@ -293,7 +315,44 @@ namespace EsperClass
 				lihzahrdPower = 30f;
 			//if (Main.time % 60 == 0)
 			//	Main.NewText(taurusSetBonus + "", 255, 105, 180);
+			if (gravityPotion)
+			{
+				tkDamage += 0.5f;
+				tkVel += 0.5f;
+				gravitySetBonus = true;
+			}
 
+			if (gravityTapTime > 0)
+				gravityTapTime--;
+			if (gravitySetBonus)
+			{
+				if (psychosis >= 15f && !player.HasBuff(mod.BuffType("PsychedOut")))
+				{
+					bool used = false;
+					if ((!Main.ReversedUpDownArmorSetBonuses && player.controlDown && player.releaseDown)
+					|| (Main.ReversedUpDownArmorSetBonuses && player.controlUp && player.releaseUp))
+					{
+						//Main.NewText("Pressed!", 255, 105, 180);
+						if (gravityTapTime > 0)
+							used = true;
+						else
+							gravityTapTime = 15;
+					}
+					if (used)
+					{
+						gravityTapTime = 0;
+						PsychosisDrain(900f, true, false, true);
+						for (int i = 0; i < 1000; i++)
+						{
+							if (Main.projectile[i].active && Main.projectile[i].type == mod.ProjectileType("GravityField") && Main.projectile[i].owner == player.whoAmI)
+								Main.projectile[i].Kill();
+						}
+						Main.PlaySound(SoundLoader.customSoundType, (int)player.position.X, (int)player.position.Y, mod.GetSoundSlot(SoundType.Custom, "Sounds/GravityFieldStart"));
+						int projCheck = Projectile.NewProjectile(player.Center, Vector2.Zero, mod.ProjectileType("GravityField"), 10, 0, Main.myPlayer);
+						Main.projectile[projCheck].direction = player.direction;
+					}
+				}
+			}
 			//If we don't have the ExampleDashAccessory equipped or the player has the Solor armor set equipped, return immediately
 			//Also return if the player is currently on a mount, since dashes on a mount look weird, or if the dash was already activated
 			if (!taurusSetBonus || player.setSolar || player.mount.Active || DashActive)
@@ -309,13 +368,13 @@ namespace EsperClass
 
 			//When a directional key is pressed and released, vanilla starts a 15 tick (1/4 second) timer during which a second press activates a dash
 			//If the timers are set to 15, then this is the first press just processed by the vanilla logic.  Otherwise, it's a double-tap
-			if(player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[DashDown] < 15)
+			if (player.controlDown && player.releaseDown && player.doubleTapCardinalTimer[DashDown] < 15)
 				DashDir = DashDown;
-			else if(player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[DashUp] < 15)
+			else if (player.controlUp && player.releaseUp && player.doubleTapCardinalTimer[DashUp] < 15)
 				DashDir = DashUp;
-			else if(player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
+			else if (player.controlRight && player.releaseRight && player.doubleTapCardinalTimer[DashRight] < 15)
 				DashDir = DashRight;
-			else if(player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
+			else if (player.controlLeft && player.releaseLeft && player.doubleTapCardinalTimer[DashLeft] < 15)
 				DashDir = DashLeft;
 			else
 				return;	 //No dash was activated, return
@@ -365,7 +424,7 @@ namespace EsperClass
 				}
 				Vector2 newVelocity = player.velocity;
 				if (!player.HasBuff(mod.BuffType("PsychedOut")))
-					PsychosisDrain(300f);
+					PsychosisDrain(300f, true, false, true);
 				else
 				{
 					player.statLife -= 20;
@@ -658,9 +717,9 @@ namespace EsperClass
 		}
 
 		//Amount should be drain per second, not per frame
-		public void PsychosisDrain(float amount, bool delayRegen = true, bool bypassDebuff = false)
+		public void PsychosisDrain(float amount, bool delayRegen = true, bool bypassDebuff = false, bool noLihzahrdPower = false)
 		{
-			if (lihzahrdSetBonus)
+			if (lihzahrdSetBonus && !noLihzahrdPower)
 				lihzahrdPower += amount / 60f;
 			//Main.NewText(lihzahrdPower + "", 255, 105, 180);
 			if (player.HasBuff(mod.BuffType("PsychedOut")) && !bypassDebuff)
@@ -692,18 +751,31 @@ namespace EsperClass
 					chance[0] = 15;
 					chance[1] = 750;
 				}
+				if (!caughtSandfish)
+				{
+					chance[0] = 3;
+					chance[1] = 150;
+				}
 				if (Main.rand.Next(Math.Max(chance[0], chance[1] / power)) == 0 && player.ZoneDesert && worldLayer == 1 && !(player.position.X / 16 < 340 || player.position.X / 16 > Main.maxTilesX - 340))
 				{
 					caughtType = mod.ItemType("SpittingSandfish");
+					//caughtSandfish = true;
 				}
 			}
 
 			if (liquidType == 0 && Main.hardMode && !(caughtType >= ItemID.WoodenCrate && caughtType <= ItemID.GoldenCrate)
 			&& !(caughtType >= ItemID.CorruptFishingCrate && caughtType <= ItemID.JungleFishingCrate))
 			{
-				if (Main.rand.Next(Math.Max(15, 750 / power)) == 0 && player.ZoneDesert && worldLayer > 1 && !(player.position.X / 16 < 340 || player.position.X / 16 > Main.maxTilesX - 340))
+				int[] chance = {15, 750};
+				if (!caughtSandfish2)
+				{
+					chance[0] = 3;
+					chance[1] = 150;
+				}
+				if (Main.rand.Next(Math.Max(chance[0], chance[1] / power)) == 0 && player.ZoneDesert && worldLayer > 1 && !(player.position.X / 16 < 340 || player.position.X / 16 > Main.maxTilesX - 340))
 				{
 					caughtType = mod.ItemType("SuperSpittingSandfish");
+					//caughtSandfish2 = true;
 				}
 			}
 		}

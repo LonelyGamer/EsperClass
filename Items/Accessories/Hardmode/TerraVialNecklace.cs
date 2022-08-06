@@ -47,9 +47,7 @@ namespace EsperClass.Items.Accessories.Hardmode
 			recipe.AddIngredient(null, "MidasVialNecklace");
 			recipe.AddIngredient(null, "ShadowflameVialNecklace");
 			recipe.AddIngredient(null, "VenomVialNecklace");
-			recipe.AddIngredient(ItemID.BeetleHusk, 1);
-			recipe.AddIngredient(ItemID.ShroomiteBar, 6);
-			recipe.AddIngredient(ItemID.Ectoplasm, 3);
+			recipe.AddIngredient(ItemID.BeetleHusk);
 			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

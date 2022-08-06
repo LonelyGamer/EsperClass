@@ -21,6 +21,7 @@ namespace EsperClass
 		bool created = false;
 		int soundStartDelay = 0;
 		protected bool ignoreLihzahrdPower = false;
+		protected string loopingSound = "Sounds/EsperLoop";
 		
 		SoundEffectInstance loopSound;
 
@@ -181,7 +182,7 @@ namespace EsperClass
 					soundStartDelay++;
 					if (loopSound == null || loopSound.State != SoundState.Playing)
 					{
-						loopSound = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperLoop"));
+						loopSound = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, loopingSound));
 					}
 
 					Player player = Main.player[projectile.owner];
@@ -230,7 +231,7 @@ namespace EsperClass
 					{
 						if (loopSound == null || loopSound.State != SoundState.Playing)
 						{
-							loopSound = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, "Sounds/EsperLoop"));
+							loopSound = Main.PlaySound(SoundLoader.customSoundType, -1, -1, mod.GetSoundSlot(SoundType.Custom, loopingSound));
 						}
 					}
 					if (whizze && num117 < 100f && controlDelay <= 0)
@@ -340,11 +341,11 @@ namespace EsperClass
 				{
 					projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) - 2.355f;
 				}
-				if (projectile.velocity.Y > maxVel * extraSpeed)
+				/*if (projectile.velocity.Y > maxVel * extraSpeed)
 				{
 					projectile.velocity.Y = maxVel * extraSpeed;
 					return;
-				}
+				}*/
 			}
 			else if (Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkInUse > 0 && Main.player[projectile.owner].GetModPlayer<ECPlayer>().tkInUse != Main.player[projectile.owner].HeldItem.type)
 			{
@@ -504,7 +505,8 @@ namespace EsperClass
 	public class ECProjectile2 : GlobalProjectile
 	{
 		float FKBuildUp = 0f;
-		float oldDirection;
+		Vector2 oldVelocity;
+		bool playSound = false;
 		//oldRot
 		public override void SetDefaults(Projectile projectile)
 		{
@@ -523,32 +525,38 @@ namespace EsperClass
 
 		public override void AI(Projectile projectile)
 		{
-			/*if (projectile.type == ProjectileID.FlyingKnife)
+			if (projectile.type == ProjectileID.FlyingKnife)
 			{
 				ECPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<ECPlayer>();
-				//Main.NewText(FKBuildUp + "", 255, 105, 180);
-				if (Math.Abs(projectile.direction - oldDirection) > 0.001f)
+
+				//Thanks to Verveine for the following help
+				Vector2 distance = projectile.velocity - oldVelocity;
+				float distanceTo = (float)Math.Sqrt(distance.X * distance.X + distance.Y * distance.Y);
+
+				if (distanceTo > 1f)
 				{
-					oldDirection = projectile.direction;
+					oldVelocity = projectile.velocity;
 					FKBuildUp = 0;
+					playSound = false;
 				}
 				else
 				{
 					FKBuildUp += modPlayer.tkVel;
-					if (FKBuildUp == 10)
+					if (FKBuildUp >= 15)
 					{
-						Main.PlaySound(SoundID.Item43, (int)projectile.position.X, (int)projectile.position.Y);
-					}
-					if (FKBuildUp >= 10)
-					{
-						int num5 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, projectile.velocity.X * 0.2f + (float)(projectile.direction * 3), projectile.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+						if (!playSound)
+						{
+							Main.PlaySound(SoundID.Item43, (int)projectile.position.X, (int)projectile.position.Y);
+							playSound = true;
+						}
+						int num5 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, projectile.velocity.X * 0.2f + (float)(projectile.direction * 3), projectile.velocity.Y * 0.2f, 100, default(Color), 2.5f);
 						Main.dust[num5].noGravity = true;
 						Main.dust[num5].velocity *= 0.7f;
 						Dust dust3 = Main.dust[num5];
 						dust3.velocity.Y = dust3.velocity.Y - 0.5f;
 					}
 				}
-			}*/
+			}
 			if (DetectPositives(projectile))
 			{
 				if (Main.player[projectile.owner].GetModPlayer<ECPlayer>().lihzahrdPower >= 30f)
@@ -688,7 +696,7 @@ namespace EsperClass
 			}
 			if (projectile.type == ProjectileID.FlyingKnife)
 			{
-				if (FKBuildUp >= 10)
+				if (FKBuildUp >= 15)
 					damage += (int)(damage * 0.5f);
 			}
 			base.ModifyHitNPC(projectile, target, ref damage, ref knockback, ref crit, ref hitDirection);
@@ -1265,7 +1273,7 @@ namespace EsperClass
 					damageScale = 0.5f;
 				if (damageScale > 2f)
 					damageScale = 2f;
-				Main.NewText(damageScale + "", 255, 105, 180);
+				//Main.NewText(damageScale + "", 255, 105, 180);
 				damage = (int)((float)damage * damageScale);
 			}
 			base.ModifyHitNPC(target, ref damage, ref knockback, ref crit, ref hitDirection);
@@ -1290,6 +1298,7 @@ namespace EsperClass
 		bool shakeStart = false; //Don't start the shake count right as the projectile is spawn
 		protected int releaseDelay = 30;
 		protected int projType;
+		//protected int fireVel = 6;
 
 		public override void SetStaticDefaults()
 		{
@@ -1395,10 +1404,11 @@ namespace EsperClass
 
 		public virtual void Fire()
 		{
-			float speedX = (float)Main.rand.Next(-35, 36) * 0.02f;
-			float speedY = (float)Main.rand.Next(-35, 36) * 0.02f;
+			//float speedX = (float)Main.rand.Next(-35, 36) * 0.02f;
+			//float speedY = (float)Main.rand.Next(-35, 36) * 0.02f;
+			Vector2 shootVel = new Vector2(6, 6).RotatedByRandom(MathHelper.ToRadians(360));
 			Vector2 vector = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-			Projectile.NewProjectile(vector.X, vector.Y, speedX, speedY, projType, (int)(projectile.damage), projectile.knockBack, Main.player[projectile.owner].whoAmI);
+			Projectile.NewProjectile(vector, shootVel, projType, (int)(projectile.damage), projectile.knockBack, Main.player[projectile.owner].whoAmI);
 		}
 
 		public override bool? CanCutTiles()
@@ -1422,6 +1432,8 @@ namespace EsperClass
 		protected bool chaseLiquid = false;
 		protected float chaseSpeed = 6f;
 		protected float chaseAcc = 0.1f;
+		protected bool hasTarget = false;
+		protected bool ignoreLoS = false;
 
 		public override void SetDefaults()
 		{
@@ -1462,7 +1474,7 @@ namespace EsperClass
 			float num1220 = projectile.position.X;
 			float num1222 = projectile.position.Y;
 			float num1224 = 100000f;
-			bool flag145 = false;
+			hasTarget = false;
 			projectile.ai[0] += 1f;
 			if (projectile.ai[0] > 30f)
 			{
@@ -1474,17 +1486,17 @@ namespace EsperClass
 						float num1237 = Main.npc[num1225].position.X + (float)(Main.npc[num1225].width / 2);
 						float num1246 = Main.npc[num1225].position.Y + (float)(Main.npc[num1225].height / 2);
 						float num1247 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num1237) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num1246);
-						if (num1247 < 800f && num1247 < num1224 && Collision.CanHit(projectile.position, projectile.width, projectile.height, Main.npc[num1225].position, Main.npc[num1225].width, Main.npc[num1225].height))
+						if (num1247 < 800f && num1247 < num1224 && (Collision.CanHit(projectile.position, projectile.width, projectile.height, Main.npc[num1225].position, Main.npc[num1225].width, Main.npc[num1225].height) || ignoreLoS))
 						{
 							num1224 = num1247;
 							num1220 = num1237;
 							num1222 = num1246;
-							flag145 = true;
+							hasTarget = true;
 						}
 					}
 				}
 			}
-			if (!flag145)
+			if (!hasTarget)
 			{
 				num1220 = projectile.position.X + (float)(projectile.width / 2) + projectile.velocity.X * 100f;
 				num1222 = projectile.position.Y + (float)(projectile.height / 2) + projectile.velocity.Y * 100f;

@@ -13,7 +13,7 @@ namespace EsperClass.Items.Weapons.PreHardmode
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Best used with cousins");
+			Tooltip.SetDefault("Does more damage the more velocity it has on impact\nBest used with cousins");
 		}
 
 		public override void SetDefaults()

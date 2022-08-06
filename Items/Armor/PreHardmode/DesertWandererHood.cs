@@ -11,6 +11,7 @@ namespace EsperClass.Items.Armor.PreHardmode
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
+			//DisplayName.SetDefault("Desert Wanderer Cowl");
 			Tooltip.SetDefault("15% increased telekinetic damage");
 		}
 

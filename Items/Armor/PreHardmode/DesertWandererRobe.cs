@@ -11,6 +11,7 @@ namespace EsperClass.Items.Armor.PreHardmode
 		public override void SetStaticDefaults()
 		{
 			base.SetStaticDefaults();
+			//DisplayName.SetDefault("Desert Wanderer Tank Top");
 			Tooltip.SetDefault("20% increased telekinetic velocity");
 		}
 

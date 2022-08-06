@@ -296,13 +296,20 @@ namespace EsperClass
 				wWeaponScaling.Call(ItemType("SharknadoRift"), 12, 1f);
 				wWeaponScaling.Call(ItemType("BetsyPsi"), 12, 1f);
 
+				wWeaponScaling.Call(ItemType("GravityBouncer"), 13, 1f);
+				wWeaponScaling.Call(ItemType("GravityTwirler"), 13, 1f);
+
 				wWeaponScaling.Call(ItemType("EldritchEyeJar"), 14, 1f);
+				wWeaponScaling.Call(ItemType("AccretionDisc"), 14, 1f);
+				wWeaponScaling.Call(ItemType("BlackHoleBomb"), 14, 1f);
+				wWeaponScaling.Call(ItemType("GodlySawblade"), 14, 1f);
 				wWeaponScaling.Call(ItemType("GravityPickaxe"), 14, 1f);
 				wWeaponScaling.Call(ItemType("GravityHamaxe"), 14, 1f);
 				wWeaponScaling.Call(ItemType("GravityAxe"), 14, 1f);
 				wWeaponScaling.Call(ItemType("GravityHammer"), 14, 1f);
 				wWeaponScaling.Call(ItemType("GravityDrill"), 14, 1f);
 				wWeaponScaling.Call(ItemType("GravityChainsaw"), 14, 1f);
+				wWeaponScaling.Call(ItemType("CactuarEsper"), 14, 1f);
 
 				Mod bossChecklist = ModLoader.GetMod("BossChecklist");
 				if (bossChecklist != null)
@@ -329,7 +336,7 @@ namespace EsperClass
 					bossChecklist.Call("AddToBossLoot", "Terraria", "MartianSaucer", new List<int> {ModContent.ItemType<Items.Weapons.Hardmode.MartianPsi>()});
 					bossChecklist.Call("AddToBossLoot", "Terraria", "DD2Betsy", new List<int> { ModContent.ItemType<Items.Weapons.Hardmode.BetsyPsi>() });
 					bossChecklist.Call("AddToBossLoot", "Terraria", "Lunar Event", new List<int> {ModContent.ItemType<Items.Materials.GravityFragment>()});
-					bossChecklist.Call("AddToBossLoot", "Terraria", "MoonLord", new List<int> {ModContent.ItemType<Items.Weapons.PostMoonLord.EldritchEyeJar>()});
+					bossChecklist.Call("AddToBossLoot", "Terraria", "MoonLord", new List<int> {ModContent.ItemType<Items.Weapons.PostMoonLord.EldritchEyeJar>(), ModContent.ItemType<Items.Weapons.PostMoonLord.AccretionDisc>(), ModContent.ItemType<Items.Weapons.PostMoonLord.BlackHoleBomb>()});
 				}
             }
 		}

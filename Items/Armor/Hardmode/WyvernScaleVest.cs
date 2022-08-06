@@ -23,6 +23,13 @@ namespace EsperClass.Items.Armor.Hardmode
 			item.defense = 16;
 		}
 
+		/*public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
+		{
+			robes = true;
+			// The equipSlot is added in ExampleMod.cs --> Load hook
+			equipSlot = mod.GetEquipSlot("WyvernScaleGreaves_Legs", EquipType.Legs);
+		}*/
+
 		public override void DrawHands(ref bool drawHands, ref bool drawArms)
 		{
 			drawHands = true;

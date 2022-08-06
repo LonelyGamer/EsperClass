@@ -2,12 +2,12 @@ This mod adds a new class by adding telekinetic weapons with their own damage ty
 
 - New class, the Esper, that deals telekinetic damage.
 - Plenty of new weapons.
-- 5 new armor sets, plus 8 helmet pieces.
+- 6 new armor sets, plus 8 helmet pieces.
 - Some new accessories.
 
 Vanilla changes...
 
-- The Flying Knife is now a telekinetic damage weapon.
+- The Flying Knife is now a telekinetic damage weapon. It also gains a damage bonus if it moves far enough in the same direction.
 
 Known Issues because I either can code it better or can't due to hardcoding...
 
@@ -24,9 +24,32 @@ Future Plans...
 - Add Esper buff station.
 - Right click function to hold certain Esper weapon types in place.
 - Possible Twirlers rework to be unique.
-- Possibly custom prefixes
+- Possibly custom prefixes.
 
 Change Log...
+
+- 1.0: Updated for tModLoader v0.11.8.9.
+- Added Gravity Bouncer, Gravity Twirler, Accretion Disc, and Black Void Engine.
+- Added Godly Sawblade (for Loot Bags cross mod).
+- Added Tiny Cactuar (for JoostMod cross mod).
+- Telekinetic projectiles while being controlled no longer move slower up or down compared to left and right.
+- Eldritch Eye Jar damage reduced from 240 to 150 (it was a placeholder), but now the projectiles (but not the jar) can pass through solid tiles.
+- Fixed Eldritch Eye Jar not dropping correctly from the Moon Lord on normal difficulty worlds.
+- Changed Moon Lord Esper weapon drop rates. Has a 50% chance to drop one of the weapons in normal worlds and 100% chance from treasure bags.
+- Added a tooltip to the Gravity Hammer.
+- Changed head and chest item sprites for Desert Wanderer and Wyvern Scale armor.
+- Betsy Scorcher plays its fire sound 1/3 as often as before.
+- Terra Vial Necklace no longer needs any Ectoplasm or Shroomite Bars in its recipe.
+- The Flying Knife now actually gains bonus damage as stated in the tooltip from a prior update.
+- Added Gravity armor.
+- Added Pink Genji Armor (for JoostMod cross mod).
+- Added accessories (enchantments) in the style of Fargo's Souls Mod.
+- Added Gravity Potion (for MorePotions cross mod) and new charms to go with it (via Luiafk cross mod).
+- Wall of Flesh's treasure bag now drops the Giant Gear and Esper Emblem together.
+- Jar projectiles now spawn out of jars in true 360 degrees instead of only 4 diagonal directions.
+- Spitting Sandfish and Super Spitting Sandfish now can be caught much easier if the player hasn't yet obtained one.
+
+- 0.9.0.1: Removed testing message for Boulders showing their damage scaling.
 
 - 0.9: Lihzahrd Solar armor now requires crafting at a Lihzahrd Furance.
 - Lihzahrd Solar Chestplate now gives 40% increased telekinetic velocity.
